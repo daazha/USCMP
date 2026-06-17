@@ -6,6 +6,7 @@ import { getMember, getMemberGraph, expandGraph, getEvidence, generateReport, pr
 import type { MemberDetail, GraphResponse, EvidenceResponse, PredictionResponse } from '../api/types';
 import GraphCanvas from '../components/GraphCanvas/GraphCanvas';
 import EvidenceDrawer from '../components/EvidenceDrawer/EvidenceDrawer';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const { Sider, Content } = Layout;
 
@@ -104,6 +105,7 @@ export default function MemberDetailPage() {
   if (!member) return <div style={{ padding: 24, color: '#9ca3af' }}>议员未找到</div>;
 
   return (
+    <ErrorBoundary>
     <Layout style={{ height: '100%', background: 'transparent' }}>
       <Sider width={420} style={{ background: '#111827', borderRight: '1px solid #1f2937', overflow: 'auto', padding: 16 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
@@ -320,12 +322,14 @@ export default function MemberDetailPage() {
       </Sider>
       <Content style={{ background: '#0a0e17' }}>
         {graph && (
-          <GraphCanvas
-            graph={graph}
-            onDoubleClickNode={handleDoubleClick}
-            onEdgeClick={handleEdgeClick}
-            height="100%"
-          />
+          <ErrorBoundary>
+            <GraphCanvas
+              graph={graph}
+              onDoubleClickNode={handleDoubleClick}
+              onEdgeClick={handleEdgeClick}
+              height="100%"
+            />
+          </ErrorBoundary>
         )}
       </Content>
       <EvidenceDrawer
@@ -334,5 +338,6 @@ export default function MemberDetailPage() {
         onClose={() => setDrawerOpen(false)}
       />
     </Layout>
+    </ErrorBoundary>
   );
 }

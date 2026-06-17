@@ -54,10 +54,6 @@ export default function GraphCanvas({ graph, onDoubleClickNode, onEdgeClick, hei
   useEffect(() => {
     if (!containerRef.current) return;
 
-    if (g6Ref.current) {
-      g6Ref.current.destroy();
-    }
-
     const container = containerRef.current;
     const width = container.clientWidth || 800;
 
@@ -111,7 +107,10 @@ export default function GraphCanvas({ graph, onDoubleClickNode, onEdgeClick, hei
       },
       node: {
         style: {
-          labelText: (d: Record<string, unknown>) => (d.label || d.id) as string,
+          labelText: (d: Record<string, unknown>) => {
+            const data = (d.data || d) as Record<string, unknown>;
+            return (data.label || d.id) as string;
+          },
           labelFontSize: 10,
           labelFill: '#e5e7eb',
           labelPlacement: 'bottom',
@@ -145,6 +144,7 @@ export default function GraphCanvas({ graph, onDoubleClickNode, onEdgeClick, hei
 
     return () => {
       g6.destroy();
+      g6Ref.current = null;
     };
   }, [graph]);
 
