@@ -1,0 +1,44 @@
+- bio:
+    birthday: '1965-04-15'
+    gender: F
+  id:
+    bioguide: A000001
+    fec:
+    - H0AL00001
+    govtrack: 400001
+    opensecrets: N00000001
+  name:
+    first: Alice
+    last: Adams
+    official_full: Alice B. Adams
+  terms:
+  - district: 12
+    end: '2025-01-03'
+    party: Democrat
+    start: '2023-01-03'
+    state: CA
+    type: rep
+  - district: 12
+    end: '2027-01-03'
+    party: Democrat
+    start: '2025-01-03'
+    state: CA
+    type: rep
+- bio:
+    birthday: '1970-08-22'
+    gender: M
+  id:
+    bioguide: B000002
+    govtrack: 400002
+    opensecrets: N00000002
+  name:
+    first: Bob
+    last: Baker
+    official_full: Bob C. Baker
+  terms:
+  - class: 2
+    end: '2027-01-03'
+    party: Republican
+    start: '2021-01-03'
+    state: TX
+    type: sen

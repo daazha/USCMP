@@ -1,0 +1,34 @@
+{
+  "source_name": "unitedstates/congress-legislators",
+  "source_url": "https://github.com/unitedstates/congress-legislators",
+  "commit_sha": "test_fixture",
+  "license_note": "CC0-1.0",
+  "collected_at": "2026-06-17T05:08:09.234569+00:00",
+  "files": [
+    {
+      "filename": "legislators-current.yaml",
+      "sha256": "224a672709dc758e94d4eb0f7a5c61fdd45b49c313d0d55061e1915ed1e73f40",
+      "size_bytes": 768
+    },
+    {
+      "filename": "legislators-historical.yaml",
+      "sha256": "bedb2e1a9ac5a53692bfd7a7e920eedb83cc72c325f03c71d9044277b5a63d81",
+      "size_bytes": 291
+    },
+    {
+      "filename": "legislators-social-media.yaml",
+      "sha256": "ef6a86014f8a1472ad99a67a2bf828ae36c755c0d2badb2435862e7b987a0ed7",
+      "size_bytes": 183
+    },
+    {
+      "filename": "committees-current.yaml",
+      "sha256": "557ff72ea8978025b0987ccaefcee242c248ab48b9fbf0eaa399196d555378a8",
+      "size_bytes": 257
+    },
+    {
+      "filename": "committee-membership-current.yaml",
+      "sha256": "85db38390d6cc8093efc7dc07d4e5519209363ddf3c9c77535b393fcde78e696",
+      "size_bytes": 174
+    }
+  ]
+}

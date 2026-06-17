@@ -1,0 +1,8 @@
+# Generated/ETL output data (never commit)
+backend/data/etl_runs/
+backend/data/etl_dry_run/
+backend/data/stress/
+# Large vendor data files (downloaded separately)
+backend/data/external/congress-legislators/*/
+# Frontend build output
+frontend/dist/

@@ -1,0 +1,87 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-primary: #0a0e17;
+  --bg-secondary: #111827;
+  --bg-card: #1a2332;
+  --bg-hover: #243044;
+  --text-primary: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --border-color: #1f2937;
+  --accent-blue: #1890ff;
+  --accent-green: #52c41a;
+  --accent-red: #f5222d;
+  --accent-yellow: #faad14;
+  --accent-purple: #722ed1;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+.ant-layout {
+  background: var(--bg-primary) !important;
+}
+
+.ant-layout-header {
+  background: var(--bg-secondary) !important;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.ant-card {
+  background: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+}
+
+.ant-card-head {
+  border-bottom-color: var(--border-color) !important;
+}
+
+.ant-table {
+  background: var(--bg-card) !important;
+}
+
+.ant-input, .ant-select-selector, .ant-picker {
+  background: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+.ant-tag {
+  border-radius: 4px;
+}
+
+.low-confidence {
+  opacity: 0.5;
+}
+
+.evidence-drawer .ant-drawer-content {
+  background: var(--bg-secondary);
+}

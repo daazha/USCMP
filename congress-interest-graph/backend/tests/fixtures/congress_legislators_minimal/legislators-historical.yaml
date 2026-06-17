@@ -1,0 +1,17 @@
+- bio:
+    birthday: '1955-01-10'
+    gender: F
+  id:
+    bioguide: C000003
+    govtrack: 400003
+  name:
+    first: Carol
+    last: Clark
+    official_full: Carol D. Clark
+  terms:
+  - district: 3
+    end: '2009-01-03'
+    party: Democrat
+    start: '2001-01-03'
+    state: NY
+    type: rep

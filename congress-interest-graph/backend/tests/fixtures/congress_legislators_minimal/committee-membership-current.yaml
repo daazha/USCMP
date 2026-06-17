@@ -1,0 +1,10 @@
+HSAS:
+- bioguide: A000001
+  name: Adams, Alice B.
+  party: Democrat
+  rank: member
+SSFR:
+- bioguide: B000002
+  name: Baker, Bob C.
+  party: Republican
+  rank: ranking member

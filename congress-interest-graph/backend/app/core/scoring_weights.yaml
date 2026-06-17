@@ -1,0 +1,59 @@
+# 投票预测权重
+vote_prediction:
+  W_party: 0.30
+  W_issue: 0.25
+  W_donor: 0.20
+  W_committee: 0.15
+  W_history: 0.15
+  W_counter: 0.05
+
+# 涉华立场指数权重
+china_hawkishness:
+  hawkish_vote_ratio: 0.35
+  hawkish_statement_ratio: 0.25
+  china_committee_score: 0.20
+  china_event_participation_score: 0.10
+  donor_china_exposure: 0.10
+
+# 党派一致性权重
+party_alignment:
+  party_line_vote_ratio: 0.50
+  party_leadership_support_ratio: 0.20
+  party_caucus_membership_score: 0.15
+  party_donor_alignment: 0.15
+
+# 金主重合度权重
+donor_overlap:
+  jaccard_similarity: 0.40
+  top_donor_overlap_ratio: 0.30
+  industry_sector_overlap: 0.20
+  pac_support_overlap: 0.10
+
+# 利益冲突风险权重
+conflict_risk:
+  stock_committee_overlap: 0.25
+  lobbying_contribution_ratio: 0.20
+  revolving_door_indicator: 0.20
+  family_business_connection: 0.15
+  undisclosed_relationship_flag: 0.10
+  vote_against_disclosed_interest: 0.10
+
+# 委员会相关度权重
+committee_relevance:
+  committee_jurisdiction_match: 0.30
+  committee_seniority_score: 0.25
+  subcommittee_leadership: 0.20
+  bill_sponsorship_relevance: 0.15
+  hearing_participation: 0.10
+
+# 阈值配置
+thresholds:
+  high_confidence: 0.80
+  medium_confidence: 0.50
+  low_confidence: 0.30
+  unknown_threshold: 0.30
+
+# 数据质量阈值
+data_quality:
+  min_evidence_count_for_prediction: 3
+  min_party_baseline_sample: 10

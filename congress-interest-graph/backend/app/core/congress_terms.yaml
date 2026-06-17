@@ -1,0 +1,23 @@
+# Congress term configuration
+# Centralized config for congress start dates
+# Source: unitedstates/congress-legislators (confirmed by congressional record)
+
+terms:
+  117:
+    start_date: "2021-01-03"
+    end_date: "2023-01-03"
+    name: "117th Congress"
+  118:
+    start_date: "2023-01-03"
+    end_date: "2025-01-03"
+    name: "118th Congress"
+  119:
+    start_date: "2025-01-03"
+    end_date: "2027-01-03"
+    name: "119th Congress"
+
+# Default congress for committee-membership-current.yaml when no explicit congress is given
+current_congress: 119
+
+# Default start_date used when committee-membership-current.yaml lacks explicit dates
+default_committee_start_date: "2025-01-03"

@@ -1,0 +1,10 @@
+- name: House Committee on Armed Services
+  thomas_id: HSAS
+  type: house
+  url: https://armedservices.house.gov
+- name: Senate Committee on Foreign Relations
+  thomas_id: SSFR
+  type: senate
+- name: Joint Economic Committee
+  thomas_id: JSEC
+  type: joint

@@ -1,0 +1,274 @@
+"""Pydantic v2 models for API request/response contracts."""
+
+from datetime import date, datetime, timezone
+from typing import Optional
+from pydantic import BaseModel, Field
+
+
+class ApiError(BaseModel):
+    error_code: str
+    message: str
+    details: dict = Field(default_factory=dict)
+    request_id: str
+
+
+class MemberSummary(BaseModel):
+    id: str
+    canonical_name: str
+    display_name: str
+    party: Optional[str] = None
+    chamber: Optional[str] = None
+    state: Optional[str] = None
+    district: Optional[str] = None
+    official_photo_url: Optional[str] = None
+    committee_tags: list[str] = Field(default_factory=list)
+    congress: Optional[int] = None
+
+
+class CommitteeMembership(BaseModel):
+    committee: str
+    role: str
+    congress: int
+    committee_type: str = "committee"
+    start_date: Optional[date] = None
+    end_date: Optional[date] = None
+
+
+class MemberDetail(BaseModel):
+    id: str
+    canonical_name: str
+    display_name: str
+    aliases: list[str] = Field(default_factory=list)
+    person_type: str
+    party: Optional[str] = None
+    chamber: Optional[str] = None
+    state: Optional[str] = None
+    district: Optional[str] = None
+    official_photo_url: Optional[str] = None
+    bioguide_id: Optional[str] = None
+    govtrack_id: Optional[str] = None
+    fec_candidate_id: Optional[str] = None
+    opensecrets_id: Optional[str] = None
+    top_contributors: list[dict] = Field(default_factory=list)
+    top_holdings: list[dict] = Field(default_factory=list)
+    committee_memberships: list[CommitteeMembership] = Field(default_factory=list)
+    career_summary: list[dict] = Field(default_factory=list)
+    china_stance_summary: Optional[str] = None
+    controversies: list[dict] = Field(default_factory=list)
+    congress: Optional[int] = None
+
+
+class OrganizationSummary(BaseModel):
+    id: str
+    canonical_name: str
+    display_name: str
+    entity_type: str
+    industry: Optional[str] = None
+    ticker: Optional[str] = None
+    country: Optional[str] = None
+
+
+class PoliticalEntityModel(BaseModel):
+    id: str
+    name: str
+    entity_type: str
+    chamber: Optional[str] = None
+    state: Optional[str] = None
+    congress: Optional[int] = None
+
+
+class EventModel(BaseModel):
+    id: str
+    event_type: str
+    title: str
+    description: Optional[str] = None
+    event_date: date
+    congress: Optional[int] = None
+    source_reliability: str = "mock"
+
+
+class GraphNode(BaseModel):
+    id: str
+    label: str
+    properties: dict = Field(default_factory=dict)
+
+
+class GraphEdge(BaseModel):
+    id: str
+    source: str
+    target: str
+    type: str
+    properties: dict = Field(default_factory=dict)
+    claim_id: Optional[str] = None
+    confidence_score: Optional[float] = None
+    start_date: Optional[date] = None
+    end_date: Optional[date] = None
+
+
+class GraphResponse(BaseModel):
+    nodes: list[GraphNode] = Field(default_factory=list)
+    edges: list[GraphEdge] = Field(default_factory=list)
+    total_node_count: int = 0
+    truncated: bool = False
+
+
+class GraphExpandRequest(BaseModel):
+    node_id: str
+    depth: int = Field(default=1, le=1)
+    start_date: Optional[date] = None
+    end_date: Optional[date] = None
+    min_confidence: float = Field(default=0.0, ge=0.0, le=1.0)
+    limit: int = Field(default=200, ge=1, le=500)
+
+
+class ClaimModel(BaseModel):
+    claim_id: str
+    claim_type: str
+    subject_id: str
+    object_id: str
+    relation_type: str
+    claim_text: str
+    original_snippet: Optional[str] = None
+    confidence_score: float
+    extraction_method: str
+    source_reliability: str
+    review_status: str
+
+
+class SourceDocumentModel(BaseModel):
+    id: str
+    source_name: str
+    source_url: Optional[str] = None
+    title: Optional[str] = None
+    publisher: Optional[str] = None
+    published_at: Optional[datetime] = None
+    collected_at: Optional[datetime] = None
+    document_type: Optional[str] = None
+    snippet: Optional[str] = None
+    source_reliability: str
+    license_note: Optional[str] = None
+
+
+class EvidenceResponse(BaseModel):
+    claim: ClaimModel
+    source_documents: list[SourceDocumentModel] = Field(default_factory=list)
+
+
+class SearchResult(BaseModel):
+    members: list[MemberSummary] = Field(default_factory=list)
+    organizations: list[OrganizationSummary] = Field(default_factory=list)
+    events: list[EventModel] = Field(default_factory=list)
+    total_count: int = 0
+
+
+class RadarMetric(BaseModel):
+    metric_name: str
+    member_id: str
+    value: float = Field(ge=0.0, le=100.0)
+
+
+class CompareRequest(BaseModel):
+    member_ids: list[str] = Field(min_length=2, max_length=10)
+    start_date: Optional[date] = None
+    end_date: Optional[date] = None
+
+
+class CompareResponse(BaseModel):
+    members: list[MemberDetail] = Field(default_factory=list)
+    radar_metrics: list[RadarMetric] = Field(default_factory=list)
+    common_donors: list[dict] = Field(default_factory=list)
+    common_committees: list[dict] = Field(default_factory=list)
+    opposing_votes: list[dict] = Field(default_factory=list)
+    disclaimer: str = "仅供研究参考，不构成事实认定、法律判断或投资建议。"
+
+
+class ReportRequest(BaseModel):
+    member_id: str
+    format: str = "markdown"
+    include_graph: bool = True
+    include_predictions: bool = True
+
+
+class ReportResponse(BaseModel):
+    format: str
+    content: str
+    generated_at: datetime
+    disclaimer: str
+
+
+class PredictionRequest(BaseModel):
+    member_id: str
+    event_id: Optional[str] = None
+    event_type: Optional[str] = None
+
+
+class PredictionResponse(BaseModel):
+    predicted_position: str
+    probability: float = Field(ge=0.0, le=1.0)
+    confidence_interval: list[float] = Field(default_factory=lambda: [0.0, 0.0])
+    top_factors: list[dict] = Field(default_factory=list)
+    counter_evidence: list[dict] = Field(default_factory=list)
+    evidence_count: int = 0
+    data_quality_score: float = Field(ge=0.0, le=1.0)
+    confidence_level: str = "unknown"
+    margin_from_baseline: float = 0.0
+    interpretation: str = ""
+    disclaimer: str = "仅供研究参考，不构成事实认定、法律判断或投资建议。"
+
+
+class MemberListResponse(BaseModel):
+    members: list[MemberSummary] = Field(default_factory=list)
+    total: int = 0
+    skip: int = 0
+    limit: int = 50
+
+
+class HealthResponse(BaseModel):
+    status: str
+    postgres: str
+    neo4j: str
+    data_mode: str = "mock"
+    version: str = "0.1.0"
+    timestamp: datetime
+
+
+class DataQualitySummaryResponse(BaseModel):
+    total_nodes: int = 0
+    total_edges: int = 0
+    total_claims: int = 0
+    total_source_documents: int = 0
+    low_confidence_edges: int = 0
+    needs_review_claims: int = 0
+    source_reliability_distribution: dict[str, int] = Field(default_factory=dict)
+    extraction_method_distribution: dict[str, int] = Field(default_factory=dict)
+    node_type_distribution: dict[str, int] = Field(default_factory=dict)
+    edge_type_distribution: dict[str, int] = Field(default_factory=dict)
+    data_mode: str = "mock"
+    sandbox_persons: int = 0
+    sandbox_claims: int = 0
+    sandbox_source_documents: int = 0
+    sandbox_entity_resolution_safe: int = 0
+    sandbox_entity_resolution_needs_review: int = 0
+    generated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class ETLRunResponse(BaseModel):
+    run_id: str
+    status: str
+    adapter: str
+    commit_sha: str
+    eligible_for_import: bool
+    records_total: int
+    started_at: str | None = None
+    completed_at: str | None = None
+
+
+class ETLSandboxStatsResponse(BaseModel):
+    total_persons: int = 0
+    total_committees: int = 0
+    total_claims: int = 0
+    import_runs: int = 0
+    entity_resolution: dict[str, int] = Field(default_factory=dict)
+    claim_types: dict[str, int] = Field(default_factory=dict)
+    data_namespace: str = "sandbox"
+    data_source: str = "unitedstates/congress-legislators"
