@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Layout, Menu, Tag } from 'antd';
+import { Layout, Menu, Tag, Tooltip } from 'antd';
 import { TeamOutlined, SearchOutlined, BarChartOutlined, HomeOutlined, DashboardOutlined } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import OverviewPage from './pages/OverviewPage';
@@ -9,6 +9,7 @@ import SearchPage from './pages/SearchPage';
 import ComparePage from './pages/ComparePage';
 import DataQualityPage from './pages/DataQualityPage';
 import { getHealth } from './api/client';
+import { DATA_MODE_COLORS, DATA_MODE_LABELS, DATA_MODE_TOOLTIPS } from './constants';
 
 const { Header, Content } = Layout;
 
@@ -18,22 +19,6 @@ const menuItems = [
   { key: '/compare', icon: <BarChartOutlined />, label: '对比' },
   { key: '/data-quality', icon: <DashboardOutlined />, label: '数据质量' },
 ];
-
-const dataModeColors: Record<string, string> = {
-  mock: 'orange',
-  mixed: 'blue',
-  real: 'green',
-  real_sandbox: 'cyan',
-  unknown: 'default',
-};
-
-const dataModeLabels: Record<string, string> = {
-  mock: 'Mock',
-  mixed: 'Mixed',
-  real: 'Real',
-  real_sandbox: 'Real+Sandbox',
-  unknown: '?',
-};
 
 export default function App() {
   const navigate = useNavigate();
@@ -52,9 +37,11 @@ export default function App() {
         <div style={{ color: '#1890ff', fontWeight: 700, fontSize: 18, marginRight: 24, whiteSpace: 'nowrap' }}>
           Congress Interest Graph
         </div>
-        <Tag color={dataModeColors[dataMode] || 'default'} style={{ marginRight: 16, fontSize: 11 }}>
-          {dataModeLabels[dataMode] || '?'}
-        </Tag>
+        <Tooltip title={DATA_MODE_TOOLTIPS[dataMode] || '数据模式'}>
+          <Tag color={DATA_MODE_COLORS[dataMode] || 'default'} style={{ marginRight: 16, fontSize: 11, cursor: 'help' }}>
+            {DATA_MODE_LABELS[dataMode] || '?'}
+          </Tag>
+        </Tooltip>
         <Menu
           theme="dark"
           mode="horizontal"

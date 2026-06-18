@@ -9,6 +9,7 @@ export interface MemberSummary {
   official_photo_url?: string;
   committee_tags: string[];
   congress?: number;
+  source: string;
 }
 
 export interface CommitteeMembership {
@@ -42,6 +43,11 @@ export interface MemberDetail {
   china_stance_summary?: string;
   controversies: Record<string, unknown>[];
   congress?: number;
+  source: string;
+  latest_term_start?: string;
+  latest_term_end?: string;
+  official_ids: Record<string, unknown>;
+  last_updated?: string;
 }
 
 export interface OrganizationSummary {

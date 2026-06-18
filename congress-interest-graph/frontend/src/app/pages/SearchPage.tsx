@@ -4,6 +4,12 @@ import { SearchOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { search } from '../api/client';
 import type { MemberSummary, OrganizationSummary, EventModel } from '../api/types';
+import { getPartyColor } from '../constants';
+
+const SOURCE_BADGES: Record<string, { color: string; label: string }> = {
+  uscl: { color: 'green', label: '真实' },
+  mock: { color: 'orange', label: 'Mock' },
+};
 
 export default function SearchPage() {
   const navigate = useNavigate();
@@ -25,12 +31,6 @@ export default function SearchPage() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const getPartyColor = (party?: string) => {
-    if (party === 'Democratic') return '#1890ff';
-    if (party === 'Republican') return '#f5222d';
-    return '#8c8c8c';
   };
 
   return (
@@ -77,6 +77,14 @@ export default function SearchPage() {
                             <div style={{ fontWeight: 600 }}>{m.display_name}</div>
                             <div style={{ fontSize: 12, color: '#9ca3af' }}>
                               {m.party} | {m.state} | {m.chamber === 'senate' ? '参议院' : '众议院'}
+                              {(SOURCE_BADGES[m.source] || SOURCE_BADGES.mock) && (
+                                <Tag
+                                  color={(SOURCE_BADGES[m.source] || SOURCE_BADGES.mock).color}
+                                  style={{ fontSize: 10, marginLeft: 4 }}
+                                >
+                                  {(SOURCE_BADGES[m.source] || SOURCE_BADGES.mock).label}
+                                </Tag>
+                              )}
                             </div>
                           </div>
                         </div>

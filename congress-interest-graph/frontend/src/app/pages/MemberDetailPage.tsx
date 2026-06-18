@@ -1,14 +1,32 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Layout, Card, Tag, Descriptions, Button, Spin, Tabs, message, Progress, Alert } from 'antd';
-import { ArrowLeftOutlined, FileTextOutlined } from '@ant-design/icons';
+import { Layout, Card, Tag, Button, Spin, Tabs, message, Progress, Alert, Descriptions, Empty, Typography } from 'antd';
+import { ArrowLeftOutlined, FileTextOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { getMember, getMemberGraph, expandGraph, getEvidence, generateReport, predictVote } from '../api/client';
 import type { MemberDetail, GraphResponse, EvidenceResponse, PredictionResponse } from '../api/types';
 import GraphCanvas from '../components/GraphCanvas/GraphCanvas';
 import EvidenceDrawer from '../components/EvidenceDrawer/EvidenceDrawer';
 import ErrorBoundary from '../components/ErrorBoundary';
+import { getPartyColor } from '../constants';
 
 const { Sider, Content } = Layout;
+const { Text } = Typography;
+
+const UNAVAILABLE_MESSAGE = '暂未接入';
+
+function UnavailablePanel({ title, reason }: { title: string; reason: string }) {
+  return (
+    <div style={{ padding: 16 }}>
+      <Alert
+        type="info"
+        message={title}
+        description={`${UNAVAILABLE_MESSAGE}。${reason}`}
+        showIcon
+        style={{ background: '#1a1a2e', border: '1px solid #1f2937' }}
+      />
+    </div>
+  );
+}
 
 export default function MemberDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -35,7 +53,6 @@ export default function MemberDetailPage() {
       ]);
       setMember(m);
       setGraph(g);
-      // Load prediction
       try {
         const p = await predictVote({ member_id: id });
         setPrediction(p);
@@ -81,7 +98,12 @@ export default function MemberDetailPage() {
   const handleExportMarkdown = async () => {
     if (!id) return;
     try {
-      const report = await generateReport({ member_id: id, format: 'markdown', include_graph: true, include_predictions: true });
+      const report = await generateReport({
+        member_id: id,
+        format: 'markdown',
+        include_graph: true,
+        include_predictions: false,
+      });
       const blob = new Blob([report.content], { type: 'text/markdown' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -93,12 +115,6 @@ export default function MemberDetailPage() {
     } catch (e) {
       message.error('导出失败');
     }
-  };
-
-  const getPartyColor = (party?: string) => {
-    if (party === 'Democratic') return '#1890ff';
-    if (party === 'Republican') return '#f5222d';
-    return '#8c8c8c';
   };
 
   if (loading) return <Spin size="large" style={{ display: 'block', margin: '200px auto' }} />;
@@ -130,6 +146,15 @@ export default function MemberDetailPage() {
                 <Tag color={getPartyColor(member.party)} style={{ marginRight: 4 }}>{member.party}</Tag>
                 {member.state} | {member.chamber === 'senate' ? '参议院' : '众议院'} | 第{member.congress}届
               </div>
+              <div style={{ marginTop: 4 }}>
+                {member.source === 'uscl' ? (
+                  <Tag color="green" style={{ fontSize: 10 }}>真实数据 (USCL)</Tag>
+                ) : member.source === 'mock' ? (
+                  <Tag color="orange" style={{ fontSize: 10 }}>Mock 数据</Tag>
+                ) : (
+                  <Tag color="default" style={{ fontSize: 10 }}>{member.source}</Tag>
+                )}
+              </div>
             </div>
           </div>
         </Card>
@@ -138,84 +163,80 @@ export default function MemberDetailPage() {
           size="small"
           items={[
             {
+              key: 'info',
+              label: '基本信息',
+              children: (
+                <div style={{ fontSize: 12 }}>
+                  <Descriptions column={1} size="small" style={{ background: 'transparent' }} colon={false}
+                    labelStyle={{ color: '#6b7280', fontSize: 11 }}
+                    contentStyle={{ color: '#d1d5db', fontSize: 12 }}
+                  >
+                    <Descriptions.Item label="Bioguide ID">
+                      <Text copyable style={{ color: '#d1d5db', fontSize: 12 }}>{member.bioguide_id || '--'}</Text>
+                    </Descriptions.Item>
+                    <Descriptions.Item label="GovTrack ID">
+                      {member.govtrack_id || '--'}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="FEC Candidate ID">
+                      <Text copyable style={{ color: '#d1d5db', fontSize: 12 }}>{member.fec_candidate_id || '--'}</Text>
+                    </Descriptions.Item>
+                    <Descriptions.Item label="OpenSecrets ID">
+                      {member.opensecrets_id || '--'}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="数据来源">
+                      <Tag color={member.source === 'uscl' ? 'green' : 'orange'} style={{ fontSize: 10 }}>
+                        {member.source}
+                      </Tag>
+                    </Descriptions.Item>
+                    <Descriptions.Item label="任期开始">
+                      {member.latest_term_start || '--'}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="任期结束">
+                      {member.latest_term_end || '--'}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="最后更新">
+                      {member.last_updated || '--'}
+                    </Descriptions.Item>
+                  </Descriptions>
+
+                  {member.official_ids && Object.keys(member.official_ids).length > 0 && (
+                    <Card size="small" title="Official IDs" style={{ marginTop: 12, background: '#1a1a2e' }}>
+                      {Object.entries(member.official_ids).map(([k, v]) => (
+                        <div key={k} style={{ marginBottom: 4 }}>
+                          <Text style={{ color: '#6b7280', fontSize: 11 }}>{k}: </Text>
+                          <Text style={{ color: '#d1d5db', fontSize: 11 }}>
+                            {Array.isArray(v) ? (v as string[]).join(', ') : String(v)}
+                          </Text>
+                        </div>
+                      ))}
+                    </Card>
+                  )}
+                </div>
+              ),
+            },
+            {
               key: 'committees',
               label: '委员会',
               children: (
                 <div>
-                  {member.committee_memberships.map((cm, i) => (
-                    <Tag key={i} color="purple" style={{ marginBottom: 4 }}>{cm.committee} - {cm.role}</Tag>
-                  ))}
-                </div>
-              ),
-            },
-            {
-              key: 'career',
-              label: '履历',
-              children: (
-                <div style={{ maxHeight: 200, overflow: 'auto' }}>
-                  {member.career_summary.map((entry: Record<string, unknown>, i: number) => (
-                    <div key={i} style={{ fontSize: 12, marginBottom: 4, color: '#9ca3af' }}>
-                      {entry.position as string} @ {entry.organization as string}
-                    </div>
-                  ))}
-                </div>
-              ),
-            },
-            {
-              key: 'contributors',
-              label: 'TOP5 献金',
-              children: (
-                <div>
-                  {member.top_contributors.slice(0, 5).map((tc: Record<string, unknown>, i: number) => (
-                    <div key={i} style={{ fontSize: 12, marginBottom: 4, display: 'flex', justifyContent: 'space-between' }}>
-                      <span>{tc.organization as string}</span>
-                      <span style={{ color: '#52c41a' }}>${(tc.amount as number)?.toLocaleString()}</span>
-                    </div>
-                  ))}
-                </div>
-              ),
-            },
-            {
-              key: 'holdings',
-              label: 'TOP5 持股',
-              children: (
-                <div>
-                  {member.top_holdings.slice(0, 5).map((th: Record<string, unknown>, i: number) => (
-                    <div key={i} style={{ fontSize: 12, marginBottom: 4, display: 'flex', justifyContent: 'space-between' }}>
-                      <span>{th.company as string} ({th.ticker as string})</span>
-                      <span style={{ color: '#52c41a' }}>
-                        ${(th.amount_min as number)?.toLocaleString()} - ${(th.amount_max as number)?.toLocaleString()}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              ),
-            },
-            {
-              key: 'china',
-              label: '涉华立场',
-              children: (
-                <div style={{ fontSize: 13, color: '#d1d5db', lineHeight: 1.6 }}>
-                  {member.china_stance_summary || '暂无相关记录。'}
-                </div>
-              ),
-            },
-            {
-              key: 'controversies',
-              label: '争议与调查',
-              children: (
-                <div style={{ maxHeight: 250, overflow: 'auto' }}>
-                  {member.controversies.length === 0 ? (
-                    <div style={{ color: '#6b7280', fontSize: 12 }}>暂无公开争议与调查记录。</div>
+                  {member.committee_memberships.length === 0 ? (
+                    <Empty description="暂无委员会任职记录" image={Empty.PRESENTED_IMAGE_SIMPLE} />
                   ) : (
-                    member.controversies.map((c: Record<string, unknown>, i: number) => (
+                    member.committee_memberships.map((cm, i) => (
                       <Card key={i} size="small" style={{ marginBottom: 8, background: '#1a1a2e' }}>
-                        <Tag color="orange" style={{ marginBottom: 4 }}>{(c.type as string)?.toUpperCase()}</Tag>
-                        <div style={{ fontSize: 12, color: '#9ca3af', marginBottom: 4 }}>{c.description as string}</div>
-                        <div style={{ fontSize: 11, color: '#6b7280' }}>
-                          来源: {c.source_name as string} | 状态: {c.status as string}
-                          {c.needs_review ? ' | 需人工复核' : ''}
+                        <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 4 }}>{cm.committee}</div>
+                        <div style={{ fontSize: 11, color: '#9ca3af' }}>
+                          <Tag color="purple" style={{ fontSize: 10 }}>{cm.role}</Tag>
+                          <Tag style={{ fontSize: 10 }}>第 {cm.congress} 届</Tag>
+                          {cm.committee_type && <Tag style={{ fontSize: 10 }}>{cm.committee_type}</Tag>}
                         </div>
+                        {(cm.start_date || cm.end_date) && (
+                          <div style={{ fontSize: 10, color: '#6b7280', marginTop: 2 }}>
+                            {cm.start_date && `${cm.start_date} `}
+                            {cm.start_date && cm.end_date && '~ '}
+                            {cm.end_date || '至今'}
+                          </div>
+                        )}
                       </Card>
                     ))
                   )}
@@ -223,101 +244,56 @@ export default function MemberDetailPage() {
               ),
             },
             {
-              key: 'prediction',
-              label: '投票预测',
+              key: 'career',
+              label: '履历',
               children: (
-                <div>
-                  {!prediction ? (
-                    <Spin size="small" />
-                  ) : (
-                    <div>
-                      {prediction.evidence_count < 3 || prediction.data_quality_score < 0.6 ? (
-                        <Alert
-                          type="warning"
-                          message="预测不可用"
-                          description={`证据不足（${prediction.evidence_count} 条）或数据质量评分过低（${(prediction.data_quality_score * 100).toFixed(0)}%），无法进行可靠预测。`}
-                          showIcon
-                          style={{ marginBottom: 12 }}
-                        />
-                      ) : null}
-
-                      {(prediction.probability >= 0.45 && prediction.probability <= 0.55 && prediction.predicted_position !== 'unknown') ? (
-                        <Alert
-                          type="info"
-                          message="低置信度预测"
-                          description="预测概率在45%-55%范围内，接近中立。此预测仅供参考，不应作为强预测对待。"
-                          showIcon
-                          style={{ marginBottom: 12 }}
-                        />
-                      ) : null}
-
-                      <div style={{ marginBottom: 12 }}>
-                        <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 4 }}>预测立场</div>
-                        <Tag color={
-                          prediction.predicted_position === 'support' ? 'green' :
-                          prediction.predicted_position === 'oppose' ? 'red' :
-                          prediction.predicted_position === 'uncertain' ? 'gold' : 'default'
-                        } style={{ fontSize: 14, padding: '2px 12px' }}>
-                          {prediction.predicted_position === 'support' ? '支持' :
-                           prediction.predicted_position === 'oppose' ? '反对' :
-                           prediction.predicted_position === 'uncertain' ? '不确定' : '未知'}
-                        </Tag>
-                      </div>
-
-                      <div style={{ marginBottom: 12 }}>
-                        <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 4 }}>
-                          概率 ({prediction.confidence_level === 'high' ? '高置信度' :
-                            prediction.confidence_level === 'medium' ? '中置信度' :
-                            prediction.confidence_level === 'low' ? '低置信度' : '数据不足'})
-                        </div>
-                        <Progress
-                          percent={Math.round(prediction.probability * 100)}
-                          status={prediction.confidence_level === 'high' ? 'success' :
-                            prediction.confidence_level === 'low' || prediction.predicted_position === 'uncertain' ? 'exception' : 'active'}
-                          format={() => `${(prediction.probability * 100).toFixed(0)}%`}
-                        />
-                      </div>
-
-                      <div style={{ marginBottom: 12 }}>
-                        <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 4 }}>数据质量评分</div>
-                        <Progress
-                          percent={Math.round(prediction.data_quality_score * 100)}
-                          size="small"
-                          status={prediction.data_quality_score >= 0.6 ? 'active' : 'exception'}
-                        />
-                      </div>
-
-                      <div style={{ fontSize: 12, color: '#9ca3af', marginBottom: 12 }}>
-                        证据数: {prediction.evidence_count} | 基线偏离: {(prediction.margin_from_baseline * 100).toFixed(0)}%
-                      </div>
-
-                      <Card size="small" style={{ background: '#1a1a2e', marginBottom: 8 }}>
-                        <div style={{ fontSize: 11, color: '#6b7280', marginBottom: 4 }}>解读</div>
-                        <div style={{ fontSize: 12, color: '#d1d5db', lineHeight: 1.5 }}>
-                          {prediction.interpretation || '暂无解读。'}
-                        </div>
-                      </Card>
-
-                      {prediction.top_factors.length > 0 && (
-                        <Card size="small" title="主要因素" style={{ background: '#1a1a2e', marginBottom: 8 }}>
-                          {prediction.top_factors.map((f: Record<string, unknown>, i: number) => (
-                            <div key={i} style={{ fontSize: 11, marginBottom: 2, display: 'flex', justifyContent: 'space-between' }}>
-                              <span>{f.description as string}</span>
-                              <span style={{ color: '#40a9ff' }}>权重: {f.weight as number}</span>
-                            </div>
-                          ))}
-                        </Card>
-                      )}
-
-                      <div style={{ fontSize: 10, color: '#6b7280', marginTop: 8 }}>
-                        {prediction.disclaimer}
-                      </div>
-                    </div>
-                  )}
-                </div>
+                <UnavailablePanel title="履历信息" reason="需接入 Wikipedia / Ballotpedia 数据源" />
+              ),
+            },
+            {
+              key: 'contributors',
+              label: '献金',
+              children: (
+                <UnavailablePanel title="政治献金" reason="需接入 OpenSecrets / FEC API" />
+              ),
+            },
+            {
+              key: 'holdings',
+              label: '持股',
+              children: (
+                <UnavailablePanel title="持股披露" reason="需接入 House / Senate 财务披露数据" />
+              ),
+            },
+            {
+              key: 'china',
+              label: '涉华立场',
+              children: (
+                <UnavailablePanel title="涉华立场分析" reason="需 NLP 分析引擎与人工标注" />
+              ),
+            },
+            {
+              key: 'controversies',
+              label: '争议',
+              children: (
+                <UnavailablePanel title="争议与调查记录" reason="需多源新闻聚合与审核机制" />
+              ),
+            },
+            {
+              key: 'prediction',
+              label: '预测',
+              children: (
+                <UnavailablePanel title="投票预测" reason="预测模型尚未部署" />
               ),
             },
           ]}
+        />
+        <Alert
+          type="info"
+          showIcon
+          icon={<InfoCircleOutlined />}
+          message="当前为基础画像报告"
+          description="不包含预测分析、风险评分、利益冲突判断。献金、持股、履历、涉华立场、争议记录暂未接入。"
+          style={{ marginTop: 12, background: '#1a1a2e', border: '1px solid #1f2937', fontSize: 11 }}
         />
       </Sider>
       <Content style={{ background: '#0a0e17' }}>

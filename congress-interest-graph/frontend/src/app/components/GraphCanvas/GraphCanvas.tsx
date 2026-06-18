@@ -10,41 +10,28 @@ interface Props {
 }
 
 const EDGE_COLORS: Record<string, string> = {
-  RECEIVED_CONTRIBUTION: '#52c41a',
-  HOLDS_STOCK: '#73d13d',
-  RECEIVED_LOBBYING_SUPPORT: '#95de64',
-  ALUMNI_OF: '#1890ff',
-  RELATED_TO: '#40a9ff',
-  FORMER_EMPLOYER: '#69c0ff',
-  FUTURE_EMPLOYER: '#91d5ff',
-  SPONSORED_BILL: '#f5222d',
-  COSPONSORED_BILL: '#ff4d4f',
-  VOTED_FOR: '#ff7875',
-  VOTED_AGAINST: '#ffa39e',
-  SERVED_ON_COMMITTEE: '#ff4d4f',
-  MADE_STATEMENT: '#ff7875',
-  PARTICIPATED_IN: '#faad14',
-  ASSOCIATED_WITH_EVENT: '#ffc53d',
-  HAS_CLAIM: '#595959',
-  EVIDENCED_BY: '#595959',
+  SERVES_IN: '#1890ff',
+  REPRESENTS_STATE: '#52c41a',
+  MEMBER_OF_PARTY: '#722ed1',
+  ASSIGNED_TO: '#fa8c16',
 };
 
 const NODE_COLORS: Record<string, string> = {
   Person: '#1890ff',
-  Organization: '#722ed1',
+  Party: '#722ed1',
+  State: '#52c41a',
+  Chamber: '#fa8c16',
+  Committee: '#eb2f96',
   PoliticalEntity: '#eb2f96',
-  Event: '#fa8c16',
-  Claim: '#8c8c8c',
-  SourceDocument: '#595959',
 };
 
 const NODE_SHAPES: Record<string, string> = {
   Person: 'circle',
-  Organization: 'rect',
+  Party: 'diamond',
+  State: 'rect',
+  Chamber: 'hexagon',
+  Committee: 'rect',
   PoliticalEntity: 'diamond',
-  Event: 'hexagon',
-  Claim: 'circle',
-  SourceDocument: 'rect',
 };
 
 export default function GraphCanvas({ graph, onDoubleClickNode, onEdgeClick, height = 600 }: Props) {
@@ -175,8 +162,8 @@ function getNodeLabel(node: GraphNode): string {
 
 function getNodeSize(node: GraphNode): number {
   const sizes: Record<string, number> = {
-    Person: 40, Organization: 36, PoliticalEntity: 32,
-    Event: 28, Claim: 12, SourceDocument: 14,
+    Person: 40, Party: 28, State: 24, Chamber: 32, Committee: 20,
+    PoliticalEntity: 32,
   };
   return sizes[node.label] || 24;
 }

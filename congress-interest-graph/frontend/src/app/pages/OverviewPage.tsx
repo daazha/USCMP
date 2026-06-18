@@ -5,13 +5,24 @@ import { SearchOutlined } from '@ant-design/icons';
 import { getMembers } from '../api/client';
 import type { MemberSummary } from '../api/types';
 import { useAppStore } from '../store';
+import { getPartyColor } from '../constants';
 
 const { Option } = Select;
+
+const SOURCE_BADGES: Record<string, { color: string; label: string }> = {
+  uscl: { color: 'green', label: '真实' },
+  mock: { color: 'orange', label: 'Mock' },
+};
 
 export default function OverviewPage() {
   const navigate = useNavigate();
   const { members, setMembers, setError, loading, setLoading } = useAppStore();
-  const [filter, setFilter] = useState({ chamber: undefined as string | undefined, party: undefined as string | undefined, congress: undefined as number | undefined, search: '' });
+  const [filter, setFilter] = useState({
+    chamber: undefined as string | undefined,
+    party: undefined as string | undefined,
+    congress: undefined as number | undefined,
+    search: '',
+  });
 
   useEffect(() => {
     loadMembers();
@@ -27,12 +38,6 @@ export default function OverviewPage() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const getPartyColor = (party?: string) => {
-    if (party === 'Democratic') return '#1890ff';
-    if (party === 'Republican') return '#f5222d';
-    return '#8c8c8c';
   };
 
   return (
@@ -119,7 +124,7 @@ export default function OverviewPage() {
                       </div>
                     </div>
                   </div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginBottom: 4 }}>
                     {m.committee_tags.slice(0, 3).map((tag, i) => (
                       <Tag key={i} color="blue" style={{ fontSize: 10, margin: 0 }}>{tag}</Tag>
                     ))}
@@ -127,6 +132,14 @@ export default function OverviewPage() {
                       <Tag style={{ fontSize: 10, margin: 0 }}>+{m.committee_tags.length - 3}</Tag>
                     )}
                   </div>
+                  {(SOURCE_BADGES[m.source] || SOURCE_BADGES.mock) && (
+                    <Tag
+                      color={(SOURCE_BADGES[m.source] || SOURCE_BADGES.mock).color}
+                      style={{ fontSize: 10, margin: 0 }}
+                    >
+                      {(SOURCE_BADGES[m.source] || SOURCE_BADGES.mock).label}
+                    </Tag>
+                  )}
                 </Card>
               </Col>
             ))}

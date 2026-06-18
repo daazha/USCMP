@@ -6,25 +6,10 @@ import {
 } from '@ant-design/icons';
 import { getDataQuality } from '../api/client';
 import type { DataQualitySummaryResponse } from '../api/types';
+import { DATA_MODE_COLORS, DATA_MODE_LABELS } from '../constants';
 
 const { Content } = Layout;
 const { Title } = Typography;
-
-const dataModeColors: Record<string, string> = {
-  mock: 'orange',
-  mixed: 'blue',
-  real: 'green',
-  real_sandbox: 'cyan',
-  unknown: 'default',
-};
-
-const dataModeLabels: Record<string, string> = {
-  mock: 'Mock 数据',
-  mixed: '混合数据',
-  real: '真实数据',
-  real_sandbox: '真实+沙盒数据',
-  unknown: '未知',
-};
 
 export default function DataQualityPage() {
   const [dq, setDq] = useState<DataQualitySummaryResponse | null>(null);
@@ -58,8 +43,8 @@ export default function DataQualityPage() {
       <Content style={{ padding: 24, overflow: 'auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
           <Title level={3} style={{ margin: 0 }}>数据质量总览</Title>
-          <Tag color={dataModeColors[dq.data_mode] || 'default'} style={{ fontSize: 14, padding: '4px 12px' }}>
-            {dataModeLabels[dq.data_mode] || dq.data_mode}
+          <Tag color={DATA_MODE_COLORS[dq.data_mode] || 'default'} style={{ fontSize: 14, padding: '4px 12px' }}>
+            {DATA_MODE_LABELS[dq.data_mode] || dq.data_mode}
           </Tag>
         </div>
 
