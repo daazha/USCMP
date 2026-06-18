@@ -70,3 +70,27 @@ def health_check():
         version="0.1.0",
         timestamp=datetime.now(timezone.utc),
     )
+
+
+@router.get("/stats/profiles")
+def profile_statistics():
+    """Return profile source statistics."""
+    stats = {"total_members": 0, "uscl_profiles": 0,
+             "wikipedia_profiles": 0, "missing_profiles": 0}
+    try:
+        db = SessionLocal()
+        total = db.execute(text("SELECT COUNT(*) FROM members")).fetchone()[0]
+        uscl = db.execute(text(
+            "SELECT COUNT(*) FROM member_profiles WHERE source = 'uscl'"
+        )).fetchone()[0]
+        wiki = db.execute(text(
+            "SELECT COUNT(*) FROM member_profiles WHERE source = 'wikipedia'"
+        )).fetchone()[0]
+        db.close()
+        stats["total_members"] = total
+        stats["uscl_profiles"] = uscl
+        stats["wikipedia_profiles"] = wiki
+        stats["missing_profiles"] = total - uscl - wiki
+    except Exception:
+        pass
+    return stats

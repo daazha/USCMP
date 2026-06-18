@@ -3,7 +3,7 @@ import type {
   MemberListResponse, MemberDetail, GraphResponse,
   EvidenceResponse, SearchResult, CompareResponse,
   ReportResponse, PredictionResponse, HealthResponse,
-  DataQualitySummaryResponse,
+  DataQualitySummaryResponse, MemberProfileResponse,
 } from './types';
 
 const api = axios.create({
@@ -66,5 +66,10 @@ export async function predictVote(body: Record<string, unknown>): Promise<Predic
 
 export async function getDataQuality(): Promise<DataQualitySummaryResponse> {
   const { data } = await api.get('/data-quality/summary');
+  return data;
+}
+
+export async function getMemberProfile(memberId: string): Promise<MemberProfileResponse> {
+  const { data } = await api.get(`/members/${memberId}/profile`);
   return data;
 }

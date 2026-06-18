@@ -50,9 +50,15 @@ def _build_graph_response(records, limit: int) -> GraphResponse:
     truncated = len(nodes_map) > limit
     nodes_list = list(nodes_map.values())[:limit]
 
+    node_ids = {n.id for n in nodes_list}
+    filtered_edges = [
+        e for e in edges_map.values()
+        if e.source in node_ids and e.target in node_ids
+    ]
+
     return GraphResponse(
         nodes=nodes_list,
-        edges=list(edges_map.values()),
+        edges=filtered_edges,
         total_node_count=len(nodes_map),
         truncated=truncated,
     )
@@ -66,6 +72,7 @@ def member_graph(
     end_date: date | None = Query(None),
     min_confidence: float = Query(0.0, ge=0.0, le=1.0),
     limit: int = Query(settings.default_graph_limit, ge=1, le=settings.max_graph_limit),
+    include_related_people: bool = Query(False),
 ):
     if depth > settings.max_graph_depth:
         raise GraphDepthExceededError(
@@ -73,7 +80,10 @@ def member_graph(
             {"requested_depth": depth, "max_depth": settings.max_graph_depth},
         )
 
-    result = get_member_graph(member_id, depth, start_date, end_date, min_confidence, limit)
+    result = get_member_graph(
+        member_id, depth, start_date, end_date, min_confidence, limit,
+        include_related_people=include_related_people,
+    )
     records = result.get("records", [])
 
     response = _build_graph_response(records, limit)

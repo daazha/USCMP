@@ -150,3 +150,37 @@ class MockSeedManifest(Base):
     entity_type = Column(String, nullable=False)
     entity_count = Column(Integer, nullable=False)
     seed_timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
+class MemberProfile(Base):
+    __tablename__ = "member_profiles"
+
+    id = Column(String, primary_key=True)
+    member_id = Column(String, ForeignKey("members.id"), nullable=False, index=True)
+    bioguide_id = Column(String, index=True)
+    wikipedia_title = Column(String)
+    wikipedia_url = Column(String)
+    wikidata_qid = Column(String)
+    image_url = Column(String)
+    short_summary = Column(Text)
+    birth_date = Column(String(32))
+    birth_place = Column(String)
+    education = Column(JSON, default=[])
+    occupations = Column(JSON, default=[])
+    career_highlights = Column(JSON, default=[])
+    prior_positions = Column(JSON, default=[])
+    military_service = Column(JSON, default=[])
+    employers = Column(JSON, default=[])
+    external_links = Column(JSON, default=[])
+    profile_sources = Column(JSON, default=dict)
+    profile_status = Column(String(32), default="summary_only")
+    parsed_fields = Column(JSON, default=[])
+    missing_fields = Column(JSON, default=[])
+    source = Column(String, nullable=False, default="wikipedia")
+    source_reliability = Column(String, default="external_open_content")
+    last_updated = Column(DateTime(timezone=True))
+    raw_snapshot_hash = Column(String(64))
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+
+    member = relationship("Member", backref="profile")

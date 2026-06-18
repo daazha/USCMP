@@ -82,12 +82,52 @@ python3 app/scripts/seed_mock_data.py          # 同时保留 Mock 数据
 
 ### 图谱范围
 
-仅基础身份关系: `MEMBER_OF_PARTY`, `REPRESENTS_STATE`, `SERVES_IN`, `ASSIGNED_TO`。
-不包含 donor/holding/risk/prediction 等关系。
+本系统采用 **Ego Network** 图谱模型，不以 Person-Person 边直连议员。
+
+**允许的节点标签**：
+- `Person` — 议员
+- `Party` — 党派
+- `State` — 州
+- `Chamber` — 议院 (House/Senate)
+- `Committee` — 委员会
+
+**允许的边类型**：
+- `MEMBER_OF_PARTY` — Person -> Party
+- `REPRESENTS_STATE` — Person -> State
+- `SERVES_IN` — Person -> Chamber
+- `ASSIGNED_TO` — Person -> Committee
+
+**禁止的边**：
+- 不得创建 Person-Person 直连边（如 `RELATED_TO`、`COLLEAGUE`、`CO_WORKER`），除非有明确的外部来源
+
+**v0.6.1 图谱边界**：
+- 中心议员 -> Party/State/Chamber/Committee (depth 1)
+- 通过共享 Party/State/Chamber/Committee 呈现同事关系 (depth 2)
+- 图查询限制为 4 种 ego 关系类型，不遍历其他关系类型
+- 节点按 limit 截断时同步过滤边，保证无孤立边
+
+### v0.6.1 履历数据
+
+| 指标 | 数量 |
+|------|------|
+| 总议员 (members) | 12,767 |
+| USCL 基础资料 (source=uscl) | 12,764 |
+| Wikipedia 履历 (source=wikipedia) | 3 (fixture) |
+| 缺失履历 | 0 |
+
+**USCL 基础资料** (`source=uscl`):
+- 数据来源: unitedstates/congress-legislators YAML `bio` 字段
+- 包含: 出生日期、Wikipedia 标识、基本信息摘要
+- 不包含: 职业、教育、过往职位、军事经历 (待 Wikipedia API 可达后补充)
+
+**Wikipedia 履历** (`source=wikipedia`):
+- 数据来源: Wikipedia API (infobox + 摘要)
+- 包含: 出生日期/地、教育、职业、过往职位、军事经历、完整摘要
+- 当前环境 Wikipedia API 不可达，仅 3 条 fixture 数据
 
 ### 报告范围
 
-包含: 基本信息、委员会任职、任期、数据来源。
+包含: 基本信息、委员会任职、任期、数据来源、履历信息 (USCL 基础资料 / Wikipedia 履历)。
 不包含: 预测、风险评分、利益冲突判断。
 
 ## 技术栈

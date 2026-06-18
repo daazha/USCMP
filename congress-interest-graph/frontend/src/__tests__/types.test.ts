@@ -6,6 +6,7 @@ import type {
   GraphResponse,
   SearchResult,
   ReportResponse,
+  MemberProfileResponse,
 } from '../app/api/types';
 
 describe('type definitions', () => {
@@ -159,4 +160,79 @@ describe('type definitions', () => {
       expect(sr.members[0].source).toBe('uscl');
     });
   });
+
+  describe('MemberProfileResponse', () => {
+    it('has all required Wikipedia profile fields', () => {
+      const p: MemberProfileResponse = {
+        member_id: 'test-1',
+        bioguide_id: 'T000001',
+        wikipedia_title: 'Test Person',
+        wikipedia_url: 'https://en.wikipedia.org/wiki/Test_Person',
+        wikidata_qid: 'Q12345',
+        image_url: 'https://example.com/photo.jpg',
+        short_summary: 'A test person.',
+        birth_date: '1970-01-01',
+        birth_place: 'Test City, USA',
+        education: [{ institution: 'Test University' }],
+        occupations: ['Politician'],
+        career_highlights: [],
+        prior_positions: [{ position: 'Mayor' }],
+        military_service: [],
+        employers: [],
+        profile_status: 'available',
+        parsed_fields: ['short_summary', 'birth_date', 'education', 'occupations'],
+        missing_fields: ['employers', 'military_service'],
+        source: 'wikipedia',
+        source_reliability: 'external_open_content',
+        last_updated: '2026-06-18T00:00:00Z',
+        profile_sources: { wikipedia_title: 'Test Person' },
+      };
+      expect(p.source).toBe('wikipedia');
+      expect(p.source_reliability).toBe('external_open_content');
+      expect(p.education).toHaveLength(1);
+      expect(p.occupations).toContain('Politician');
+    });
+
+    it('allows empty arrays for optional fields', () => {
+      const p: MemberProfileResponse = {
+        member_id: 'test-2',
+        source: 'wikipedia',
+        source_reliability: 'external_open_content',
+        education: [],
+        occupations: [],
+        career_highlights: [],
+        prior_positions: [],
+        military_service: [],
+        employers: [],
+        profile_status: 'summary_only',
+        parsed_fields: [],
+        missing_fields: [],
+        profile_sources: {},
+      };
+      expect(p.education).toEqual([]);
+      expect(p.career_highlights).toEqual([]);
+    });
+
+    it('has no prediction or risk fields', () => {
+      const p: MemberProfileResponse = {
+        member_id: 'test-3',
+        source: 'wikipedia',
+        source_reliability: 'external_open_content',
+        education: [],
+        occupations: [],
+        career_highlights: [],
+        prior_positions: [],
+        military_service: [],
+        employers: [],
+        profile_status: 'summary_only',
+        parsed_fields: [],
+        missing_fields: [],
+        profile_sources: {},
+      };
+      expect((p as unknown as Record<string, unknown>).risk_score).toBeUndefined();
+      expect((p as unknown as Record<string, unknown>).prediction).toBeUndefined();
+      expect((p as unknown as Record<string, unknown>).conflict_of_interest).toBeUndefined();
+    });
+  });
+
 });

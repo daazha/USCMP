@@ -64,6 +64,80 @@ def build_markdown(member: Member, include_graph: bool, include_predictions: boo
             lines.append(f"- {pos} @ {org}")
         lines.append("")
 
+    # Wikipedia Profile
+    profile = None
+    try:
+        from app.models.sqlalchemy.models import MemberProfile
+        from app.db.postgres import SessionLocal
+        local_db = SessionLocal()
+        try:
+            profile = local_db.query(MemberProfile).filter(
+                MemberProfile.member_id == member.id,
+            ).first()
+        finally:
+            local_db.close()
+    except Exception:
+        pass
+
+    if profile:
+        source_label = "Wikipedia 履历" if profile.source == "wikipedia" else "USCL 基础资料"
+        source_name = "Wikipedia" if profile.source == "wikipedia" else "US Congress Legislators Dataset"
+        lines.append(f"## 履历信息 ({source_label})")
+        lines.append("")
+        lines.append(f"- **数据来源**: {source_name}")
+        if profile.source == "wikipedia":
+            lines.append(f"- **Wikipedia 标题**: {profile.wikipedia_title or '--'}")
+            if profile.wikipedia_url:
+                lines.append(f"- **Wikipedia 链接**: {profile.wikipedia_url}")
+        else:
+            if profile.wikipedia_title:
+                lines.append(f"- **Wikipedia 标题**: {profile.wikipedia_title}")
+            if profile.wikidata_qid:
+                lines.append(f"- **Wikidata ID**: {profile.wikidata_qid}")
+            if profile.wikipedia_url:
+                lines.append(f"- **Wikipedia 链接**: {profile.wikipedia_url}")
+            lines.append(f"- **数据范围**: 仅包含出生日期和基本信息；职业/教育/职位等结构化字段待接入 Wikipedia 后补充")
+        if profile.birth_date:
+            lines.append(f"- **出生日期**: {profile.birth_date}")
+        if profile.birth_place:
+            lines.append(f"- **出生地**: {profile.birth_place}")
+        if profile.short_summary:
+            lines.append(f"- **摘要**: {profile.short_summary[:300]}{'...' if len(profile.short_summary or '') > 300 else ''}")
+        if profile.occupations:
+            lines.append(f"- **职业**: {', '.join(profile.occupations[:5])}")
+        if profile.education:
+            lines.append("")
+            lines.append("### 教育经历")
+            lines.append("")
+            for edu in profile.education[:5]:
+                inst = edu.get("institution", "未知")
+                lines.append(f"- {inst}")
+        if profile.prior_positions:
+            lines.append("")
+            lines.append("### 过往职位")
+            lines.append("")
+            for pos in profile.prior_positions[:5]:
+                p = pos.get("position", "未知")
+                lines.append(f"- {p}")
+        if profile.military_service:
+            lines.append("")
+            lines.append("### 军事经历")
+            lines.append("")
+            for ms in profile.military_service[:3]:
+                lines.append(f"- {ms.get('detail', '')}")
+        if profile.last_updated:
+            lu = profile.last_updated
+            if hasattr(lu, 'strftime'):
+                lines.append(f"- **最后更新**: {lu.strftime('%Y-%m-%d %H:%M:%S UTC')}")
+            else:
+                lines.append(f"- **最后更新**: {lu}")
+        lines.append("")
+    else:
+        lines.append("## 履历信息")
+        lines.append("")
+        lines.append("暂未接入。需接入 USCL 数据源与 Wikipedia 数据源。")
+        lines.append("")
+
     # Top contributors
     if member.top_contributors:
         lines.append("## TOP5 政治献金来源")

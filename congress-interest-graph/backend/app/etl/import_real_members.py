@@ -142,7 +142,13 @@ def import_members_from_adapter(
                 continue
 
             fec_ids = p.get("fec_ids", []) or []
+            wiki_title = p.get("wikipedia_title")
+            wiki_qid = p.get("wikidata_qid")
             official_ids = {"fec": fec_ids}
+            if wiki_title:
+                official_ids["wikipedia"] = wiki_title
+            if wiki_qid:
+                official_ids["wikidata"] = wiki_qid
 
             member_committees = _assemble_committee_memberships(
                 committee_memberships, entities, p["person_id"]

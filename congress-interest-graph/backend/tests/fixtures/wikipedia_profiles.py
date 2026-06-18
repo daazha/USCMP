@@ -1,0 +1,113 @@
+"""Test fixtures: pre-fetched Wikipedia profile data for key members.
+
+These are structured profiles based on Wikipedia data, used for testing
+when the Wikipedia API is not reachable from the test environment.
+"""
+
+FIXTURE_PROFILES: dict[str, dict] = {
+    "Mark R. Warner": {
+        "wikipedia_title": "Mark Warner",
+        "wikipedia_url": "https://en.wikipedia.org/wiki/Mark_Warner",
+        "wikidata_qid": "Q453893",
+        "image_url": None,
+        "short_summary": "Mark Robert Warner (born December 15, 1954) is an American businessman and politician serving as the senior United States senator from Virginia, a seat he has held since 2009. A member of the Democratic Party, Warner previously served as the 69th governor of Virginia from 2002 to 2006.",
+        "birth_date": "1954-12-15",
+        "birth_place": "Indianapolis, Indiana, U.S.",
+        "education": [{"institution": "George Washington University"}, {"institution": "Harvard University"}],
+        "occupations": ["Businessman", "Politician"],
+        "career_highlights": [],
+        "prior_positions": [
+            {"position": "Governor of Virginia (2002-2006)"},
+            {"position": "U.S. Senator from Virginia (2009-present)"},
+        ],
+        "military_service": [],
+        "profile_sources": {
+            "wikipedia_title": "Mark Warner",
+            "wikipedia_url": "https://en.wikipedia.org/wiki/Mark_Warner",
+            "retrieved_at": "2026-06-18T00:00:00+00:00",
+            "wikidata_qid": "Q453893",
+        },
+        "source": "wikipedia",
+        "source_reliability": "external_open_content",
+    },
+    "Mark Warner": {
+        "wikipedia_title": "Mark Warner",
+        "wikipedia_url": "https://en.wikipedia.org/wiki/Mark_Warner",
+        "wikidata_qid": "Q453893",
+        "image_url": None,
+        "short_summary": "Mark Robert Warner (born December 15, 1954) is an American businessman and politician serving as the senior United States senator from Virginia, a seat he has held since 2009. A member of the Democratic Party, Warner previously served as the 69th governor of Virginia from 2002 to 2006.",
+        "birth_date": "1954-12-15",
+        "birth_place": "Indianapolis, Indiana, U.S.",
+        "education": [{"institution": "George Washington University"}, {"institution": "Harvard University"}],
+        "occupations": ["Businessman", "Politician"],
+        "career_highlights": [],
+        "prior_positions": [
+            {"position": "Governor of Virginia (2002-2006)"},
+            {"position": "U.S. Senator from Virginia (2009-present)"},
+        ],
+        "military_service": [],
+        "profile_sources": {
+            "wikipedia_title": "Mark Warner",
+            "wikipedia_url": "https://en.wikipedia.org/wiki/Mark_Warner",
+            "retrieved_at": "2026-06-18T00:00:00+00:00",
+            "wikidata_qid": "Q453893",
+        },
+        "source": "wikipedia",
+        "source_reliability": "external_open_content",
+    },
+    "Maria Cantwell": {
+        "wikipedia_title": "Maria Cantwell",
+        "wikipedia_url": "https://en.wikipedia.org/wiki/Maria_Cantwell",
+        "wikidata_qid": "Q22250",
+        "image_url": None,
+        "short_summary": "Maria Ellen Cantwell (born October 13, 1958) is an American politician serving as the junior United States senator from Washington since 2001. A member of the Democratic Party, she previously served in the Washington House of Representatives and the United States House of Representatives.",
+        "birth_date": "1958-10-13",
+        "birth_place": "Indianapolis, Indiana, U.S.",
+        "education": [{"institution": "Miami University"}],
+        "occupations": ["Politician"],
+        "career_highlights": [],
+        "prior_positions": [
+            {"position": "Member of the Washington House of Representatives (1987-1993)"},
+            {"position": "U.S. Representative from Washington's 1st district (1993-1995)"},
+            {"position": "U.S. Senator from Washington (2001-present)"},
+        ],
+        "military_service": [],
+        "profile_sources": {
+            "wikipedia_title": "Maria Cantwell",
+            "wikipedia_url": "https://en.wikipedia.org/wiki/Maria_Cantwell",
+            "retrieved_at": "2026-06-18T00:00:00+00:00",
+            "wikidata_qid": "Q22250",
+        },
+        "source": "wikipedia",
+        "source_reliability": "external_open_content",
+    },
+    "Tom Cole": {
+        "wikipedia_title": "Tom Cole",
+        "wikipedia_url": "https://en.wikipedia.org/wiki/Tom_Cole",
+        "wikidata_qid": "Q173839",
+        "image_url": None,
+        "short_summary": "Thomas Jeffery Cole (born April 28, 1949) is an American politician serving as the U.S. representative for Oklahoma's 4th congressional district since 2003. A member of the Republican Party, he is the dean of Oklahoma's congressional delegation.",
+        "birth_date": "1949-04-28",
+        "birth_place": "Shreveport, Louisiana, U.S.",
+        "education": [
+            {"institution": "Grinnell College"},
+            {"institution": "Yale University"},
+            {"institution": "University of Oklahoma"},
+        ],
+        "occupations": ["Politician", "Academic"],
+        "career_highlights": [],
+        "prior_positions": [
+            {"position": "Oklahoma Secretary of State (1995-1999)"},
+            {"position": "U.S. Representative from Oklahoma's 4th district (2003-present)"},
+        ],
+        "military_service": [],
+        "profile_sources": {
+            "wikipedia_title": "Tom Cole",
+            "wikipedia_url": "https://en.wikipedia.org/wiki/Tom_Cole",
+            "retrieved_at": "2026-06-18T00:00:00+00:00",
+            "wikidata_qid": "Q173839",
+        },
+        "source": "wikipedia",
+        "source_reliability": "external_open_content",
+    },
+}

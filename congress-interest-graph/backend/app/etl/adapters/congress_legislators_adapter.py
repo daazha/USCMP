@@ -175,6 +175,8 @@ class CongressLegislatorsAdapter(BaseAdapter):
             "govtrack_id": str(ids.get("govtrack")) if ids.get("govtrack") else None,
             "opensecrets_id": ids.get("opensecrets"),
             "fec_ids": ids.get("fec", []),
+            "wikipedia_title": ids.get("wikipedia"),
+            "wikidata_qid": ids.get("wikidata"),
             "latest_term_start": str(latest.get("start", "")),
             "latest_term_end": str(latest.get("end", "")),
             "data_namespace": "sandbox",

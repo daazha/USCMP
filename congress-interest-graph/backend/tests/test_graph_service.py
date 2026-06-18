@@ -60,9 +60,10 @@ class TestGraphServiceDateFilter:
         assert "$end_date" in cypher
 
     def test_get_member_graph_depth2_receives_date_filter_on_both_hops(self):
-        """Depth=2 query includes date filter on both r1 and r2."""
+        """Depth=2 query includes date filter on both r1 and r2 when include_related_people=True."""
         with patch("app.services.graph_service.run_cypher", return_value=[]) as mock_run:
-            get_member_graph("person_test", depth=2, start_date=date(2023, 1, 1))
+            get_member_graph("person_test", depth=2, start_date=date(2023, 1, 1),
+                             include_related_people=True)
 
         cypher, params = _call_args(mock_run)
         assert params["start_date"] == "2023-01-01"

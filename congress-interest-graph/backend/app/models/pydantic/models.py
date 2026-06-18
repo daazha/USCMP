@@ -270,6 +270,31 @@ class ETLRunResponse(BaseModel):
     completed_at: str | None = None
 
 
+class MemberProfileResponse(BaseModel):
+    member_id: str
+    bioguide_id: Optional[str] = None
+    wikipedia_title: Optional[str] = None
+    wikipedia_url: Optional[str] = None
+    wikidata_qid: Optional[str] = None
+    image_url: Optional[str] = None
+    short_summary: Optional[str] = None
+    birth_date: Optional[str] = None
+    birth_place: Optional[str] = None
+    education: list[dict] = Field(default_factory=list)
+    occupations: list[str] = Field(default_factory=list)
+    career_highlights: list[dict] = Field(default_factory=list)
+    prior_positions: list[dict] = Field(default_factory=list)
+    military_service: list[dict] = Field(default_factory=list)
+    employers: list[dict] = Field(default_factory=list)
+    profile_status: str = "summary_only"
+    parsed_fields: list[str] = Field(default_factory=list)
+    missing_fields: list[str] = Field(default_factory=list)
+    source: str = "wikipedia"
+    source_reliability: str = "external_open_content"
+    last_updated: Optional[str] = None
+    profile_sources: dict = Field(default_factory=dict)
+
+
 class ETLSandboxStatsResponse(BaseModel):
     total_persons: int = 0
     total_committees: int = 0

@@ -214,3 +214,28 @@ export interface ApiError {
   details: Record<string, unknown>;
   request_id: string;
 }
+
+export interface MemberProfileResponse {
+  member_id: string;
+  bioguide_id?: string;
+  wikipedia_title?: string;
+  wikipedia_url?: string;
+  wikidata_qid?: string;
+  image_url?: string;
+  short_summary?: string;
+  birth_date?: string;
+  birth_place?: string;
+  education: Record<string, unknown>[];
+  occupations: string[];
+  career_highlights: Record<string, unknown>[];
+  prior_positions: Record<string, unknown>[];
+  military_service: Record<string, unknown>[];
+  employers: Record<string, unknown>[];
+  profile_status: string;
+  parsed_fields: string[];
+  missing_fields: string[];
+  source: string;
+  source_reliability: string;
+  last_updated?: string;
+  profile_sources: Record<string, unknown>;
+}

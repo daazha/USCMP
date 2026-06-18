@@ -5,9 +5,10 @@ from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from app.db.postgres import get_db
 from app.db.neo4j import run_cypher
-from app.models.sqlalchemy.models import Member
+from app.models.sqlalchemy.models import Member, MemberProfile
 from app.models.pydantic.models import (
     MemberSummary, MemberDetail, MemberListResponse, CommitteeMembership,
+    MemberProfileResponse,
 )
 from app.core.errors import NotFoundError
 
@@ -116,4 +117,43 @@ def get_member(member_id: str, db: Session = Depends(get_db)):
         latest_term_start=member.latest_term_start,
         latest_term_end=member.latest_term_end,
         official_ids=member.official_ids or {},
+    )
+
+
+@router.get("/members/{member_id}/profile", response_model=MemberProfileResponse)
+def get_member_profile(member_id: str, db: Session = Depends(get_db)):
+    member = db.query(Member).filter(Member.id == member_id).first()
+    if not member:
+        raise NotFoundError("Member not found", {"member_id": member_id})
+
+    profile = db.query(MemberProfile).filter(
+        MemberProfile.member_id == member_id,
+    ).first()
+
+    if not profile:
+        raise NotFoundError("Profile not found for member", {"member_id": member_id})
+
+    return MemberProfileResponse(
+        member_id=profile.member_id,
+        bioguide_id=profile.bioguide_id,
+        wikipedia_title=profile.wikipedia_title,
+        wikipedia_url=profile.wikipedia_url,
+        wikidata_qid=profile.wikidata_qid,
+        image_url=profile.image_url,
+        short_summary=profile.short_summary,
+        birth_date=profile.birth_date,
+        birth_place=profile.birth_place,
+        education=profile.education or [],
+        occupations=profile.occupations or [],
+        career_highlights=profile.career_highlights or [],
+        prior_positions=profile.prior_positions or [],
+        military_service=profile.military_service or [],
+        employers=profile.employers or [],
+        profile_status=profile.profile_status or "summary_only",
+        parsed_fields=profile.parsed_fields or [],
+        missing_fields=profile.missing_fields or [],
+        source=profile.source or "wikipedia",
+        source_reliability=profile.source_reliability or "external_open_content",
+        last_updated=profile.last_updated.isoformat() if profile.last_updated else None,
+        profile_sources=profile.profile_sources or {},
     )

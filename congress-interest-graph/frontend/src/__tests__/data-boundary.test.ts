@@ -39,7 +39,7 @@ describe('data boundary validation', () => {
     top_holdings: [],
     committee_memberships: [],
     career_summary: [],
-    china_stance_summary: null,
+    china_stance_summary: undefined,
     controversies: [],
     source: 'uscl',
     official_ids: { fec: ['H8CA05035'] },
