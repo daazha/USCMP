@@ -17,6 +17,7 @@ router = APIRouter(tags=["search"])
 def search(
     query: str = Query(..., min_length=2),
     limit: int = Query(50, ge=1, le=100),
+    include_historical: bool = Query(False),
     db: Session = Depends(get_db),
 ):
     if len(query.strip()) < 2:
@@ -28,13 +29,16 @@ def search(
     pattern = f"%{query}%"
 
     # Search members
-    members = db.query(Member).filter(
+    member_q = db.query(Member).filter(
         or_(
             Member.canonical_name.ilike(pattern),
             Member.display_name.ilike(pattern),
             Member.state.ilike(pattern),
         )
-    ).limit(limit).all()
+    )
+    if not include_historical:
+        member_q = member_q.filter(Member.is_current == True)
+    members = member_q.limit(limit).all()
 
     member_results = []
     for m in members:
@@ -56,6 +60,7 @@ def search(
             committee_tags=committee_tags,
             congress=m.congress,
             source=m.source,
+            member_scope=m.member_scope or "current",
         ))
 
     # Search organizations

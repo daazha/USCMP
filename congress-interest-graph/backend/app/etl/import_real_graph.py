@@ -76,6 +76,7 @@ def import_real_graph(adapter: CongressLegislatorsAdapter) -> dict[str, int]:
         session.run("CREATE CONSTRAINT real_state_id IF NOT EXISTS FOR (n:State) REQUIRE n.id IS UNIQUE")
         session.run("CREATE CONSTRAINT real_chamber_id IF NOT EXISTS FOR (n:Chamber) REQUIRE n.id IS UNIQUE")
         session.run("CREATE CONSTRAINT real_committee_id IF NOT EXISTS FOR (n:Committee) REQUIRE n.id IS UNIQUE")
+        session.run("CREATE CONSTRAINT bg_person_id IF NOT EXISTS FOR (n:BackgroundPerson) REQUIRE n.id IS UNIQUE")
 
         # Committee nodes (small set, create first)
         for comm in committees:
@@ -99,6 +100,8 @@ def import_real_graph(adapter: CongressLegislatorsAdapter) -> dict[str, int]:
 
         # Person nodes + Party/State/Chamber nodes + relationships
         for p in persons:
+            if p.get("_scope") != "current":
+                continue
             person_id = p["person_id"]
             bioguide = p.get("bioguide_id", "")
             party = p.get("party")
@@ -117,7 +120,9 @@ def import_real_graph(adapter: CongressLegislatorsAdapter) -> dict[str, int]:
                     n.person_type = $person_type,
                     n.bioguide_id = $bioguide,
                     n.data_mode = 'real',
-                    n.data_source = 'unitedstates/congress-legislators'
+                    n.data_source = 'unitedstates/congress-legislators',
+                    n.person_scope = $scope,
+                    n.is_current = $is_current
                 """,
                 {
                     "id": person_id,
@@ -128,6 +133,8 @@ def import_real_graph(adapter: CongressLegislatorsAdapter) -> dict[str, int]:
                     "state": state,
                     "person_type": p.get("person_type", "legislator"),
                     "bioguide": bioguide,
+                    "scope": p.get("_scope", "historical"),
+                    "is_current": p.get("_scope") == "current",
                 },
             )
             stats["person_nodes"] += 1

@@ -39,6 +39,8 @@ class Member(Base):
     last_updated = Column(DateTime(timezone=True))
     latest_term_start = Column(String(16))
     latest_term_end = Column(String(16))
+    is_current = Column(Boolean, default=False, index=True)
+    member_scope = Column(String(16), default="current", index=True)
     official_ids = Column(JSON, default=dict)
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))

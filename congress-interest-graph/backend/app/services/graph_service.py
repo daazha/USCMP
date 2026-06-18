@@ -1,5 +1,6 @@
 """Graph service - all Cypher queries centralized here.
 
+v0.7: Profile facts layer with include_profile_facts control.
 v0.6.2: Ego network with include_related_people control.
 Default: depth 1 only (center Person -> Party/State/Chamber/Committee +
 EducationInstitution/Employer/Position/ProfileSource if available).
@@ -10,19 +11,31 @@ from typing import Optional
 from app.db.neo4j import run_cypher
 
 
-EGO_EDGE_TYPES = frozenset({
+IDENTITY_EDGE_TYPES = frozenset({
     "MEMBER_OF_PARTY", "REPRESENTS_STATE", "SERVES_IN", "ASSIGNED_TO",
+})
+
+PROFILE_EDGE_TYPES = frozenset({
     "EDUCATED_AT", "EMPLOYED_BY", "HELD_POSITION", "HAS_PROFILE_SOURCE",
 })
 
-_EGO_EDGE_LIST = (
+EGO_EDGE_TYPES = frozenset((*IDENTITY_EDGE_TYPES, *PROFILE_EDGE_TYPES))
+
+_IDENTITY_EDGE_LIST = (
+    "['MEMBER_OF_PARTY','REPRESENTS_STATE','SERVES_IN','ASSIGNED_TO']"
+)
+_PROFILE_EDGE_LIST = (
+    "['EDUCATED_AT','EMPLOYED_BY','HELD_POSITION','HAS_PROFILE_SOURCE']"
+)
+_ALL_EDGE_LIST = (
     "['MEMBER_OF_PARTY','REPRESENTS_STATE','SERVES_IN','ASSIGNED_TO',"
     "'EDUCATED_AT','EMPLOYED_BY','HELD_POSITION','HAS_PROFILE_SOURCE']"
 )
 
 
-def _edge_filter(rel_var: str = "r") -> str:
-    return f"type({rel_var}) IN {_EGO_EDGE_LIST}"
+def _edge_filter(rel_var: str, include_profile_facts: bool = True) -> str:
+    edge_list = _ALL_EDGE_LIST if include_profile_facts else _IDENTITY_EDGE_LIST
+    return f"type({rel_var}) IN {edge_list}"
 
 
 def get_member_graph(
@@ -33,16 +46,26 @@ def get_member_graph(
     min_confidence: float = 0.0,
     limit: int = 200,
     include_related_people: bool = False,
+    include_profile_facts: bool = True,
+    include_historical_background: bool = False,
 ) -> dict:
     """Get ego network centered on a member.
 
-    Default (include_related_people=False):
+    Default (include_related_people=False, include_profile_facts=True):
       Depth 1 only: center Person -> Party/State/Chamber/Committee
                     + EducationInstitution/Employer/Position/ProfileSource
 
     include_related_people=True:
       Depth 2: expands to other Persons through shared entities.
       No direct Person-Person edges are traversed.
+
+    include_profile_facts=False:
+      Only identity edges (MEMBER_OF_PARTY, REPRESENTS_STATE,
+      SERVES_IN, ASSIGNED_TO). No profile fact edges.
+
+    include_historical_background=True:
+      Includes BackgroundPerson nodes with BACKGROUND_RELATION edges
+      for historical members with documented connections to current members.
 
     start_date/end_date filter relationships by their date range.
     """
@@ -59,29 +82,63 @@ def get_member_graph(
         "AND ($end_date IS NULL OR coalesce(r.end_date, $end_date) <= $end_date)"
     )
 
+    edge_f = _edge_filter("r", include_profile_facts)
+
+    scope_filter = (
+        "AND (NOT n:Person OR n.person_scope IN ['current', 'mock', 'test'] "
+        "OR n.person_scope IS NULL)"
+    ) if not include_historical_background else ""
+
     if depth == 1 or not include_related_people:
         query = f"""
             MATCH (p:Person {{id: $member_id}})-[r]-(n)
             WHERE (r.confidence_score >= $min_confidence OR r.confidence_score IS NULL)
-              AND ({_edge_filter('r')})
+              AND ({edge_f})
               {date_clause}
+              {scope_filter}
             RETURN p, r, n
             LIMIT $limit
         """
+        if include_historical_background:
+            query += f"""
+            UNION
+            MATCH (p:Person {{{{id: $member_id}}}})-[r:BACKGROUND_RELATION]-(n:BackgroundPerson)
+            WHERE (r.confidence_score >= $min_confidence OR r.confidence_score IS NULL)
+              {date_clause}
+            RETURN p, r, n
+            """
     else:
+        edge_f1 = _edge_filter("r1", include_profile_facts)
+        edge_f2 = _edge_filter("r2", include_profile_facts)
+        scope_filter_n2 = (
+            "AND (NOT n2:Person OR n2.person_scope IN ['current', 'mock', 'test'] "
+            "OR n2.person_scope IS NULL)"
+        ) if not include_historical_background else ""
         query = f"""
             MATCH (p:Person {{id: $member_id}})-[r1]-(n1)
             WHERE (r1.confidence_score >= $min_confidence OR r1.confidence_score IS NULL)
-              AND ({_edge_filter('r1')})
+              AND ({edge_f1})
               {date_clause.replace('r.', 'r1.')}
             OPTIONAL MATCH (n1)-[r2]-(n2:Person)
             WHERE (r2.confidence_score >= $min_confidence OR r2.confidence_score IS NULL)
               AND n2 <> p
-              AND ({_edge_filter('r2')})
+              AND ({edge_f2})
+              {scope_filter_n2}
               {date_clause.replace('r.', 'r2.')}
             RETURN p, r1, r2, n1, n2
             LIMIT $limit
         """
+        if include_historical_background:
+            query += f"""
+            UNION
+            MATCH (p:Person {{{{id: $member_id}}}})-[r1:BACKGROUND_RELATION]-(n1:BackgroundPerson)
+            WHERE (r1.confidence_score >= $min_confidence OR r1.confidence_score IS NULL)
+              {date_clause.replace('r.', 'r1.')}
+            OPTIONAL MATCH (n1)-[r2]-(n2:Person)
+            WHERE (r2.confidence_score >= $min_confidence OR r2.confidence_score IS NULL)
+              AND n2 <> p
+            RETURN p, r1, r2, n1, n2
+            """
 
     records = run_cypher(query, params)
     return {"records": records, "truncated": len(records) >= limit}
@@ -106,7 +163,7 @@ def expand_node(
     query = f"""
         MATCH (n {{id: $node_id}})-[r]-(m)
         WHERE (r.confidence_score >= $min_confidence OR r.confidence_score IS NULL)
-          AND ({_edge_filter('r')})
+          AND ({_edge_filter('r', include_profile_facts=True)})
           AND ($start_date IS NULL OR coalesce(r.start_date, $start_date) >= $start_date)
           AND ($end_date IS NULL OR coalesce(r.end_date, $end_date) <= $end_date)
         RETURN n, r, m
@@ -125,5 +182,3 @@ def get_evidence(claim_id: str) -> dict:
     """
     records = run_cypher(query, params)
     return {"records": records}
-
-

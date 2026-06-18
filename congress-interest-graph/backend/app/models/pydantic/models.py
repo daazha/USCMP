@@ -24,6 +24,7 @@ class MemberSummary(BaseModel):
     committee_tags: list[str] = Field(default_factory=list)
     congress: Optional[int] = None
     source: str = "mock"
+    member_scope: str = "current"
 
 
 class CommitteeMembership(BaseModel):

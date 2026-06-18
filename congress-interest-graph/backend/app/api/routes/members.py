@@ -23,11 +23,15 @@ def list_members(
     committee: str | None = Query(None),
     congress: int | None = Query(None),
     search: str | None = Query(None),
+    include_historical: bool = Query(False),
     skip: int = Query(0, ge=0),
     limit: int = Query(50, ge=1, le=200),
     db: Session = Depends(get_db),
 ):
     query = db.query(Member)
+
+    if not include_historical:
+        query = query.filter(Member.is_current == True)
 
     if chamber:
         query = query.filter(Member.chamber == chamber)
@@ -65,6 +69,7 @@ def list_members(
             committee_tags=committee_tags[:5],
             congress=m.congress,
             source=m.source,
+            member_scope=m.member_scope or "current",
         ))
 
     return MemberListResponse(
@@ -76,10 +81,16 @@ def list_members(
 
 
 @router.get("/members/{member_id}", response_model=MemberDetail)
-def get_member(member_id: str, db: Session = Depends(get_db)):
+def get_member(member_id: str, include_historical: bool = Query(False), db: Session = Depends(get_db)):
     member = db.query(Member).filter(Member.id == member_id).first()
     if not member:
         raise NotFoundError("Member not found", {"member_id": member_id})
+
+    if not include_historical and not member.is_current:
+        raise NotFoundError("Member not found in current scope", {
+            "member_id": member_id,
+            "member_scope": member.member_scope or "unknown",
+        })
 
     committee_memberships = []
     if member.committee_memberships:

@@ -14,24 +14,39 @@ const EDGE_COLORS: Record<string, string> = {
   REPRESENTS_STATE: '#52c41a',
   MEMBER_OF_PARTY: '#722ed1',
   ASSIGNED_TO: '#fa8c16',
+  EDUCATED_AT: '#13c2c2',
+  HELD_POSITION: '#faad14',
+  EMPLOYED_BY: '#ff7a45',
+  HAS_PROFILE_SOURCE: '#b37feb',
+  BACKGROUND_RELATION: '#d9d9d9',
 };
 
 const NODE_COLORS: Record<string, string> = {
   Person: '#1890ff',
+  BackgroundPerson: '#bfbfbf',
   Party: '#722ed1',
   State: '#52c41a',
   Chamber: '#fa8c16',
   Committee: '#eb2f96',
   PoliticalEntity: '#eb2f96',
+  EducationInstitution: '#13c2c2',
+  Position: '#faad14',
+  Employer: '#ff7a45',
+  ProfileSource: '#b37feb',
 };
 
 const NODE_SHAPES: Record<string, string> = {
   Person: 'circle',
+  BackgroundPerson: 'circle',
   Party: 'diamond',
   State: 'rect',
   Chamber: 'hexagon',
   Committee: 'rect',
   PoliticalEntity: 'diamond',
+  EducationInstitution: 'rect',
+  Position: 'diamond',
+  Employer: 'rect',
+  ProfileSource: 'hexagon',
 };
 
 export default function GraphCanvas({ graph, onDoubleClickNode, onEdgeClick, height = 600 }: Props) {
@@ -53,11 +68,10 @@ export default function GraphCanvas({ graph, onDoubleClickNode, onEdgeClick, hei
       nodes: graph.nodes.map((n) => ({
         id: n.id,
         data: {
-          label: getNodeLabel(n),
+          label: sanitizeGraphLabel(getNodeLabelRaw(n)),
           nodeType: n.label,
           color: NODE_COLORS[n.label] || '#8c8c8c',
           size: getNodeSize(n),
-          ...n.properties,
         },
         style: {
           fill: NODE_COLORS[n.label] || '#8c8c8c',
@@ -96,11 +110,14 @@ export default function GraphCanvas({ graph, onDoubleClickNode, onEdgeClick, hei
         style: {
           labelText: (d: Record<string, unknown>) => {
             const data = (d.data || d) as Record<string, unknown>;
-            return (data.label || d.id) as string;
+            const raw = data.label ?? d.id;
+            return sanitizeGraphLabel(raw) as string;
           },
           labelFontSize: 10,
           labelFill: '#e5e7eb',
           labelPlacement: 'bottom',
+          labelWordWrap: true,
+          labelMaxWidth: 120,
         },
       },
       edge: {
@@ -150,20 +167,37 @@ export default function GraphCanvas({ graph, onDoubleClickNode, onEdgeClick, hei
   return (
     <div
       ref={containerRef}
-      style={{ height, width: '100%', background: '#0a0e17' }}
+      style={{ height, width: '100%', background: '#0a0e17', overflow: 'hidden' }}
     />
   );
 }
 
-function getNodeLabel(node: GraphNode): string {
+function getNodeLabelRaw(node: GraphNode): string {
   const props = node.properties;
   return (props.display_name || props.canonical_name || props.name || props.title || node.id) as string;
+}
+
+const MAX_LABEL_LENGTH = 30;
+
+export function sanitizeGraphLabel(raw: unknown): string {
+  if (raw === null || raw === undefined) return "Unknown";
+  if (typeof raw === "object") {
+    if (Array.isArray(raw)) return "(list)";
+    return "(data)";
+  }
+  let text = String(raw).replace(/\n/g, " ").replace(/\s+/g, " ").trim();
+  if (text.length === 0) return "Unknown";
+  if (text.length > MAX_LABEL_LENGTH) {
+    text = text.slice(0, MAX_LABEL_LENGTH) + "...";
+  }
+  return text;
 }
 
 function getNodeSize(node: GraphNode): number {
   const sizes: Record<string, number> = {
     Person: 40, Party: 28, State: 24, Chamber: 32, Committee: 20,
     PoliticalEntity: 32,
+    EducationInstitution: 24, Position: 22, Employer: 24, ProfileSource: 20,
   };
   return sizes[node.label] || 24;
 }

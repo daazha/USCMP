@@ -113,6 +113,7 @@ class CongressLegislatorsAdapter(BaseAdapter):
         # LEGISLATORS CURRENT
         for leg in (self._raw.get("legislators_current") or []):
             person = self._normalize_person(leg)
+            person["_scope"] = "current"
             result["persons"].append(person)
             for term in leg.get("terms", []):
                 result["person_terms"].append(self._normalize_term(leg, term, person["person_id"]))
@@ -120,6 +121,7 @@ class CongressLegislatorsAdapter(BaseAdapter):
         # LEGISLATORS HISTORICAL
         for leg in (self._raw.get("legislators_historical") or []):
             person = self._normalize_person(leg)
+            person["_scope"] = "historical"
             result["persons"].append(person)
             for term in leg.get("terms", []):
                 result["person_terms"].append(self._normalize_term(leg, term, person["person_id"]))

@@ -257,24 +257,25 @@ export default function MemberDetailPage() {
                 <div style={{ fontSize: 12 }}>
                   {/* Profile status banner */}
                   {profile.profile_status !== 'available' && (
-                    <Card size="small" style={{ marginBottom: 8, background: '#2d2110', border: '1px solid #614700' }}>
-                      <div style={{ fontSize: 11, color: '#e7b62e', lineHeight: 1.5 }}>
-                        {profile.profile_status === 'summary_only' && (
-                          <>当前仅导入 Wikipedia 摘要，教育/职业/任职经历尚未解析。已解析: {profile.parsed_fields.join(', ')}；未解析: {profile.missing_fields.join(', ')}。</>
-                        )}
-                        {profile.profile_status === 'partial' && (
-                          <>部分履历字段已解析，以下字段待补充: {profile.missing_fields.join(', ')}。</>
-                        )}
-                      </div>
-                    </Card>
+                    <Alert
+                      type="warning"
+                      showIcon
+                      message="履历数据暂未完整接入"
+                      description={
+                        profile.profile_status === 'summary_only'
+                          ? '当前仅展示 USCL 基础资料（姓名、党派、州、届次、委员会）。Wikipedia/Wikidata 结构化履历尚未导入。'
+                          : '部分履历字段已解析，以下字段待补充: ' + (profile.missing_fields || []).join('、')
+                      }
+                      style={{ marginBottom: 12, background: '#1f1a10', border: '1px solid #614700' }}
+                    />
                   )}
 
-                  {/* Section 1: Summary */}
+                  {/* Always show summary + basic info */}
                   <Card size="small" style={{ marginBottom: 8, background: '#1a1a2e' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                       <Text strong style={{ color: '#d1d5db', fontSize: 13 }}>摘要</Text>
-                      <Tag color={profile.source === 'wikipedia' ? 'blue' : 'green'} style={{ fontSize: 10 }}>
-                        {profile.source === 'wikipedia' ? 'Wikipedia 履历' : 'USCL 基础资料'}
+                      <Tag color={profile.source === 'wikipedia' ? 'blue' : profile.source === 'fixture' ? 'green' : 'orange'} style={{ fontSize: 10 }}>
+                        {profile.source === 'wikipedia' ? 'Wikipedia 履历' : profile.source === 'fixture' ? 'Fixture 履历' : 'USCL 基础资料'}
                       </Tag>
                     </div>
                     {profile.short_summary ? (
@@ -282,7 +283,11 @@ export default function MemberDetailPage() {
                         {profile.short_summary.slice(0, 500)}{profile.short_summary.length > 500 && '...'}
                       </div>
                     ) : (
-                      <Text type="secondary" style={{ fontSize: 11, fontStyle: 'italic' }}>未解析</Text>
+                      <Text type="secondary" style={{ fontSize: 11, fontStyle: 'italic' }}>
+                        {profile.profile_status === 'summary_only'
+                          ? '暂无摘要。本议员履历数据尚未从 Wikipedia/Wikidata 导入。'
+                          : '未解析'}
+                      </Text>
                     )}
                     {profile.wikipedia_url && (
                       <div style={{ marginTop: 4 }}>
@@ -293,108 +298,134 @@ export default function MemberDetailPage() {
                     )}
                   </Card>
 
-                  {/* Section 2: Basic bio */}
-                  <Card size="small" title="基本履历" style={{ marginBottom: 8, background: '#1a1a2e' }}>
-                    <Descriptions column={1} size="small" colon={false}
-                      labelStyle={{ color: '#6b7280', fontSize: 11 }}
-                      contentStyle={{ color: '#d1d5db', fontSize: 12 }}
-                    >
-                      <Descriptions.Item label="出生日期">
-                        {profile.birth_date || <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>未解析</Text>}
-                      </Descriptions.Item>
-                      <Descriptions.Item label="出生地">
-                        {profile.birth_place || <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>未解析</Text>}
-                      </Descriptions.Item>
-                      <Descriptions.Item label="Wikidata">
-                        {profile.wikidata_qid || <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>--</Text>}
-                      </Descriptions.Item>
-                    </Descriptions>
-                  </Card>
+                  {profile.profile_status === 'available' ? (
+                    <>
+                      {/* Section 2: Basic bio */}
+                      <Card size="small" title="基本履历" style={{ marginBottom: 8, background: '#1a1a2e' }}>
+                        <Descriptions column={1} size="small" colon={false}
+                          labelStyle={{ color: '#6b7280', fontSize: 11 }}
+                          contentStyle={{ color: '#d1d5db', fontSize: 12 }}
+                        >
+                          <Descriptions.Item label="出生日期">
+                            {profile.birth_date || <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>未解析</Text>}
+                          </Descriptions.Item>
+                          <Descriptions.Item label="出生地">
+                            {profile.birth_place || <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>未解析</Text>}
+                          </Descriptions.Item>
+                          <Descriptions.Item label="Wikidata">
+                            {profile.wikidata_qid || <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>--</Text>}
+                          </Descriptions.Item>
+                        </Descriptions>
+                      </Card>
 
-                  {/* Section 3: Education */}
-                  <Card size="small" title={<>教育经历 {profile.education.length === 0 && <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>(未解析)</Text>}</>}
-                    style={{ marginBottom: 8, background: '#1a1a2e' }}>
-                    {profile.education.length > 0 ? (
-                      profile.education.map((edu, i) => (
-                        <div key={i} style={{ marginBottom: 2, fontSize: 11, color: '#9ca3af' }}>
-                          - {String(edu.institution || edu.school || edu.degree || JSON.stringify(edu))}
-                        </div>
-                      ))
-                    ) : (
-                      <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>暂未接入。待 Wikipedia 数据接入后补充。</Text>
-                    )}
-                  </Card>
+                      {/* Section 3: Education */}
+                      <Card size="small" title={<>教育经历 {profile.education.length === 0 && <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>(未解析)</Text>}</>}
+                        style={{ marginBottom: 8, background: '#1a1a2e' }}>
+                        {profile.education.length > 0 ? (
+                          profile.education.map((edu, i) => (
+                            <div key={i} style={{ marginBottom: 2, fontSize: 11, color: '#9ca3af' }}>
+                              - {String(edu.institution || edu.school || edu.degree || JSON.stringify(edu))}
+                            </div>
+                          ))
+                        ) : (
+                          <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>暂未接入。待 Wikipedia 数据接入后补充。</Text>
+                        )}
+                      </Card>
 
-                  {/* Section 4: Occupations + prior positions */}
-                  <Card size="small" title={<>职业 / 任职经历 {profile.occupations.length === 0 && profile.prior_positions.length === 0 && <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>(未解析)</Text>}</>}
-                    style={{ marginBottom: 8, background: '#1a1a2e' }}>
-                    {profile.occupations.length > 0 && (
-                      <div style={{ marginBottom: 6 }}>
-                        <div style={{ fontSize: 11, color: '#6b7280', marginBottom: 2 }}>职业</div>
-                        <div style={{ fontSize: 11, color: '#d1d5db' }}>{profile.occupations.join(', ')}</div>
-                      </div>
-                    )}
-                    {profile.prior_positions.length > 0 && (
-                      <div>
-                        <div style={{ fontSize: 11, color: '#6b7280', marginBottom: 2 }}>过往职位</div>
-                        {profile.prior_positions.slice(0, 10).map((pos, i) => (
-                          <div key={i} style={{ marginBottom: 2, fontSize: 11, color: '#9ca3af' }}>
-                            - {String(pos.position || JSON.stringify(pos))}
+                      {/* Section 4: Occupations + prior positions */}
+                      <Card size="small" title={<>职业 / 任职经历 {profile.occupations.length === 0 && profile.prior_positions.length === 0 && <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>(未解析)</Text>}</>}
+                        style={{ marginBottom: 8, background: '#1a1a2e' }}>
+                        {profile.occupations.length > 0 && (
+                          <div style={{ marginBottom: 6 }}>
+                            <div style={{ fontSize: 11, color: '#6b7280', marginBottom: 2 }}>职业</div>
+                            <div style={{ fontSize: 11, color: '#d1d5db' }}>{profile.occupations.join(', ')}</div>
                           </div>
-                        ))}
-                      </div>
-                    )}
-                    {profile.occupations.length === 0 && profile.prior_positions.length === 0 && (
-                      <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>暂未接入。待 Wikipedia 数据接入后补充。</Text>
-                    )}
-                  </Card>
+                        )}
+                        {profile.prior_positions.length > 0 && (
+                          <div>
+                            <div style={{ fontSize: 11, color: '#6b7280', marginBottom: 2 }}>过往职位</div>
+                            {profile.prior_positions.slice(0, 10).map((pos, i) => (
+                              <div key={i} style={{ marginBottom: 2, fontSize: 11, color: '#9ca3af' }}>
+                                - {String(pos.position || JSON.stringify(pos))}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        {profile.occupations.length === 0 && profile.prior_positions.length === 0 && (
+                          <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>暂未接入。待 Wikipedia 数据接入后补充。</Text>
+                        )}
+                      </Card>
 
-                  {/* Section 5: Employers */}
-                  <Card size="small" title={<>雇主机构 {profile.employers.length === 0 && <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>(未解析)</Text>}</>}
-                    style={{ marginBottom: 8, background: '#1a1a2e' }}>
-                    {profile.employers.length > 0 ? (
-                      profile.employers.map((emp, i) => (
-                        <div key={i} style={{ marginBottom: 2, fontSize: 11, color: '#9ca3af' }}>
-                          - {String(emp.name || emp.organization || JSON.stringify(emp))}
+                      {/* Section 5: Employers */}
+                      <Card size="small" title={<>雇主机构 {profile.employers.length === 0 && <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>(未解析)</Text>}</>}
+                        style={{ marginBottom: 8, background: '#1a1a2e' }}>
+                        {profile.employers.length > 0 ? (
+                          profile.employers.map((emp, i) => (
+                            <div key={i} style={{ marginBottom: 2, fontSize: 11, color: '#9ca3af' }}>
+                              - {String(emp.name || emp.organization || JSON.stringify(emp))}
+                            </div>
+                          ))
+                        ) : (
+                          <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>暂未接入。待 Wikipedia 数据接入后补充。</Text>
+                        )}
+                      </Card>
+
+                      {/* Section 6: Military */}
+                      <Card size="small" title={<>军事经历 {profile.military_service.length === 0 && <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>(未解析)</Text>}</>}
+                        style={{ marginBottom: 8, background: '#1a1a2e' }}>
+                        {profile.military_service.length > 0 ? (
+                          profile.military_service.map((ms, i) => (
+                            <div key={i} style={{ marginBottom: 2, fontSize: 11, color: '#9ca3af' }}>
+                              - {String(ms.detail || JSON.stringify(ms))}
+                            </div>
+                          ))
+                        ) : (
+                          <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>暂未接入。待 Wikipedia 数据接入后补充。</Text>
+                        )}
+                      </Card>
+
+                      {/* Section 7: Source + last updated */}
+                      <Card size="small" title="来源与更新时间" style={{ marginBottom: 8, background: '#1a1a2e' }}>
+                        <div style={{ fontSize: 10, color: '#6b7280' }}>
+                          <div>数据来源: {profile.source === 'wikipedia' ? 'Wikipedia' : profile.source === 'fixture' ? 'Fixture (测试数据)' : 'UnitedStates/Congress-Legislators (CC0-1.0)'}</div>
+                          <div>可靠度: {profile.source_reliability}</div>
+                          {profile.wikidata_qid && <div>Wikidata: {profile.wikidata_qid}</div>}
+                          {profile.last_updated && <div>最后更新: {profile.last_updated.replace('T', ' ').slice(0, 19)}</div>}
                         </div>
-                      ))
-                    ) : (
-                      <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>暂未接入。待 Wikipedia 数据接入后补充。</Text>
-                    )}
-                  </Card>
+                      </Card>
 
-                  {/* Section 6: Military */}
-                  <Card size="small" title={<>军事经历 {profile.military_service.length === 0 && <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>(未解析)</Text>}</>}
-                    style={{ marginBottom: 8, background: '#1a1a2e' }}>
-                    {profile.military_service.length > 0 ? (
-                      profile.military_service.map((ms, i) => (
-                        <div key={i} style={{ marginBottom: 2, fontSize: 11, color: '#9ca3af' }}>
-                          - {String(ms.detail || JSON.stringify(ms))}
-                        </div>
-                      ))
-                    ) : (
-                      <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>暂未接入。待 Wikipedia 数据接入后补充。</Text>
-                    )}
-                  </Card>
-
-                  {/* Section 7: Source + last updated */}
-                  <Card size="small" title="来源与更新时间" style={{ marginBottom: 8, background: '#1a1a2e' }}>
-                    <div style={{ fontSize: 10, color: '#6b7280' }}>
-                      <div>数据来源: {profile.source === 'wikipedia' ? 'Wikipedia' : 'UnitedStates/Congress-Legislators (CC0-1.0)'}</div>
-                      <div>可靠度: {profile.source_reliability}</div>
-                      {profile.wikidata_qid && <div>Wikidata: {profile.wikidata_qid}</div>}
-                      {profile.last_updated && <div>最后更新: {profile.last_updated.replace('T', ' ').slice(0, 19)}</div>}
-                    </div>
-                  </Card>
-
-                  {/* Section 8: Unresolved fields notice */}
-                  {profile.missing_fields.length > 0 && (
-                    <Card size="small" style={{ background: '#1a1a2e', border: '1px dashed #374151' }}>
-                      <div style={{ fontSize: 10, color: '#6b7280' }}>
-                        <div style={{ marginBottom: 2, fontWeight: 600, color: '#9ca3af' }}>未解析字段说明</div>
-                        <div>以下字段当前未解析，待 Wikipedia API 可达后补充:</div>
-                        <div style={{ marginTop: 2 }}>{profile.missing_fields.join(', ')}</div>
-                      </div>
+                      {/* Section 8: Unresolved fields notice */}
+                      {profile.missing_fields.length > 0 && (
+                        <Card size="small" style={{ background: '#1a1a2e', border: '1px dashed #374151' }}>
+                          <div style={{ fontSize: 10, color: '#6b7280' }}>
+                            <div style={{ marginBottom: 2, fontWeight: 600, color: '#9ca3af' }}>未解析字段说明</div>
+                            <div>以下字段当前未解析，待 Wikipedia API 可达后补充:</div>
+                            <div style={{ marginTop: 2 }}>{profile.missing_fields.join(', ')}</div>
+                          </div>
+                        </Card>
+                      )}
+                    </>
+                  ) : (
+                    /* Summary-only: show USCL basic info */
+                    <Card size="small" title="USCL 基础资料" style={{ marginBottom: 8, background: '#1a1a2e' }}>
+                      <Descriptions column={1} size="small" colon={false}
+                        labelStyle={{ color: '#6b7280', fontSize: 11 }}
+                        contentStyle={{ color: '#d1d5db', fontSize: 12 }}
+                      >
+                        <Descriptions.Item label="已解析字段">
+                          {(profile.parsed_fields || []).length > 0
+                            ? profile.parsed_fields.join('、')
+                            : '基本信息（姓名、党派、州、届次、委员会）'}
+                        </Descriptions.Item>
+                        <Descriptions.Item label="未解析字段">
+                          {(profile.missing_fields || []).length > 0
+                            ? profile.missing_fields.join('、')
+                            : '教育、职业、任职经历、军事经历等'}
+                        </Descriptions.Item>
+                        <Descriptions.Item label="数据来源">
+                          {profile.source === 'wikipedia' ? 'Wikipedia' : 'UnitedStates/Congress-Legislators (CC0-1.0)'}
+                        </Descriptions.Item>
+                      </Descriptions>
                     </Card>
                   )}
                 </div>
@@ -444,7 +475,7 @@ export default function MemberDetailPage() {
           showIcon
           icon={<InfoCircleOutlined />}
           message="当前为基础画像报告"
-          description="不包含预测分析、风险评分、利益冲突判断。献金、持股、履历、涉华立场、争议记录暂未接入。"
+          description="不包含预测分析、风险评分、利益冲突判断。献金、持股、涉华立场、争议记录暂未接入。"
           style={{ marginTop: 12, background: '#1a1a2e', border: '1px solid #1f2937', fontSize: 11 }}
         />
       </Sider>
@@ -452,7 +483,7 @@ export default function MemberDetailPage() {
         {graph && (
           <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
             <div style={{ padding: '4px 8px', fontSize: 10, color: '#6b7280', background: '#0f1320', borderBottom: '1px solid #1f2937' }}>
-              当前仅展示基础身份、履历机构和任职关系；同事网络默认隐藏。
+              基础身份关系 + 履历事实 (教育 / 任职 / 来源)；同事网络默认隐藏。
             </div>
             <ErrorBoundary>
             <GraphCanvas

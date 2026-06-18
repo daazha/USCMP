@@ -141,7 +141,7 @@ def import_member_profiles(
                 "military_service": profile_data.get("military_service") or [],
                 "external_links": profile_data.get("external_links") or [],
                 "profile_sources": profile_data.get("profile_sources") or {},
-                "source": "wikipedia",
+                "source": profile_data.get("source", "wikipedia") or "wikipedia",
                 "source_reliability": "external_open_content",
                 "last_updated": profile_data["last_updated"],
                 "raw_snapshot_hash": profile_data.get("raw_snapshot_hash"),
@@ -205,6 +205,11 @@ def main():
         default=None,
         help="Limit number of members to process",
     )
+    parser.add_argument(
+        "--use-fixtures",
+        action="store_true",
+        help="Load pre-fetched fixture profiles instead of live Wikipedia API",
+    )
     args = parser.parse_args()
 
     vendor_dir = _resolve_vendor_dir(args.commit_sha, args.vendor_dir)
@@ -214,11 +219,30 @@ def main():
 
     Base.metadata.create_all(bind=engine)
 
-    adapter = WikipediaProfileAdapter(rate_delay=0.2)
+    fixture_db = None
+    if args.use_fixtures:
+        try:
+            from tests.fixtures.wikipedia_profiles import FIXTURE_PROFILES as _f
+            fixture_db = dict(_f)
+            logger.info(f"Loaded {len(fixture_db)} base fixture profiles")
+        except ImportError:
+            logger.warning("Could not load base fixtures module")
+
+        try:
+            from tests.fixtures.priority_leadership_fixtures import FIXTURES as _pl
+            pl_db = {f["wikipedia_title"]: f for f in _pl if f.get("wikipedia_title")}
+            fixture_db = fixture_db or {}
+            fixture_db.update(pl_db)
+            logger.info(f"Loaded {len(pl_db)} priority leadership fixtures (total: {len(fixture_db)})")
+        except ImportError:
+            logger.warning("Could not load priority leadership fixtures module")
+
+    adapter = WikipediaProfileAdapter(rate_delay=0.2, fixtures=fixture_db)
 
     try:
         stats = import_member_profiles(
-            adapter, vendor_dir, dry_run=args.dry_run, limit=args.limit
+            adapter, vendor_dir, dry_run=args.dry_run, limit=args.limit,
+            fixture_db=fixture_db,
         )
     except Exception as exc:
         logger.error(f"Import failed: {exc}")

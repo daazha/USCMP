@@ -73,6 +73,8 @@ def member_graph(
     min_confidence: float = Query(0.0, ge=0.0, le=1.0),
     limit: int = Query(settings.default_graph_limit, ge=1, le=settings.max_graph_limit),
     include_related_people: bool = Query(False),
+    include_profile_facts: bool = Query(True),
+    include_historical_background: bool = Query(False),
 ):
     if depth > settings.max_graph_depth:
         raise GraphDepthExceededError(
@@ -83,6 +85,8 @@ def member_graph(
     result = get_member_graph(
         member_id, depth, start_date, end_date, min_confidence, limit,
         include_related_people=include_related_people,
+        include_profile_facts=include_profile_facts,
+        include_historical_background=include_historical_background,
     )
     records = result.get("records", [])
 

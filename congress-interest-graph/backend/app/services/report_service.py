@@ -138,6 +138,50 @@ def build_markdown(member: Member, include_graph: bool, include_predictions: boo
         lines.append("暂未接入。需接入 USCL 数据源与 Wikipedia 数据源。")
         lines.append("")
 
+    # Profile facts in graph (v0.7)
+    lines.append("## 履历事实节点 (知识图谱)")
+    lines.append("")
+    try:
+        from app.db.neo4j import run_cypher
+        facts_query = """
+            MATCH (p:Person {id: $member_id})-[r]-(n)
+            WHERE type(r) IN ['EDUCATED_AT', 'HELD_POSITION', 'EMPLOYED_BY', 'HAS_PROFILE_SOURCE']
+            RETURN n, type(r) AS rel_type, r.source AS source
+            ORDER BY rel_type, n.name
+        """
+        facts = run_cypher(facts_query, {"member_id": member.id})
+        if facts:
+            by_type: dict[str, list] = {}
+            for record in facts:
+                rt = record["rel_type"]
+                node = record["n"]
+                name = node.get("name", node.get("id", ""))
+                src = record.get("source", "")
+                if rt not in by_type:
+                    by_type[rt] = []
+                by_type[rt].append((name, src))
+
+            type_labels = {
+                "EDUCATED_AT": "教育经历",
+                "HELD_POSITION": "任职履历",
+                "EMPLOYED_BY": "雇主/机构",
+                "HAS_PROFILE_SOURCE": "资料来源",
+            }
+            for rt, label in type_labels.items():
+                items = by_type.get(rt, [])
+                if items:
+                    lines.append(f"### {label}")
+                    lines.append("")
+                    for name, src in items:
+                        lines.append(f"- {name} (来源: {src})")
+                    lines.append("")
+            lines.append("> 以上节点已入知识图谱，可在议员详情页图谱中查看。")
+        else:
+            lines.append("暂无履历事实节点。完整的履历事实需导入 Wikipedia 履历数据。")
+    except Exception:
+        lines.append("知识图谱查询暂时不可用。")
+    lines.append("")
+
     # Top contributors
     if member.top_contributors:
         lines.append("## TOP5 政治献金来源")

@@ -74,23 +74,57 @@ def health_check():
 
 @router.get("/stats/profiles")
 def profile_statistics():
-    """Return profile source statistics."""
-    stats = {"total_members": 0, "uscl_profiles": 0,
-             "wikipedia_profiles": 0, "missing_profiles": 0}
+    """Return profile source and status statistics."""
+    stats = {
+        "total_members": 0,
+        "current_members": 0,
+        "historical_members": 0,
+        "uscl_profiles": 0,
+        "wikipedia_profiles": 0,
+        "missing_profiles": 0,
+        "available_profiles": 0,
+        "partial_profiles": 0,
+        "summary_only_profiles": 0,
+        "profiles_with_graph_facts": 0,
+        "profiles_without_graph_facts": 0,
+    }
     try:
         db = SessionLocal()
         total = db.execute(text("SELECT COUNT(*) FROM members")).fetchone()[0]
+        current = db.execute(text(
+            "SELECT COUNT(*) FROM members WHERE is_current = TRUE"
+        )).fetchone()[0]
+        historical = db.execute(text(
+            "SELECT COUNT(*) FROM members WHERE is_current = FALSE"
+        )).fetchone()[0]
         uscl = db.execute(text(
             "SELECT COUNT(*) FROM member_profiles WHERE source = 'uscl'"
         )).fetchone()[0]
         wiki = db.execute(text(
             "SELECT COUNT(*) FROM member_profiles WHERE source = 'wikipedia'"
         )).fetchone()[0]
+        available = db.execute(text(
+            "SELECT COUNT(*) FROM member_profiles WHERE profile_status = 'available'"
+        )).fetchone()[0]
+        partial = db.execute(text(
+            "SELECT COUNT(*) FROM member_profiles WHERE profile_status = 'partial'"
+        )).fetchone()[0]
+        summary = db.execute(text(
+            "SELECT COUNT(*) FROM member_profiles WHERE profile_status = 'summary_only'"
+        )).fetchone()[0]
         db.close()
+
         stats["total_members"] = total
+        stats["current_members"] = current
+        stats["historical_members"] = historical
         stats["uscl_profiles"] = uscl
         stats["wikipedia_profiles"] = wiki
         stats["missing_profiles"] = total - uscl - wiki
+        stats["available_profiles"] = available
+        stats["partial_profiles"] = partial
+        stats["summary_only_profiles"] = summary
+        stats["profiles_with_graph_facts"] = available + partial
+        stats["profiles_without_graph_facts"] = total - stats["profiles_with_graph_facts"]
     except Exception:
         pass
     return stats

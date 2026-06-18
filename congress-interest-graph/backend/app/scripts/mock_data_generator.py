@@ -281,6 +281,8 @@ class MockDataGenerator:
                 "latest_term_start": None,
                 "latest_term_end": None,
                 "official_ids": {},
+                "member_scope": "mock",
+                "is_current": True,
             }
             self.members.append(member)
 

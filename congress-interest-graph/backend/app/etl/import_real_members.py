@@ -159,6 +159,8 @@ def import_members_from_adapter(
                 party = party[:64]
 
             congress_val = _infer_congress_from_terms(terms, p["person_id"])
+            scope = p.get("_scope", "historical")
+            is_current = (scope == "current")
 
             if bioguide_id in existing_map:
                 existing_id = existing_map[bioguide_id]
@@ -182,6 +184,8 @@ def import_members_from_adapter(
                     "latest_term_end": p.get("latest_term_end"),
                     "official_ids": official_ids,
                     "congress": congress_val,
+                    "member_scope": scope,
+                    "is_current": is_current,
                 })
                 updated += 1
             else:
@@ -208,6 +212,8 @@ def import_members_from_adapter(
                     latest_term_start=p.get("latest_term_start"),
                     latest_term_end=p.get("latest_term_end"),
                     official_ids=official_ids,
+                    member_scope=scope,
+                    is_current=is_current,
                 ))
                 inserted += 1
 
@@ -244,6 +250,8 @@ def import_members_from_adapter(
                         "latest_term_end": upd["latest_term_end"],
                         "official_ids": upd["official_ids"],
                         "congress": upd["congress"],
+                        "member_scope": upd["member_scope"],
+                        "is_current": upd["is_current"],
                     }, synchronize_session=False)
                 db.flush()
             logger.info(f"Bulk updated {len(to_update)} members")

@@ -10,6 +10,7 @@ export interface MemberSummary {
   committee_tags: string[];
   congress?: number;
   source: string;
+  member_scope?: string;
 }
 
 export interface CommitteeMembership {

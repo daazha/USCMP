@@ -385,3 +385,196 @@ class TestProfileStatusContract:
         assert "education" in missing
         assert "short_summary" in missing
 
+
+class TestProfileFactsGraph:
+    """v0.7: Profile facts in graph contract."""
+
+    def test_w000805_has_profile_fact_nodes_with_default(self):
+        """Default graph (include_profile_facts=True) includes profile facts."""
+        from app.services.graph_service import get_member_graph
+        result = get_member_graph(
+            "uscl_person_W000805", depth=2,
+            include_related_people=False,
+            include_profile_facts=True,
+        )
+        records = result.get("records", [])
+        response = _build_graph_response(records, limit=200)
+        labels = {n.label for n in response.nodes}
+        assert "EducationInstitution" in labels, labels
+        assert "Position" in labels, labels
+        assert "ProfileSource" in labels, labels
+
+    def test_w000805_without_profile_facts_excludes_them(self):
+        """include_profile_facts=False removes profile nodes."""
+        from app.services.graph_service import get_member_graph
+        result = get_member_graph(
+            "uscl_person_W000805", depth=2,
+            include_related_people=False,
+            include_profile_facts=False,
+        )
+        records = result.get("records", [])
+        response = _build_graph_response(records, limit=200)
+        labels = {n.label for n in response.nodes}
+        assert "EducationInstitution" not in labels, labels
+        assert "Position" not in labels, labels
+        assert "ProfileSource" not in labels, labels
+
+    def test_default_profile_facts_still_one_person(self):
+        """With profile facts, Person count must still be 1."""
+        from app.services.graph_service import get_member_graph
+        result = get_member_graph(
+            "uscl_person_W000805", depth=2,
+            include_related_people=False,
+            include_profile_facts=True,
+        )
+        records = result.get("records", [])
+        response = _build_graph_response(records, limit=200)
+        person_count = sum(1 for n in response.nodes if n.label == "Person")
+        assert person_count == 1, f"Got {person_count} Person nodes"
+
+    def test_no_orphan_edges_with_profile_facts(self):
+        """All edges must reference existing nodes with profile facts."""
+        from app.services.graph_service import get_member_graph
+        result = get_member_graph(
+            "uscl_person_W000805", depth=2,
+            include_related_people=False,
+            include_profile_facts=True,
+        )
+        records = result.get("records", [])
+        response = _build_graph_response(records, limit=200)
+        node_ids = {n.id for n in response.nodes}
+        for edge in response.edges:
+            assert edge.source in node_ids, (
+                f"Edge {edge.id} source '{edge.source}' not in nodes"
+            )
+            assert edge.target in node_ids, (
+                f"Edge {edge.id} target '{edge.target}' not in nodes"
+            )
+
+    def test_no_person_person_with_profile_facts(self):
+        """Profile facts must not create Person-Person direct edges."""
+        from app.services.graph_service import get_member_graph
+        result = get_member_graph(
+            "uscl_person_W000805", depth=2,
+            include_related_people=False,
+            include_profile_facts=True,
+        )
+        records = result.get("records", [])
+        response = _build_graph_response(records, limit=200)
+        node_labels = {n.id: n.label for n in response.nodes}
+        for edge in response.edges:
+            src_label = node_labels.get(edge.source, "")
+            tgt_label = node_labels.get(edge.target, "")
+            assert not (src_label == "Person" and tgt_label == "Person"), (
+                f"Person-Person edge: {edge.source} -> {edge.target}"
+            )
+
+    def test_summary_only_profile_no_fact_nodes(self):
+        """K000188 (summary_only) must have no profile fact nodes."""
+        from app.services.graph_service import get_member_graph
+        result = get_member_graph(
+            "uscl_person_K000188", depth=2,
+            include_related_people=False,
+            include_profile_facts=True,
+        )
+        records = result.get("records", [])
+        response = _build_graph_response(records, limit=200)
+        labels = {n.label for n in response.nodes}
+        assert "EducationInstitution" not in labels
+        assert "Position" not in labels
+        assert "ProfileSource" not in labels
+
+
+class TestPelosiProfileFixture:
+    """v0.7.1: Nancy Pelosi profile tests."""
+
+    def test_pelosi_profile_status_is_available(self):
+        """Pelosi must be available after fixture backfill."""
+        from app.db.postgres import SessionLocal
+        from app.models.sqlalchemy.models import MemberProfile
+        session = SessionLocal()
+        try:
+            p = session.query(MemberProfile).filter(
+                MemberProfile.member_id == "uscl_person_P000197"
+            ).first()
+            assert p is not None, "Pelosi profile missing"
+            assert p.profile_status == "available", (
+                f"Expected available, got {p.profile_status}"
+            )
+            assert p.source == "wikipedia"
+            assert p.wikipedia_title == "Nancy Pelosi"
+            assert p.wikidata_qid == "Q170581"
+        finally:
+            session.close()
+
+    def test_pelosi_has_education_and_positions(self):
+        """Pelosi profile must contain education and prior_positions."""
+        from app.db.postgres import SessionLocal
+        from app.models.sqlalchemy.models import MemberProfile
+        session = SessionLocal()
+        try:
+            p = session.query(MemberProfile).filter(
+                MemberProfile.member_id == "uscl_person_P000197"
+            ).first()
+            assert len(p.education or []) > 0, "Pelosi has no education"
+            assert len(p.prior_positions or []) > 0, "Pelosi has no positions"
+        finally:
+            session.close()
+
+    def test_pelosi_graph_has_profile_nodes(self):
+        """Pelosi graph must contain EducationInstitution, Position, ProfileSource."""
+        from app.services.graph_service import get_member_graph
+        result = get_member_graph(
+            "uscl_person_P000197", depth=2,
+            include_related_people=False,
+            include_profile_facts=True,
+        )
+        records = result.get("records", [])
+        response = _build_graph_response(records, limit=200)
+        labels = {n.label for n in response.nodes}
+        assert "EducationInstitution" in labels, labels
+        assert "Position" in labels, labels
+        assert "ProfileSource" in labels, labels
+
+    def test_pelosi_graph_person_count_is_one(self):
+        """Pelosi graph must have exactly 1 Person."""
+        from app.services.graph_service import get_member_graph
+        result = get_member_graph(
+            "uscl_person_P000197", depth=2,
+            include_related_people=False,
+            include_profile_facts=True,
+        )
+        records = result.get("records", [])
+        response = _build_graph_response(records, limit=200)
+        person_count = sum(1 for n in response.nodes if n.label == "Person")
+        assert person_count == 1
+
+    def test_pelosi_graph_no_orphan_edges(self):
+        """Pelosi graph must have zero orphan edges."""
+        from app.services.graph_service import get_member_graph
+        result = get_member_graph(
+            "uscl_person_P000197", depth=2,
+            include_related_people=False,
+            include_profile_facts=True,
+        )
+        records = result.get("records", [])
+        response = _build_graph_response(records, limit=200)
+        node_ids = {n.id for n in response.nodes}
+        for edge in response.edges:
+            assert edge.source in node_ids
+            assert edge.target in node_ids
+
+    def test_pelosi_summary_only_decreased(self):
+        """summary_only count must have decreased after Pelosi upgrade."""
+        from app.db.postgres import SessionLocal
+        session = SessionLocal()
+        try:
+            from sqlalchemy import text
+            available = session.execute(text(
+                "SELECT COUNT(*) FROM member_profiles WHERE profile_status = 'available'"
+            )).fetchone()[0]
+            assert available >= 4, (
+                f"Expected >=4 available profiles, got {available}"
+            )
+        finally:
+            session.close()

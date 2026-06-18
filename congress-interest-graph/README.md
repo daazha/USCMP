@@ -65,11 +65,15 @@ python3 app/scripts/seed_mock_data.py          # 同时保留 Mock 数据
 
 | 已接入 | 说明 |
 |--------|------|
-| 议员基础身份 | 12,767 人 (current + historical), source=uscl |
+| 在任议员 (544人) | current members, is_current=true, 默认 API 范围 |
+| 历史议员 (12,225人) | historical members, 数据保留但默认不展示 |
+| 议员基础身份 | 12,819 人 (544 current + 12,225 historical + 50 mock) |
 | 委员会任职 | 49 个委员会, 3,879 条任职 |
 | 任期信息 | 45,532 条记录 |
 | FEC ID | 1,530 人有 FEC ID, 保留完整数组于 official_ids.fec |
 | 基础 Neo4j 图谱 | Person/Party/State/Chamber/Committee + 4 种关系 |
+| 履历图谱 (v0.7+) | EducationInstitution/Position/Employer/ProfileSource 节点 |
+| Wikipedia 履历 | 17 个 available profiles (fixture 导入) |
 
 | 未接入 | 说明 |
 |--------|------|
@@ -85,20 +89,38 @@ python3 app/scripts/seed_mock_data.py          # 同时保留 Mock 数据
 本系统采用 **Ego Network** 图谱模型，不以 Person-Person 边直连议员。
 
 **允许的节点标签**：
-- `Person` — 议员
+- `Person` — 在任议员 (person_scope=current)
+- `BackgroundPerson` — 历史议员 (仅 include_historical_background 时出现)
 - `Party` — 党派
 - `State` — 州
 - `Chamber` — 议院 (House/Senate)
 - `Committee` — 委员会
+- `EducationInstitution` / `Position` / `Employer` / `ProfileSource` — 履历事实节点
 
 **允许的边类型**：
 - `MEMBER_OF_PARTY` — Person -> Party
 - `REPRESENTS_STATE` — Person -> State
 - `SERVES_IN` — Person -> Chamber
 - `ASSIGNED_TO` — Person -> Committee
+- `EDUCATED_AT` / `HELD_POSITION` / `HAS_PROFILE_SOURCE` — 履历事实边
+- `BACKGROUND_RELATION` — Person -> BackgroundPerson (需明确来源)
 
 **禁止的边**：
-- 不得创建 Person-Person 直连边（如 `RELATED_TO`、`COLLEAGUE`、`CO_WORKER`），除非有明确的外部来源
+- 不得创建 Person-Person 直连边
+- 不得因同党/同州/同委员会自动拉入历史议员
+
+### v0.7.2 成员范围 (Current Members Scope)
+
+默认产品视角只展示在任议员 (is_current=true, member_scope=current)。历史议员默认不在列表、搜索和详情页中出现。
+
+- PostgreSQL/Neo4j 均保留 historical 数据，不执行物理删除
+- `/api/members` 默认 `WHERE is_current=true`，可选 `include_historical=true`
+- `/api/search` 默认只搜索在任议员
+- `/api/members/{id}` 默认拒绝历史议员访问 (404)
+- Graph 查询: depth-1 `n.person_scope IN ['current','mock','test']`; depth-2 同样过滤
+- `include_historical_background=true` 时可通过 `BACKGROUND_RELATION` 边引入历史背景节点
+- 历史背景人物标记为 `BackgroundPerson`，前端灰底虚线样式
+- 如未来需清理 Neo4j historical Person 节点: 必须 dry-run + 备份 + 可恢复验证
 
 **v0.6.1 图谱边界**：
 - 中心议员 -> Party/State/Chamber/Committee (depth 1)
