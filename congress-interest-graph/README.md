@@ -1,4 +1,4 @@
-# 美国国会利益关联图谱系统 (Congress Interest Graph System)
+# 美国国会利益关联图谱系统 (USCMP)
 
 智库级美国政治研究工具，通过开源情报 (OSINT) 分析美国参众两院议员的身份背景、商业利益、社会关系、委员会职务、涉华相关行为、政治资金流和公开争议记录。
 
@@ -17,140 +17,91 @@
 congress-interest-graph/
 ├── backend/          # Python FastAPI 后端
 │   ├── app/
-│   │   ├── api/routes/     # API 路由 (10 个端点)
+│   │   ├── api/routes/     # API 路由
 │   │   ├── core/           # 配置、日志、错误处理
 │   │   ├── db/             # PostgreSQL + Neo4j 连接
 │   │   ├── models/         # Pydantic + SQLAlchemy 模型
 │   │   ├── services/       # 图查询服务 (集中 Cypher)
-│   │   ├── etl/            # ETL Adapters + 真实导入 + Schema 迁移
-│   │   ├── importers/      # (deprecated, 逻辑已迁移到 etl/)
+│   │   ├── etl/            # ETL Adapters + 真实导入
 │   │   └── scripts/        # Mock 数据生成与种子
-│   ├── data/
-│   │   ├── external/congress-legislators/  # Vendor pinned 真实数据 (CC0-1.0)
-│   │   └── etl_runs/       # Dry Run 输出 + Import 运行记录
-│   └── tests/              # pytest (148 个测试，含 16 个 API 集成测试 + 40 个导入/Phase3 测试)
+│   └── tests/              # pytest 测试
 ├── frontend/         # React + TypeScript + Ant Design 前端
 │   └── src/app/
 │       ├── api/            # API 客户端 + TypeScript 类型
-│       ├── components/     # GraphCanvas, EvidenceDrawer, TimeSliceControl
-│       ├── pages/          # OverviewPage, MemberDetailPage, SearchPage, ComparePage
+│       ├── components/     # GraphCanvas, ContributionsTab, HoldingsTab
+│       ├── pages/          # OverviewPage, MemberDetailPage
 │       └── store/          # Zustand 状态管理
-├── docs/             # 项目文档
 └── docker-compose.yml
 ```
 
-## v0.4 真实数据接入
+## 版本历史
 
-已接入 [unitedstates/congress-legislators](https://github.com/unitedstates/congress-legislators) (CC0-1.0) 真实议员基础数据到主 API。支持 mock / real / mixed 三种数据模式，由 `/api/health` 自动检测。
+### v0.94 - 结构化持股披露
+- 新增 `holding_assets` / `holding_disclosures` 表
+- 新增 `GET /api/members/{id}/holdings` 端点
+- Neo4j 同步: Asset / HoldingDisclosure / HoldingSource 节点
+- 边类型: DISCLOSED_HOLDING / REPORTED_IN / HAS_HOLDING_SOURCE
+- `include_holdings=false` 默认不展示持股节点
+- 金额区间保持原样，不伪造精确金额
 
-### 初始化 Vendor Data
+### v0.93 - FEC 献金数据 Neo4j 同步
+- 从 PostgreSQL 同步 FEC 数据到 Neo4j
+- 新增 CampaignCommittee / Donor / ContributionSource 节点
+- 边类型: ASSOCIATED_WITH_COMMITTEE / CONTRIBUTED_TO / HAS_CONTRIBUTION_SOURCE
+- `include_finance=false` 默认不展示献金节点
 
-```bash
-mkdir -p backend/data/external
-git clone --depth 1 https://github.com/unitedstates/congress-legislators.git backend/data/external/congress-legislators
-# 获取 commit SHA 并放置到对应子目录
-```
+### v0.92 - FEC 献金数据集成
+- 接入 FEC bulk-data (indiv24.zip, cm24.zip)
+- 新增 `campaign_committees` / `donors` / `contributions` 表
+- 新增 `GET /api/members/{id}/contributions` 端点
+- 导入: 20,937 committees, 3,637 donors, 5,000 contributions
 
-### 运行真实导入
+### v0.7 - 履历事实图谱
+- Wikipedia 履历接入
+- 履历事实节点: EducationInstitution / Position / Employer / ProfileSource
+- 边类型: EDUCATED_AT / HELD_POSITION / EMPLOYED_BY / HAS_PROFILE_SOURCE
 
-```bash
-cd backend
-python3 -m app.etl.schema_migration          # 安全 ALTER (可重复执行)
-python3 -m app.etl.import_real_members        # 幂等导入 12,767 人
-python3 -m app.etl.import_real_graph           # 幂等导入 Neo4j 身份图谱
-python3 app/scripts/seed_mock_data.py          # 同时保留 Mock 数据
-```
+### v0.4 - 真实数据接入
+- 接入 unitedstates/congress-legislators (CC0-1.0)
+- 支持 mock / real / mixed 三种数据模式
+- 12,767 议员基础数据
 
-### 已接入 vs 未接入
+## 数据统计
 
-| 已接入 | 说明 |
-|--------|------|
-| 在任议员 (544人) | current members, is_current=true, 默认 API 范围 |
-| 历史议员 (12,225人) | historical members, 数据保留但默认不展示 |
-| 议员基础身份 | 12,819 人 (544 current + 12,225 historical + 50 mock) |
-| 委员会任职 | 49 个委员会, 3,879 条任职 |
-| 任期信息 | 45,532 条记录 |
-| FEC ID | 1,530 人有 FEC ID, 保留完整数组于 official_ids.fec |
-| 基础 Neo4j 图谱 | Person/Party/State/Chamber/Committee + 4 种关系 |
-| 履历图谱 (v0.7+) | EducationInstitution/Position/Employer/ProfileSource 节点 |
-| Wikipedia 履历 | 17 个 available profiles (fixture 导入) |
-
-| 未接入 | 说明 |
-|--------|------|
-| official_photo_url | 数据源不含 |
-| top_contributors / top_holdings | 需接入 OpenSecrets/FEC API |
-| career_summary | 需接入 Wikipedia/Ballotpedia |
-| china_stance_summary | 需 NLP + 人工标注 |
-| controversies | 需多源新闻聚合 |
-| 预测/风险评分/利益冲突 | 未开发 |
-
-### 图谱范围
-
-本系统采用 **Ego Network** 图谱模型，不以 Person-Person 边直连议员。
-
-**允许的节点标签**：
-- `Person` — 在任议员 (person_scope=current)
-- `BackgroundPerson` — 历史议员 (仅 include_historical_background 时出现)
-- `Party` — 党派
-- `State` — 州
-- `Chamber` — 议院 (House/Senate)
-- `Committee` — 委员会
-- `EducationInstitution` / `Position` / `Employer` / `ProfileSource` — 履历事实节点
-
-**允许的边类型**：
-- `MEMBER_OF_PARTY` — Person -> Party
-- `REPRESENTS_STATE` — Person -> State
-- `SERVES_IN` — Person -> Chamber
-- `ASSIGNED_TO` — Person -> Committee
-- `EDUCATED_AT` / `HELD_POSITION` / `HAS_PROFILE_SOURCE` — 履历事实边
-- `BACKGROUND_RELATION` — Person -> BackgroundPerson (需明确来源)
-
-**禁止的边**：
-- 不得创建 Person-Person 直连边
-- 不得因同党/同州/同委员会自动拉入历史议员
-
-### v0.7.2 成员范围 (Current Members Scope)
-
-默认产品视角只展示在任议员 (is_current=true, member_scope=current)。历史议员默认不在列表、搜索和详情页中出现。
-
-- PostgreSQL/Neo4j 均保留 historical 数据，不执行物理删除
-- `/api/members` 默认 `WHERE is_current=true`，可选 `include_historical=true`
-- `/api/search` 默认只搜索在任议员
-- `/api/members/{id}` 默认拒绝历史议员访问 (404)
-- Graph 查询: depth-1 `n.person_scope IN ['current','mock','test']`; depth-2 同样过滤
-- `include_historical_background=true` 时可通过 `BACKGROUND_RELATION` 边引入历史背景节点
-- 历史背景人物标记为 `BackgroundPerson`，前端灰底虚线样式
-- 如未来需清理 Neo4j historical Person 节点: 必须 dry-run + 备份 + 可恢复验证
-
-**v0.6.1 图谱边界**：
-- 中心议员 -> Party/State/Chamber/Committee (depth 1)
-- 通过共享 Party/State/Chamber/Committee 呈现同事关系 (depth 2)
-- 图查询限制为 4 种 ego 关系类型，不遍历其他关系类型
-- 节点按 limit 截断时同步过滤边，保证无孤立边
-
-### v0.6.1 履历数据
+### 真实数据 (v0.94)
 
 | 指标 | 数量 |
 |------|------|
-| 总议员 (members) | 12,767 |
-| USCL 基础资料 (source=uscl) | 12,764 |
-| Wikipedia 履历 (source=wikipedia) | 3 (fixture) |
-| 缺失履历 | 0 |
+| 当前议员 (current) | 544 |
+| 历史议员 (historical) | 12,225 |
+| 委员会 | 49 |
+| 委员会任职 | 3,879 |
+| 竞选委员会 | 20,937 |
+| 捐赠者 | 3,637 |
+| 献金记录 | 5,000 |
+| 持股资产 | 250 |
 
-**USCL 基础资料** (`source=uscl`):
-- 数据来源: unitedstates/congress-legislators YAML `bio` 字段
-- 包含: 出生日期、Wikipedia 标识、基本信息摘要
-- 不包含: 职业、教育、过往职位、军事经历 (待 Wikipedia API 可达后补充)
+### Neo4j 图谱节点
 
-**Wikipedia 履历** (`source=wikipedia`):
-- 数据来源: Wikipedia API (infobox + 摘要)
-- 包含: 出生日期/地、教育、职业、过往职位、军事经历、完整摘要
-- 当前环境 Wikipedia API 不可达，仅 3 条 fixture 数据
+| 节点类型 | 说明 |
+|----------|------|
+| Person | 在任议员 |
+| Party / State / Chamber | 身份节点 |
+| Committee | 委员会 |
+| EducationInstitution / Position / Employer / ProfileSource | 履历事实节点 |
+| CampaignCommittee | 竞选委员会 |
+| Donor | 捐赠者 |
+| Asset | 持股资产 |
+| HoldingDisclosure | 持股披露 |
 
-### 报告范围
+### 边类型
 
-包含: 基本信息、委员会任职、任期、数据来源、履历信息 (USCL 基础资料 / Wikipedia 履历)。
-不包含: 预测、风险评分、利益冲突判断。
+| 边类型 | 说明 |
+|--------|------|
+| MEMBER_OF_PARTY / REPRESENTS_STATE / SERVES_IN / ASSIGNED_TO | 身份关系 |
+| EDUCATED_AT / HELD_POSITION / EMPLOYED_BY / HAS_PROFILE_SOURCE | 履历事实 |
+| ASSOCIATED_WITH_COMMITTEE / CONTRIBUTED_TO / HAS_CONTRIBUTION_SOURCE | 献金关系 |
+| DISCLOSED_HOLDING / REPORTED_IN / HAS_HOLDING_SOURCE | 持股关系 |
 
 ## 技术栈
 
@@ -163,7 +114,7 @@ python3 app/scripts/seed_mock_data.py          # 同时保留 Mock 数据
 | UI 组件 | Ant Design 5 |
 | 图谱渲染 | AntV G6 (WebGL) |
 | 状态管理 | Zustand |
-| 测试 | pytest |
+| 测试 | pytest, vitest |
 | 容器化 | Docker Compose |
 
 ## 本地启动
@@ -174,101 +125,41 @@ python3 app/scripts/seed_mock_data.py          # 同时保留 Mock 数据
 # 1. 复制环境配置
 cp .env.example .env
 
-# 2. 启动所有服务 (PostgreSQL + Neo4j + Backend + Frontend)
+# 2. 启动所有服务
 docker compose up --build
 
-# 3. 初始化 Mock 数据
-docker compose exec backend python app/scripts/seed_mock_data.py
+# 3. 初始化数据
+docker compose exec backend python3 -m app.etl.import_real_members
+docker compose exec backend python3 -m app.etl.import_real_graph
+docker compose exec backend python3 -m app.etl.import_fec_data
+docker compose exec backend python3 -m app.etl.import_holdings
 
 # 4. 访问
 # Frontend: http://localhost:3000
 # Backend API: http://localhost:8000
 # OpenAPI Docs: http://localhost:8000/docs
-# Neo4j Browser: http://localhost:7474
 ```
 
-### 本地开发 (不依赖 Docker)
+### 本地开发
 
 ```bash
 # 1. 确保 PostgreSQL 和 Neo4j 已运行
 
 # 2. 启动后端
 cd backend
-cp ../.env.example .env
 pip install -r requirements.txt
-uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+POSTGRES_HOST=localhost uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
-# 3. 启动前端 (Vite 代理默认指向 localhost:8000)
+# 3. 启动前端
 cd frontend
 npm install
 npm run dev
 
-# 4. 初始化 Mock 数据
+# 4. 初始化数据
 cd backend
-python app/scripts/seed_mock_data.py
-```
-
-### 代理配置
-
-前端使用 Vite 开发服务器代理将 `/api` 请求转发到后端:
-
-| 运行环境 | 代理目标 |
-|---------|---------|
-| 本地开发 | `http://localhost:8000` (默认) |
-| Docker Compose | `http://backend:8000` (通过 `VITE_API_PROXY_TARGET` 环境变量) |
-
-环境变量 `VITE_API_PROXY_TARGET` 在 `vite.config.ts` 中读取，`docker-compose.yml` 已预置 `VITE_API_PROXY_TARGET=http://backend:8000`。
-
-## v0.4 数据统计
-
-### 真实数据 (unitedstates/congress-legislators @ dfa9622)
-
-接入 [unitedstates/congress-legislators](https://github.com/unitedstates/congress-legislators) (CC0-1.0) 真实议员数据，采用 Vendor Pinned + Dry Run First + Sandbox Only 方案。
-
-| 指标 | 数量 |
-|------|------|
-| 真实议员 | 12,767 |
-| 任期记录 | 45,532 |
-| 委员会 | 49 |
-| 委员会任职 | 3,879 |
-| 官方社媒账号 | 2,354 |
-| 提取 Claims | 64,532 |
-| Source Documents | 5 (YAML files @ dfa9622) |
-
-```bash
-# ETL Dry Run (不写数据库，仅验证数据质量)
-cd backend
-python3 -m app.etl.dry_run --adapter congress_legislators --commit-sha dfa9622263dd4c8d08636926e498f1845704d7eb
-
-# Sandbox Import (写入 sandbox namespace 的 PostgreSQL)
-python3 -m app.etl.import_sandbox --run-id <dry_run_id>
-```
-
-### 数据护栏
-- 所有 sandbox 数据使用独立 `data_namespace="sandbox"`，不覆盖 Mock 主图谱
-- Prediction 护栏: identity/committee-only 证据返回 `predicted_position="unknown"`
-- Entity Resolution: 仅 bioguide_id + govtrack_id 双 ID 强匹配 → safe_match
-- 置信度: identity=0.95, term=0.90, committee=0.85, social=0.85
-
-## Mock 数据
-
-| 实体 | 数量 |
-|------|------|
-| 议员 (Person) | 50 |
-| 组织 (Organization) | 100 |
-| 政治实体 (PoliticalEntity) | 20 |
-| 事件 (Event) | 100 |
-| 声明 (Claim) | 300 |
-| 来源文档 (SourceDocument) | 500 |
-| 图关系 | ~1180 |
-| 低置信度关系 | 20+ |
-| 覆盖届次 | 117, 118, 119 |
-
-重新初始化 Mock 数据:
-
-```bash
-docker compose exec backend python app/scripts/clear_databases.py
-docker compose exec backend python app/scripts/seed_mock_data.py
+python3 -m app.etl.import_real_members
+python3 -m app.etl.import_fec_data
+python3 -m app.etl.import_holdings
 ```
 
 ## API 文档
@@ -278,47 +169,46 @@ docker compose exec backend python app/scripts/seed_mock_data.py
 | 端点 | 方法 | 说明 |
 |------|------|------|
 | `/api/health` | GET | 健康检查 |
-| `/api/members` | GET | 议员列表 (支持筛选) |
+| `/api/members` | GET | 议员列表 |
 | `/api/members/{id}` | GET | 议员详情 |
-| `/api/members/{id}/graph` | GET | 议员图谱 (depth <= 2) |
-| `/api/graph/expand` | POST | 节点展开 (depth = 1) |
-| `/api/evidence/{claim_id}` | GET | 证据溯源 |
+| `/api/members/{id}/graph` | GET | 议员图谱 |
+| `/api/members/{id}/contributions` | GET | 献金记录 |
+| `/api/members/{id}/holdings` | GET | 持股披露 |
+| `/api/graph/expand` | POST | 节点展开 |
 | `/api/search` | GET | 全局搜索 |
-| `/api/compare` | POST | 多人对比 |
-| `/api/reports/markdown` | POST | Markdown 简报导出 |
-| `/api/predictions/vote` | POST | 投票预测 |
+| `/api/reports/markdown` | POST | Markdown 简报 |
 
-## 前端页面
+## 图谱控制参数
 
-| 页面 | 路由 | 说明 |
-|------|------|------|
-| 概览页 | `/` | 议员卡片、筛选、搜索 |
-| 议员详情 | `/member/:id` | 身份详情 + 2 度图谱 |
-| 搜索页 | `/search` | 全局搜索 (议员/组织/事件) |
-| 对比页 | `/compare` | 多人对比 + 指标表 |
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `include_profile_facts` | true | 履历事实节点 |
+| `include_finance` | false | 献金节点 |
+| `include_holdings` | false | 持股节点 |
+| `include_related_people` | false | 同事关系 |
+| `include_historical_background` | false | 历史背景 |
 
 ## 测试
 
 ```bash
 # 后端测试
-cd backend && python3 -m pytest tests/ -v
+cd backend && POSTGRES_HOST=localhost python3 -m pytest tests/ -v
+
+# 前端测试
+cd frontend && npm test
 
 # 前端类型检查
 cd frontend && npx tsc --noEmit
-
-# 前端构建验证
-cd frontend && npx vite build
 ```
 
-## 真实数据 Adapter
+## 数据来源
 
-第二阶段可选接入的真实数据源 (当前为空壳):
-
-- `CongressGovAdapter` - Congress.gov API
-- `FECAdapter` - Federal Election Commission API
-- `OpenSecretsAdapter` - OpenSecrets.org API
-
-每个 Adapter 必须声明 `source_name / source_url / license_note / robots_policy_note / rate_limit`。
+| 数据源 | 说明 | 许可 |
+|--------|------|------|
+| unitedstates/congress-legislators | 议员基础数据 | CC0-1.0 |
+| FEC.gov bulk-downloads | 竞选献金数据 | Public Domain |
+| 国会财务公开报告 | 持股披露数据 | Public Domain |
+| Wikipedia | 履历信息 | CC BY-SA 4.0 |
 
 ## 免责声明
 
