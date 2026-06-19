@@ -1,11 +1,12 @@
 """Markdown report generation service.
 
 Phase 1: Template-based formatting from mock member data.
+v0.92: Campaign finance data from FEC tables.
 """
 
 from datetime import datetime, timezone
 
-from app.models.sqlalchemy.models import Member
+from app.models.sqlalchemy.models import Member, CampaignCommittee, Donor, Contribution, MemberProfile, HoldingAsset
 
 
 def build_markdown(member: Member, include_graph: bool, include_predictions: bool) -> str:
@@ -182,9 +183,41 @@ def build_markdown(member: Member, include_graph: bool, include_predictions: boo
         lines.append("知识图谱查询暂时不可用。")
     lines.append("")
 
-    # Top contributors
+    # Top contributors from campaign finance tables (v0.92)
+    try:
+        from app.db.postgres import SessionLocal
+        local_db = SessionLocal()
+        try:
+            committees = local_db.query(CampaignCommittee).filter(
+                CampaignCommittee.candidate_id == member.id,
+            ).all()
+
+            if committees:
+                cids = [c.id for c in committees]
+                contribs = local_db.query(Contribution).filter(
+                    Contribution.committee_id.in_(cids),
+                ).order_by(Contribution.amount.desc()).limit(10).all()
+
+                if contribs:
+                    lines.append("## 政治献金来源 (FEC)")
+                    lines.append("")
+                    lines.append("| 捐赠方 | 金额 | 周期 | 类型 |")
+                    lines.append("|--------|------|------|------|")
+                    for c in contribs:
+                        donor = local_db.query(Donor).filter(Donor.id == c.donor_id).first()
+                        dname = donor.name if donor else "未知"
+                        lines.append(f"| {dname} | ${c.amount:,.0f} | 第{c.cycle}届 | {c.contribution_type} |")
+                    lines.append("")
+                    lines.append("> 数据来源: FEC.gov (bulk-downloads)")
+                    lines.append("")
+        finally:
+            local_db.close()
+    except Exception:
+        pass
+
+    # Top contributors from member JSON field (legacy)
     if member.top_contributors:
-        lines.append("## TOP5 政治献金来源")
+        lines.append("## TOP5 政治献金来源 (历史)")
         lines.append("")
         lines.append("| 组织 | 金额 | 周期 |")
         lines.append("|------|------|------|")
@@ -195,9 +228,41 @@ def build_markdown(member: Member, include_graph: bool, include_predictions: boo
             lines.append(f"| {org} | ${amount:,} | {cycle} |")
         lines.append("")
 
-    # Top holdings
-    if member.top_holdings:
-        lines.append("## TOP5 持股")
+    # Top holdings from structured table (v0.94)
+    try:
+        from app.db.postgres import SessionLocal
+        local_db = SessionLocal()
+        try:
+            holdings = local_db.query(HoldingAsset).filter(
+                HoldingAsset.member_id == member.id,
+            ).order_by(HoldingAsset.value_max.desc().nullslast()).limit(10).all()
+
+            if holdings:
+                lines.append("## 持股披露")
+                lines.append("")
+                lines.append("| 资产名称 | 类型 | 代码 | 金额区间 | 披露年份 | 来源 |")
+                lines.append("|----------|------|------|----------|----------|------|")
+                for h in holdings:
+                    asset_name = h.asset_name or "未知"
+                    asset_type = h.asset_type or "未知"
+                    ticker = h.ticker or "N/A"
+                    value_range = h.value_range_label or f"${h.value_min or 0:,.0f} - ${h.value_max or 0:,.0f}"
+                    filing_year = h.filing_year or "N/A"
+                    source = h.source or "house_disclosure"
+                    lines.append(f"| {asset_name} | {asset_type} | {ticker} | {value_range} | {filing_year} | {source} |")
+                lines.append("")
+                lines.append("> 数据来源: 国会财务公开报告 (House/Senate Financial Disclosure)")
+                lines.append("> 金额为区间值，不构成精确估值。")
+                lines.append("> 不构成投资建议、法律判断或利益冲突判断。")
+                lines.append("")
+        finally:
+            local_db.close()
+    except Exception:
+        pass
+
+    # Top holdings from member JSON field (legacy fallback)
+    if not holdings and member.top_holdings:
+        lines.append("## TOP5 持股 (历史)")
         lines.append("")
         lines.append("| 公司 | 代码 | 估算价值范围 |")
         lines.append("|------|------|-------------|")
@@ -245,7 +310,7 @@ def build_markdown(member: Member, include_graph: bool, include_predictions: boo
         lines.append("|------|------|---------|")
         lines.append("| 党派一致性 | 50 | Mock 演示值 |")
         lines.append("| 涉华立场指数 | 50 | Mock 演示值 |")
-        lines.append("| 利益冲突风险 | 30 | Mock 演示值 |")
+        lines.append("| 道德合规评级 | 50 | Mock 演示值（已禁用） |")
         lines.append(f"| 委员会相关度 | {min(100.0, len(member.committee_memberships or []) * 20.0):.0f} | 基于 Mock 委员会数据 |")
         lines.append("")
 

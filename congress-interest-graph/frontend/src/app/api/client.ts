@@ -78,3 +78,18 @@ export async function getMemberCircles(memberId: string): Promise<import('./type
   const { data } = await api.get(`/members/${memberId}/circles`);
   return data;
 }
+
+export async function getCircleMembers(memberId: string, circleType: string): Promise<import('./types').CircleExpandResponse> {
+  const { data } = await api.get(`/members/${memberId}/circles/${circleType}`);
+  return data;
+}
+
+export async function getMemberContributions(memberId: string, params?: { cycle?: number; limit?: number }): Promise<import('./types').ContributionsResponse> {
+  const { data } = await api.get(`/members/${memberId}/contributions`, { params });
+  return data;
+}
+
+export async function getMemberHoldings(memberId: string, params?: { asset_type?: string; year?: number; limit?: number }): Promise<import('./types').HoldingsResponse> {
+  const { data } = await api.get(`/members/${memberId}/holdings`, { params });
+  return data;
+}

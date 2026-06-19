@@ -126,6 +126,8 @@ class GraphExpandRequest(BaseModel):
     end_date: Optional[date] = None
     min_confidence: float = Field(default=0.0, ge=0.0, le=1.0)
     limit: int = Field(default=200, ge=1, le=500)
+    include_finance: bool = False
+    include_holdings: bool = False
 
 
 class ClaimModel(BaseModel):
@@ -281,8 +283,18 @@ class CircleMember(BaseModel):
 
 
 class CircleCategory(BaseModel):
-    category: str
-    label: str
+    circle_type: str
+    circle_name: str
+    evidence_type: str
+    source: str
+    source_url: Optional[str] = None
+    related_count: int = 0
+    strength_level: str  # weak | medium | strong
+
+
+class CircleExpandResponse(BaseModel):
+    circle_type: str
+    circle_name: str
     members: list[CircleMember] = Field(default_factory=list)
 
 
@@ -324,3 +336,92 @@ class ETLSandboxStatsResponse(BaseModel):
     claim_types: dict[str, int] = Field(default_factory=dict)
     data_namespace: str = "sandbox"
     data_source: str = "unitedstates/congress-legislators"
+
+
+class CommitteeBrief(BaseModel):
+    id: str
+    fec_committee_id: str
+    name: str
+    party: Optional[str] = None
+    state: Optional[str] = None
+    chamber: Optional[str] = None
+    cycle: Optional[int] = None
+
+
+class DonorModel(BaseModel):
+    id: str
+    name: str
+    donor_type: str = "individual"
+    industry: Optional[str] = None
+    employer: Optional[str] = None
+    city: Optional[str] = None
+    state: Optional[str] = None
+
+
+class ContributionRecord(BaseModel):
+    id: str
+    committee: CommitteeBrief
+    donor: DonorModel
+    amount: float
+    contribution_date: Optional[date] = None
+    cycle: Optional[int] = None
+    contribution_type: str = "individual"
+
+
+class ContributionSummary(BaseModel):
+    total_received: float = 0.0
+    total_count: int = 0
+    by_cycle: dict[str, float] = Field(default_factory=dict)
+    by_type: dict[str, float] = Field(default_factory=dict)
+    top_donors: list[dict] = Field(default_factory=list)
+    top_industries: list[dict] = Field(default_factory=list)
+
+
+class ContributionsResponse(BaseModel):
+    committees: list[CommitteeBrief] = Field(default_factory=list)
+    contributions: list[ContributionRecord] = Field(default_factory=list)
+    summary: ContributionSummary = Field(default_factory=ContributionSummary)
+    total_count: int = 0
+    disclaimer: str = "数据来源: FEC.gov ( bulk-downloads ) 及 OpenSecrets.org。仅供研究参考。"
+
+
+class HoldingAssetRecord(BaseModel):
+    id: str
+    asset_name: str
+    asset_type: str = "stock"
+    ticker: Optional[str] = None
+    value_min: Optional[float] = None
+    value_max: Optional[float] = None
+    value_range_label: Optional[str] = None
+    filing_year: Optional[int] = None
+    disclosure_date: Optional[date] = None
+    source: str = "house_disclosure"
+    source_url: Optional[str] = None
+    source_reliability: str = "official"
+
+
+class HoldingDisclosureRecord(BaseModel):
+    id: str
+    filing_year: int
+    filing_type: Optional[str] = None
+    filing_url: Optional[str] = None
+    filing_date: Optional[date] = None
+    asset_count: int = 0
+    source: str = "house_disclosure"
+    source_reliability: str = "official"
+
+
+class HoldingsSummary(BaseModel):
+    total_assets: int = 0
+    by_asset_type: dict[str, int] = Field(default_factory=dict)
+    by_year: dict[str, int] = Field(default_factory=dict)
+    top_assets: list[dict] = Field(default_factory=list)
+
+
+class HoldingsResponse(BaseModel):
+    holdings: list[HoldingAssetRecord] = Field(default_factory=list)
+    disclosures: list[HoldingDisclosureRecord] = Field(default_factory=list)
+    summary: HoldingsSummary = Field(default_factory=HoldingsSummary)
+    total_count: int = 0
+    source: str = "house_disclosure"
+    disclaimer: str = "持股披露数据来源于国会财务公开报告。金额为区间值，不构成精确估值。不构成投资建议、法律判断或利益冲突判断。"

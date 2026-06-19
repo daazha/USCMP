@@ -19,7 +19,15 @@ PROFILE_EDGE_TYPES = frozenset({
     "EDUCATED_AT", "EMPLOYED_BY", "HELD_POSITION", "HAS_PROFILE_SOURCE",
 })
 
-EGO_EDGE_TYPES = frozenset((*IDENTITY_EDGE_TYPES, *PROFILE_EDGE_TYPES))
+FINANCE_EDGE_TYPES = frozenset({
+    "ASSOCIATED_WITH_COMMITTEE", "CONTRIBUTED_TO", "HAS_CONTRIBUTION_SOURCE",
+})
+
+HOLDINGS_EDGE_TYPES = frozenset({
+    "DISCLOSED_HOLDING", "REPORTED_IN", "HAS_HOLDING_SOURCE",
+})
+
+EGO_EDGE_TYPES = frozenset((*IDENTITY_EDGE_TYPES, *PROFILE_EDGE_TYPES, *FINANCE_EDGE_TYPES, *HOLDINGS_EDGE_TYPES))
 
 _IDENTITY_EDGE_LIST = (
     "['MEMBER_OF_PARTY','REPRESENTS_STATE','SERVES_IN','ASSIGNED_TO']"
@@ -27,15 +35,30 @@ _IDENTITY_EDGE_LIST = (
 _PROFILE_EDGE_LIST = (
     "['EDUCATED_AT','EMPLOYED_BY','HELD_POSITION','HAS_PROFILE_SOURCE']"
 )
+_FINANCE_EDGE_LIST = (
+    "['ASSOCIATED_WITH_COMMITTEE','CONTRIBUTED_TO','HAS_CONTRIBUTION_SOURCE']"
+)
+_HOLDINGS_EDGE_LIST = (
+    "['DISCLOSED_HOLDING','REPORTED_IN','HAS_HOLDING_SOURCE']"
+)
 _ALL_EDGE_LIST = (
     "['MEMBER_OF_PARTY','REPRESENTS_STATE','SERVES_IN','ASSIGNED_TO',"
-    "'EDUCATED_AT','EMPLOYED_BY','HELD_POSITION','HAS_PROFILE_SOURCE']"
+    "'EDUCATED_AT','EMPLOYED_BY','HELD_POSITION','HAS_PROFILE_SOURCE',"
+    "'ASSOCIATED_WITH_COMMITTEE','CONTRIBUTED_TO','HAS_CONTRIBUTION_SOURCE',"
+    "'DISCLOSED_HOLDING','REPORTED_IN','HAS_HOLDING_SOURCE']"
 )
 
 
-def _edge_filter(rel_var: str, include_profile_facts: bool = True) -> str:
-    edge_list = _ALL_EDGE_LIST if include_profile_facts else _IDENTITY_EDGE_LIST
-    return f"type({rel_var}) IN {edge_list}"
+def _edge_filter(rel_var: str, include_profile_facts: bool = True, include_finance: bool = True, include_holdings: bool = True) -> str:
+    parts = [_IDENTITY_EDGE_LIST]
+    if include_profile_facts:
+        parts.append(_PROFILE_EDGE_LIST)
+    if include_finance:
+        parts.append(_FINANCE_EDGE_LIST)
+    if include_holdings:
+        parts.append(_HOLDINGS_EDGE_LIST)
+    edges = "+".join(parts)
+    return f"type({rel_var}) IN {edges}"
 
 
 def get_member_graph(
@@ -48,6 +71,8 @@ def get_member_graph(
     include_related_people: bool = False,
     include_profile_facts: bool = True,
     include_historical_background: bool = False,
+    include_finance: bool = True,
+    include_holdings: bool = False,
 ) -> dict:
     """Get ego network centered on a member.
 
@@ -82,12 +107,15 @@ def get_member_graph(
         "AND ($end_date IS NULL OR coalesce(r.end_date, $end_date) <= $end_date)"
     )
 
-    edge_f = _edge_filter("r", include_profile_facts)
+    edge_f = _edge_filter("r", include_profile_facts, include_finance, include_holdings)
 
     scope_filter = (
         "AND (NOT n:Person OR n.person_scope IN ['current', 'mock', 'test'] "
         "OR n.person_scope IS NULL)"
     ) if not include_historical_background else ""
+
+    edge_f1 = _edge_filter("r1", include_profile_facts, include_finance, include_holdings)
+    edge_f2 = _edge_filter("r2", include_profile_facts, include_finance, include_holdings)
 
     if depth == 1 or not include_related_people:
         query = f"""
@@ -151,6 +179,8 @@ def expand_node(
     end_date: Optional[date] = None,
     min_confidence: float = 0.0,
     limit: int = 200,
+    include_finance: bool = True,
+    include_holdings: bool = False,
 ) -> dict:
     """Expand a single node to show direct ego-network connections."""
     params = {
@@ -163,7 +193,7 @@ def expand_node(
     query = f"""
         MATCH (n {{id: $node_id}})-[r]-(m)
         WHERE (r.confidence_score >= $min_confidence OR r.confidence_score IS NULL)
-          AND ({_edge_filter('r', include_profile_facts=True)})
+          AND ({_edge_filter('r', include_profile_facts=True, include_finance=include_finance, include_holdings=include_holdings)})
           AND ($start_date IS NULL OR coalesce(r.start_date, $start_date) >= $start_date)
           AND ($end_date IS NULL OR coalesce(r.end_date, $end_date) <= $end_date)
         RETURN n, r, m

@@ -226,8 +226,18 @@ export interface CircleMember {
 }
 
 export interface CircleCategory {
-  category: string;
-  label: string;
+  circle_type: string;
+  circle_name: string;
+  evidence_type: string;
+  source: string;
+  source_url?: string;
+  related_count: number;
+  strength_level: string;
+}
+
+export interface CircleExpandResponse {
+  circle_type: string;
+  circle_name: string;
   members: CircleMember[];
 }
 
@@ -258,4 +268,93 @@ export interface MemberProfileResponse {
   source_reliability: string;
   last_updated?: string;
   profile_sources: Record<string, unknown>;
+}
+
+export interface CommitteeBrief {
+  id: string;
+  fec_committee_id: string;
+  name: string;
+  party?: string;
+  state?: string;
+  chamber?: string;
+  cycle?: number;
+}
+
+export interface DonorModel {
+  id: string;
+  name: string;
+  donor_type: string;
+  industry?: string;
+  employer?: string;
+  city?: string;
+  state?: string;
+}
+
+export interface ContributionRecord {
+  id: string;
+  committee: CommitteeBrief;
+  donor: DonorModel;
+  amount: number;
+  contribution_date?: string;
+  cycle?: number;
+  contribution_type: string;
+}
+
+export interface ContributionSummary {
+  total_received: number;
+  total_count: number;
+  by_cycle: Record<string, number>;
+  by_type: Record<string, number>;
+  top_donors: { name: string; total: number; count: number; type: string }[];
+  top_industries: { industry: string; total: number; count: number }[];
+}
+
+export interface ContributionsResponse {
+  committees: CommitteeBrief[];
+  contributions: ContributionRecord[];
+  summary: ContributionSummary;
+  total_count: number;
+  disclaimer: string;
+}
+
+export interface HoldingAssetRecord {
+  id: string;
+  asset_name: string;
+  asset_type: string;
+  ticker?: string;
+  value_min?: number;
+  value_max?: number;
+  value_range_label?: string;
+  filing_year?: number;
+  disclosure_date?: string;
+  source: string;
+  source_url?: string;
+  source_reliability: string;
+}
+
+export interface HoldingDisclosureRecord {
+  id: string;
+  filing_year: number;
+  filing_type?: string;
+  filing_url?: string;
+  filing_date?: string;
+  asset_count: number;
+  source: string;
+  source_reliability: string;
+}
+
+export interface HoldingsSummary {
+  total_assets: number;
+  by_asset_type: Record<string, number>;
+  by_year: Record<string, number>;
+  top_assets: Record<string, unknown>[];
+}
+
+export interface HoldingsResponse {
+  holdings: HoldingAssetRecord[];
+  disclosures: HoldingDisclosureRecord[];
+  summary: HoldingsSummary;
+  total_count: number;
+  source: string;
+  disclaimer: string;
 }

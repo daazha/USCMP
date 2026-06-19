@@ -9,7 +9,8 @@ from app.core.logging import logger
 from app.core.config import settings
 from app.core.errors import AppError, ErrorCode
 from app.api.routes import (
-    health, members, graph, evidence, search, compare, reports, predictions, data_quality, etl_runs,
+    health, members, graph, evidence, search, compare, reports, predictions,
+    data_quality, etl_runs, finance, holdings,
 )
 
 app = FastAPI(
@@ -94,6 +95,8 @@ app.include_router(reports.router, prefix="/api")
 app.include_router(predictions.router, prefix="/api")
 app.include_router(data_quality.router, prefix="/api")
 app.include_router(etl_runs.router, prefix="/api")
+app.include_router(finance.router, prefix="/api")
+app.include_router(holdings.router, prefix="/api")
 
 
 @app.on_event("startup")

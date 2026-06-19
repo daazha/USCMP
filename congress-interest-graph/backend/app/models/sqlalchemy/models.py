@@ -154,6 +154,101 @@ class MockSeedManifest(Base):
     seed_timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
 
+class CampaignCommittee(Base):
+    __tablename__ = "campaign_committees"
+
+    id = Column(String, primary_key=True)
+    fec_committee_id = Column(String, unique=True, index=True)
+    name = Column(String, nullable=False)
+    party = Column(String)
+    state = Column(String(2))
+    chamber = Column(String)
+    candidate_id = Column(String, ForeignKey("members.id"), index=True)
+    cycle = Column(Integer)
+    source = Column(String, default="fec")
+    source_reliability = Column(String, default="official")
+    fec_data = Column(JSON, default=dict)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+
+    member = relationship("Member", backref="campaign_committees")
+
+
+class Donor(Base):
+    __tablename__ = "donors"
+
+    id = Column(String, primary_key=True)
+    name = Column(String, nullable=False, index=True)
+    donor_type = Column(String, default="individual", index=True)  # individual | pac | party | corporation
+    industry = Column(String, index=True)
+    employer = Column(String)
+    city = Column(String)
+    state = Column(String(2))
+    source = Column(String, default="fec")
+    source_reliability = Column(String, default="official")
+    fec_data = Column(JSON, default=dict)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+
+
+class Contribution(Base):
+    __tablename__ = "contributions"
+
+    id = Column(String, primary_key=True)
+    committee_id = Column(String, ForeignKey("campaign_committees.id"), nullable=False, index=True)
+    donor_id = Column(String, ForeignKey("donors.id"), nullable=False, index=True)
+    amount = Column(Float, nullable=False)
+    contribution_date = Column(Date, index=True)
+    cycle = Column(Integer, index=True)
+    contribution_type = Column(String, index=True)  # individual | pac | party | transfer
+    source = Column(String, default="fec")
+    source_reliability = Column(String, default="official")
+    fec_data = Column(JSON, default=dict)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    committee = relationship("CampaignCommittee", backref="contributions")
+    donor = relationship("Donor", backref="contributions")
+
+
+class HoldingAsset(Base):
+    __tablename__ = "holding_assets"
+
+    id = Column(String, primary_key=True)
+    member_id = Column(String, ForeignKey("members.id"), nullable=False, index=True)
+    asset_name = Column(String, nullable=False, index=True)
+    asset_type = Column(String, nullable=False, index=True)  # stock | bond | fund | real_estate | other
+    ticker = Column(String, index=True)
+    value_min = Column(Float)
+    value_max = Column(Float)
+    value_range_label = Column(String)  # e.g. "$1,001 - $15,000"
+    filing_year = Column(Integer, index=True)
+    disclosure_date = Column(Date)
+    source = Column(String, default="house_disclosure")
+    source_url = Column(String)
+    source_reliability = Column(String, default="official")
+    last_updated = Column(DateTime(timezone=True))
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    member = relationship("Member", backref="holding_assets")
+
+
+class HoldingDisclosure(Base):
+    __tablename__ = "holding_disclosures"
+
+    id = Column(String, primary_key=True)
+    member_id = Column(String, ForeignKey("members.id"), nullable=False, index=True)
+    filing_year = Column(Integer, nullable=False, index=True)
+    filing_type = Column(String)  # annual | periodic | amendment
+    filing_url = Column(String)
+    filing_date = Column(Date)
+    asset_count = Column(Integer, default=0)
+    source = Column(String, default="house_disclosure")
+    source_reliability = Column(String, default="official")
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    member = relationship("Member", backref="holding_disclosures")
+
+
 class MemberProfile(Base):
     __tablename__ = "member_profiles"
 

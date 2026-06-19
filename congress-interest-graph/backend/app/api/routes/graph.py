@@ -75,6 +75,8 @@ def member_graph(
     include_related_people: bool = Query(False),
     include_profile_facts: bool = Query(True),
     include_historical_background: bool = Query(False),
+    include_finance: bool = Query(False),
+    include_holdings: bool = Query(False),
 ):
     if depth > settings.max_graph_depth:
         raise GraphDepthExceededError(
@@ -87,6 +89,8 @@ def member_graph(
         include_related_people=include_related_people,
         include_profile_facts=include_profile_facts,
         include_historical_background=include_historical_background,
+        include_finance=include_finance,
+        include_holdings=include_holdings,
     )
     records = result.get("records", [])
 
@@ -107,6 +111,8 @@ def graph_expand(request: GraphExpandRequest):
         request.node_id, 1,
         request.start_date, request.end_date,
         request.min_confidence, request.limit,
+        include_finance=request.include_finance,
+        include_holdings=request.include_holdings,
     )
     records = result.get("records", [])
 

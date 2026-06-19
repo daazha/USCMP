@@ -3,11 +3,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Layout, Card, Tag, Button, Spin, Tabs, message, Descriptions, Empty, Typography } from 'antd';
 import { ArrowLeftOutlined, FileTextOutlined } from '@ant-design/icons';
 import { getMember, getMemberGraph, expandGraph, getEvidence, generateReport, getMemberProfile } from '../api/client';
-import type { MemberDetail, MemberProfileResponse, GraphResponse, EvidenceResponse, CircleResponse } from '../api/types';
+import type { MemberDetail, MemberProfileResponse, GraphResponse, EvidenceResponse, CircleResponse, CircleMember, CircleExpandResponse } from '../api/types';
 import GraphCanvas from '../components/GraphCanvas/GraphCanvas';
 import EvidenceDrawer from '../components/EvidenceDrawer/EvidenceDrawer';
 import ErrorBoundary from '../components/ErrorBoundary';
 import MemberAvatar from '../components/MemberAvatar';
+import ControversiesTab from '../components/ControversiesTab';
+import ContributionsTab from '../components/ContributionsTab';
+import HoldingsTab from '../components/HoldingsTab';
 
 const { Sider, Content } = Layout;
 const { Text } = Typography;
@@ -22,8 +25,11 @@ function PlaceholderTab() {
   );
 }
 
-function CirclesPanel({ memberId }: { memberId: string }) {
+function CirclesPanel({ memberId, onCircleClick, onMemberClick }: { memberId: string; onCircleClick?: (circleType: string) => void; onMemberClick?: (memberId: string) => void }) {
   const [data, setData] = useState<CircleResponse | null>(null);
+  const [expanded, setExpanded] = useState<string | null>(null);
+  const [expandedMembers, setExpandedMembers] = useState<CircleMember[]>([]);
+  const [loadingExpand, setLoadingExpand] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -40,29 +46,93 @@ function CirclesPanel({ memberId }: { memberId: string }) {
     })();
   }, [memberId]);
 
+  const handleExpand = async (circleType: string) => {
+    if (expanded === circleType) {
+      setExpanded(null);
+      setExpandedMembers([]);
+      return;
+    }
+    setLoadingExpand(true);
+    setExpanded(circleType);
+    try {
+      const { getCircleMembers } = await import('../api/client');
+      const res = await getCircleMembers(memberId, circleType);
+      setExpandedMembers(res.members || []);
+    } catch {
+      setExpandedMembers([]);
+    } finally {
+      setLoadingExpand(false);
+    }
+  };
+
+  const strengthColor: Record<string, string> = {
+    strong: '#52c41a',
+    medium: '#faad14',
+    weak: '#8c8c8c',
+  };
+  const strengthLabel: Record<string, string> = {
+    strong: '强关联',
+    medium: '中关联',
+    weak: '弱关联',
+  };
+
   if (loading) return <Spin style={{ display: 'block', margin: '40px auto' }} />;
   if (!data || data.categories.length === 0) {
-    return <Empty description="暂无圈层关系数据" image={Empty.PRESENTED_IMAGE_SIMPLE} />;
+    return <Empty description="暂无共同背景数据" image={Empty.PRESENTED_IMAGE_SIMPLE} />;
   }
 
   return (
     <div>
       {data.categories.map((cat) => (
-        <Card key={cat.category} size="small" title={cat.label} style={{ marginBottom: 8, background: '#1a1a2e' }}>
-          {cat.members.length === 0 ? (
-            <Text type="secondary" style={{ fontSize: 11, fontStyle: 'italic' }}>暂无关联</Text>
-          ) : (
-            cat.members.slice(0, 20).map((m) => (
-              <div key={m.member_id} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6, fontSize: 12 }}>
-                <MemberAvatar display_name={m.display_name} party={m.party} size={24} />
-                <div>
-                  <div style={{ color: '#d1d5db' }}>{m.display_name}</div>
-                  <div style={{ color: '#6b7280', fontSize: 10 }}>
-                    {m.party} | {m.state} | 关联: {m.shared_via}
+        <Card
+          key={cat.circle_type}
+          size="small"
+          title={cat.circle_name}
+          style={{ marginBottom: 8, background: '#1a1a2e', cursor: 'pointer' }}
+          onClick={() => {
+            handleExpand(cat.circle_type);
+            onCircleClick?.(cat.circle_type);
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
+            <Tag color={strengthColor[cat.strength_level] || '#8c8c8c'} style={{ fontSize: 10, margin: 0 }}>
+              {strengthLabel[cat.strength_level] || cat.strength_level}
+            </Tag>
+            <span style={{ fontSize: 11, color: '#9ca3af' }}>
+              关联 {cat.related_count} 人
+            </span>
+          </div>
+          <div style={{ fontSize: 10, color: '#6b7280' }}>
+            证据: {cat.evidence_type} | 来源: {cat.source}
+            {cat.source_url && <span> | <a href={cat.source_url} target="_blank" rel="noopener noreferrer" style={{ color: '#1890ff' }}>链接</a></span>}
+          </div>
+
+          {expanded === cat.circle_type && (
+            <div style={{ marginTop: 8, borderTop: '1px solid #1f2937', paddingTop: 8 }}>
+              {loadingExpand ? (
+                <Spin size="small" style={{ display: 'block', margin: '8px auto' }} />
+              ) : expandedMembers.length === 0 ? (
+                <Text type="secondary" style={{ fontSize: 11, fontStyle: 'italic' }}>暂无关联</Text>
+              ) : (
+                expandedMembers.slice(0, 20).map((m) => (
+                  <div
+                    key={m.member_id}
+                    onClick={(e) => { e.stopPropagation(); onMemberClick?.(m.member_id); }}
+                    style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6, fontSize: 12, cursor: 'pointer', borderRadius: 6, padding: '4px 6px' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = '#1f2937'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
+                  >
+                    <MemberAvatar display_name={m.display_name} party={m.party} size={24} />
+                    <div>
+                      <div style={{ color: '#d1d5db' }}>{m.display_name}</div>
+                      <div style={{ color: '#6b7280', fontSize: 10 }}>
+                        {m.party} | {m.state} | 关联: {m.shared_via}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))
+                ))
+              )}
+            </div>
           )}
         </Card>
       ))}
@@ -79,6 +149,9 @@ export default function MemberDetailPage() {
   const [loading, setLoading] = useState(true);
   const [evidence, setEvidence] = useState<EvidenceResponse | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
+  const [addedNodeIds, setAddedNodeIds] = useState<Map<string, string[]>>(new Map());
+  const [addedEdgeIds, setAddedEdgeIds] = useState<Map<string, string[]>>(new Map());
 
   useEffect(() => {
     if (!id) return;
@@ -109,6 +182,32 @@ export default function MemberDetailPage() {
   };
 
   const handleDoubleClick = async (nodeId: string) => {
+    if (!graph) return;
+
+    // If already expanded, collapse it
+    if (expandedNodes.has(nodeId)) {
+      const rmNodeIds = addedNodeIds.get(nodeId) || [];
+      const rmEdgeIds = addedEdgeIds.get(nodeId) || [];
+      const nodeSet = new Set(rmNodeIds);
+      const edgeSet = new Set(rmEdgeIds);
+      setGraph({
+        ...graph,
+        nodes: graph.nodes.filter((n) => !nodeSet.has(n.id)),
+        edges: graph.edges.filter((e) => !edgeSet.has(e.id)),
+      });
+      const next = new Set(expandedNodes);
+      next.delete(nodeId);
+      setExpandedNodes(next);
+
+      const nextNodes = new Map(addedNodeIds);
+      nextNodes.delete(nodeId);
+      setAddedNodeIds(nextNodes);
+      const nextEdges = new Map(addedEdgeIds);
+      nextEdges.delete(nodeId);
+      setAddedEdgeIds(nextEdges);
+      return;
+    }
+
     try {
       const g = await expandGraph({ node_id: nodeId, depth: 1, limit: 50 });
       if (graph) {
@@ -121,6 +220,9 @@ export default function MemberDetailPage() {
           nodes: [...graph.nodes, ...newNodes],
           edges: [...graph.edges, ...newEdges],
         });
+        setExpandedNodes(new Set([...expandedNodes, nodeId]));
+        setAddedNodeIds(new Map([...addedNodeIds, [nodeId, newNodes.map((n) => n.id)]]));
+        setAddedEdgeIds(new Map([...addedEdgeIds, [nodeId, newEdges.map((e) => e.id)]]));
       }
     } catch (e) {
       message.warning('展开节点失败');
@@ -135,6 +237,23 @@ export default function MemberDetailPage() {
     } catch (e) {
       message.warning('获取证据失败');
     }
+  };
+
+  const handleCircleClick = async (circleType: string) => {
+    if (!graph || !id) return;
+    const labelMap: Record<string, string> = {
+      education: 'EducationInstitution',
+      committee: 'Committee',
+      state: 'State',
+      party: 'Party',
+      occupation: 'Position',
+      employer: 'Employer',
+    };
+    const targetLabel = labelMap[circleType];
+    if (!targetLabel) return;
+    const entityNode = graph.nodes.find((n) => n.label === targetLabel);
+    if (!entityNode) return;
+    await handleDoubleClick(entityNode.id);
   };
 
   const handleExportMarkdown = async () => {
@@ -203,48 +322,60 @@ export default function MemberDetailPage() {
               label: '基本信息',
               children: (
                 <div style={{ fontSize: 12 }}>
-                  <Descriptions column={1} size="small" style={{ background: 'transparent' }} colon={false}
-                    labelStyle={{ color: '#6b7280', fontSize: 11 }}
-                    contentStyle={{ color: '#d1d5db', fontSize: 12 }}
-                  >
-                    <Descriptions.Item label="Bioguide ID">
-                      <Text copyable style={{ color: '#d1d5db', fontSize: 12 }}>{member.bioguide_id || '--'}</Text>
-                    </Descriptions.Item>
-                    <Descriptions.Item label="GovTrack ID">
-                      {member.govtrack_id || '--'}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="FEC Candidate ID">
-                      <Text copyable style={{ color: '#d1d5db', fontSize: 12 }}>{member.fec_candidate_id || '--'}</Text>
-                    </Descriptions.Item>
-                    <Descriptions.Item label="OpenSecrets ID">
-                      {member.opensecrets_id || '--'}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="数据来源">
-                      <Tag color={member.source === 'uscl' ? 'green' : 'orange'} style={{ fontSize: 10 }}>
-                        {member.source}
-                      </Tag>
-                    </Descriptions.Item>
-                    <Descriptions.Item label="任期开始">
-                      {member.latest_term_start || '--'}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="任期结束">
-                      {member.latest_term_end || '--'}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="最后更新">
-                      {member.last_updated || '--'}
-                    </Descriptions.Item>
-                  </Descriptions>
+                  <Card size="small" style={{ marginBottom: 8, background: '#1a1a2e' }} styles={{ body: { padding: 12 } }}>
+                    <Descriptions column={1} size="small" colon={false}
+                      labelStyle={{ color: '#6b7280', fontSize: 11, paddingBottom: 6 }}
+                      contentStyle={{ color: '#d1d5db', fontSize: 12, paddingBottom: 6 }}
+                    >
+                      <Descriptions.Item label="中文名">
+                        {member.canonical_name ? (
+                          <Text style={{ color: '#e5e7eb', fontSize: 14, fontWeight: 600 }}>{member.canonical_name}</Text>
+                        ) : member.display_name}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="英文名">
+                        {member.display_name}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="出生日期">
+                        {profile?.birth_date || <Text type="secondary" style={{ fontSize: 10, fontStyle: 'italic' }}>未收录</Text>}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="现任职位">
+                        {member.chamber === 'senate' ? '参议员' : member.chamber === 'house' ? '众议员' : member.chamber || '--'}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="所属政党">
+                        <Tag color={member.party === 'Republican' ? '#f5222d' : member.party === 'Democratic' ? '#1890ff' : '#8c8c8c'} style={{ fontSize: 11 }}>
+                          {member.party === 'Democratic' ? '民主党' : member.party === 'Republican' ? '共和党' : member.party || '--'}
+                        </Tag>
+                      </Descriptions.Item>
+                      <Descriptions.Item label="所属州">
+                        {member.state || '--'}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="任期">
+                        {member.latest_term_start || '--'} ~ {member.latest_term_end || '至今'}
+                        <span style={{ color: '#6b7280', marginLeft: 4 }}>（第 {member.congress} 届）</span>
+                      </Descriptions.Item>
+                      <Descriptions.Item label="数据来源">
+                        {profile?.wikipedia_url ? (
+                          <a href={profile.wikipedia_url} target="_blank" rel="noopener noreferrer" style={{ color: '#1890ff', fontSize: 11 }}>
+                            Wikipedia 履历 ↗
+                          </a>
+                        ) : member.source === 'uscl' && member.bioguide_id ? (
+                          <a href={`https://bioguide.congress.gov/search/bio/${member.bioguide_id}`} target="_blank" rel="noopener noreferrer" style={{ color: '#1890ff', fontSize: 11 }}>
+                            UnitedStates/Congress-Legislators (CC0-1.0) ↗
+                          </a>
+                        ) : (
+                          <Tag color={member.source === 'uscl' ? 'green' : 'orange'} style={{ fontSize: 10 }}>
+                            {member.source}
+                          </Tag>
+                        )}
+                      </Descriptions.Item>
+                    </Descriptions>
+                  </Card>
 
-                  {member.official_ids && Object.keys(member.official_ids).length > 0 && (
-                    <Card size="small" title="Official IDs" style={{ marginTop: 12, background: '#1a1a2e' }}>
-                      {Object.entries(member.official_ids).map(([k, v]) => (
-                        <div key={k} style={{ marginBottom: 4 }}>
-                          <Text style={{ color: '#6b7280', fontSize: 11 }}>{k}: </Text>
-                          <Text style={{ color: '#d1d5db', fontSize: 11 }}>
-                            {Array.isArray(v) ? (v as string[]).join(', ') : String(v)}
-                          </Text>
-                        </div>
-                      ))}
+                  {profile?.short_summary && (
+                    <Card size="small" title="简介" style={{ marginBottom: 8, background: '#1a1a2e' }}>
+                      <div style={{ color: '#9ca3af', fontSize: 11, lineHeight: 1.7 }}>
+                        {profile.short_summary.slice(0, 600)}{profile.short_summary.length > 600 && '...'}
+                      </div>
                     </Card>
                   )}
                 </div>
@@ -350,6 +481,41 @@ export default function MemberDetailPage() {
                     )}
                   </Card>
 
+                  {/* Career highlights from Wikipedia profile */}
+                  {profile.career_highlights && profile.career_highlights.length > 0 && (
+                    <Card size="small" title="履历亮点" style={{ marginBottom: 8, background: '#1a1a2e' }}>
+                      {profile.career_highlights.slice(0, 10).map((hl, i) => (
+                        <div key={i} style={{ marginBottom: 2, fontSize: 11, color: '#9ca3af' }}>
+                          - {String(hl.title || JSON.stringify(hl))}
+                        </div>
+                      ))}
+                    </Card>
+                  )}
+
+                  {/* Career summary from member record */}
+                  {member.career_summary && member.career_summary.length > 0 && (
+                    <Card size="small" title="职业经历汇总" style={{ marginBottom: 8, background: '#1a1a2e' }}>
+                      {member.career_summary.map((item, i) => {
+                        const entry = item as Record<string, unknown>;
+                        const pos = entry.position ? String(entry.position) : null;
+                        const org = entry.organization ? String(entry.organization) : null;
+                        const start = entry.start_date ? String(entry.start_date) : null;
+                        const end = entry.end_date ? String(entry.end_date) : null;
+                        return (
+                          <div key={i} style={{ marginBottom: 4, fontSize: 11, color: '#9ca3af' }}>
+                            {pos && <span style={{ color: '#d1d5db' }}>{pos}</span>}
+                            {org && <span> @ {org}</span>}
+                            {(start || end) && (
+                              <span style={{ color: '#6b7280', marginLeft: 4 }}>
+                                ({start || ''} ~ {end || '至今'})
+                              </span>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </Card>
+                  )}
+
                   {/* Career: merged occupations + prior positions + employers + military */}
                   <Card size="small" title="职业与公共任职经历" style={{ marginBottom: 8, background: '#1a1a2e' }}>
                     {profile.occupations.length > 0 && (
@@ -395,13 +561,35 @@ export default function MemberDetailPage() {
                   </Card>
 
                   {/* Source info */}
-                  {profile.profile_status === 'available' && (
+                  {(profile.profile_status === 'available' || Object.keys(profile.profile_sources || {}).length > 0) && (
                     <Card size="small" title="来源与更新时间" style={{ marginBottom: 8, background: '#1a1a2e' }}>
                       <div style={{ fontSize: 10, color: '#6b7280' }}>
                         <div>数据来源: {profile.source === 'wikipedia' ? 'Wikipedia' : profile.source === 'fixture' ? 'Fixture (测试数据)' : 'UnitedStates/Congress-Legislators (CC0-1.0)'}</div>
                         <div>可靠度: {profile.source_reliability}</div>
                         {profile.wikidata_qid && <div>Wikidata: {profile.wikidata_qid}</div>}
                         {profile.last_updated && <div>最后更新: {profile.last_updated.replace('T', ' ').slice(0, 19)}</div>}
+                        {profile.profile_sources && Object.keys(profile.profile_sources).length > 0 && (
+                          <div style={{ marginTop: 6 }}>
+                            {Object.entries(profile.profile_sources).map(([k, v]) => {
+                              const val = String(v);
+                              return (
+                                <div key={k} style={{ marginBottom: 2 }}>
+                                  {k}: {val.startsWith('http') ? (
+                                    <a href={val} target="_blank" rel="noopener noreferrer" style={{ color: '#1890ff', wordBreak: 'break-all' }}>{val}</a>
+                                  ) : (
+                                    <span>{val}</span>
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                        {profile.parsed_fields && profile.parsed_fields.length > 0 && (
+                          <div style={{ marginTop: 6 }}>
+                            <span>已解析字段: </span>
+                            <span style={{ color: '#9ca3af' }}>{profile.parsed_fields.join(', ')}</span>
+                          </div>
+                        )}
                       </div>
                     </Card>
                   )}
@@ -413,22 +601,22 @@ export default function MemberDetailPage() {
             {
               key: 'circles',
               label: '圈层关系',
-              children: <CirclesPanel memberId={id!} />,
+              children: <CirclesPanel memberId={id!} onCircleClick={handleCircleClick} onMemberClick={(mid) => navigate(`/member/${mid}`)} />,
             },
             {
               key: 'contributors',
               label: '献金',
-              children: <PlaceholderTab />,
+              children: <ContributionsTab memberId={id!} />,
             },
             {
               key: 'holdings',
               label: '持股',
-              children: <PlaceholderTab />,
+              children: <HoldingsTab memberId={id!} />,
             },
             {
               key: 'contentious',
               label: '媒体争议',
-              children: <PlaceholderTab />,
+              children: <ControversiesTab controversies={member.controversies} />,
             },
             {
               key: 'interest',

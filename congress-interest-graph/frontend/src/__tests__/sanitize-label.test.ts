@@ -26,7 +26,7 @@ describe('sanitizeGraphLabel', () => {
     const result = sanitizeGraphLabel(
       'Speaker of the U.S. House of Representatives (2007-2011, 2019-2023)'
     );
-    expect(result.length).toBeLessThanOrEqual(33); // 30 + "..."
+    expect(result.length).toBeLessThanOrEqual(31); // 28 + "..."
     expect(result).toContain('...');
   });
 
@@ -45,7 +45,7 @@ describe('sanitizeGraphLabel', () => {
   it('does not show large summary text as label', () => {
     const long = 'a'.repeat(500);
     const result = sanitizeGraphLabel(long);
-    expect(result.length).toBeLessThanOrEqual(33);
+    expect(result.length).toBeLessThanOrEqual(31);
     expect(result).toContain('...');
   });
 

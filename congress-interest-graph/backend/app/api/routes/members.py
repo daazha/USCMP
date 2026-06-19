@@ -9,6 +9,7 @@ from app.models.sqlalchemy.models import Member, MemberProfile
 from app.models.pydantic.models import (
     MemberSummary, MemberDetail, MemberListResponse, CommitteeMembership,
     MemberProfileResponse, CircleResponse, CircleCategory, CircleMember,
+    CircleExpandResponse,
 )
 from app.core.errors import NotFoundError
 
@@ -198,14 +199,34 @@ def get_member_profile(member_id: str, db: Session = Depends(get_db)):
     )
 
 
-CATEGORY_MAP = {
-    "EducationInstitution": ("education", "教育圈层", "EDUCATED_AT"),
-    "Committee": ("committee", "委员会圈层", "ASSIGNED_TO"),
-    "State": ("state", "州圈层", "REPRESENTS_STATE"),
-    "Party": ("party", "党派圈层", "MEMBER_OF_PARTY"),
-    "Position": ("occupation", "职业圈层", "HELD_POSITION"),
-    "Employer": ("employer", "任职机构圈层", "EMPLOYED_BY"),
+CATEGORY_MAP: dict[str, tuple[str, str, str, str, str | None]] = {
+    "EducationInstitution": ("education", "共同教育背景", "EDUCATED_AT", "Wikipedia infobox", "medium"),
+    "Committee": ("committee", "共同委员会", "ASSIGNED_TO", "UnitedStates/Congress-Legislators", "medium"),
+    "State": ("state", "相同代表州", "REPRESENTS_STATE", "UnitedStates/Congress-Legislators", "weak"),
+    "Party": ("party", "相同党派", "MEMBER_OF_PARTY", "UnitedStates/Congress-Legislators", "weak"),
+    "Position": ("occupation", "共同职业经历", "HELD_POSITION", "Wikipedia infobox", "strong"),
+    "Employer": ("employer", "共同任职机构", "EMPLOYED_BY", "Wikipedia infobox", "strong"),
 }
+
+
+def _get_strength_level(entity_type: str) -> str:
+    info = CATEGORY_MAP.get(entity_type)
+    return info[4] if info else "weak"
+
+
+def _get_source_name(entity_type: str) -> str:
+    info = CATEGORY_MAP.get(entity_type)
+    return info[3] if info else "unknown"
+
+
+def _get_circle_name(entity_type: str) -> str:
+    info = CATEGORY_MAP.get(entity_type)
+    return info[1] if info else entity_type
+
+
+def _get_evidence_type(entity_type: str) -> str:
+    info = CATEGORY_MAP.get(entity_type)
+    return info[2] if info else "UNKNOWN"
 
 
 @router.get("/members/{member_id}/circles", response_model=CircleResponse)
@@ -213,42 +234,74 @@ def get_member_circles(member_id: str):
     cypher = """
     MATCH (m1:Person {id: $mid})-[r1]-(entity)-[r2]-(m2:Person)
     WHERE m1.id <> m2.id
-    RETURN DISTINCT m2.id AS member_id,
-           m2.display_name AS display_name,
-           m2.party AS party,
-           m2.state AS state,
-           labels(entity)[0] AS entity_type,
+    RETURN DISTINCT labels(entity)[0] AS entity_type,
            entity.display_name AS shared_via,
-           type(r1) AS rel_type
+           count(DISTINCT m2.id) AS cnt
+    ORDER BY cnt DESC
     LIMIT 500
     """
     results = run_cypher(cypher, {"mid": member_id})
     if not results:
         return CircleResponse()
 
-    by_type: dict[str, list[dict]] = {}
+    aggregated: dict[str, int] = {}
     for row in results:
         et = row.get("entity_type", "")
+        cnt = row.get("cnt", 0) or 0
         if et not in CATEGORY_MAP:
             continue
-        cat_key, _, _ = CATEGORY_MAP[et]
-        entry = {
-            "member_id": row["member_id"],
-            "display_name": row["display_name"],
-            "party": row.get("party"),
-            "state": row.get("state"),
-            "shared_via": row.get("shared_via", ""),
-        }
-        by_type.setdefault(cat_key, []).append(entry)
+        aggregated[et] = aggregated.get(et, 0) + cnt
 
     categories = []
-    for cat_key, cat_label, _ in CATEGORY_MAP.values():
-        members_data = by_type.get(cat_key, [])
-        if members_data:
-            categories.append(CircleCategory(
-                category=cat_key,
-                label=cat_label,
-                members=[CircleMember(**m) for m in members_data],
-            ))
+    for entity_type, (cat_key, cat_name, ev_type, src, _strength) in CATEGORY_MAP.items():
+        total = aggregated.get(entity_type, 0)
+        if total == 0:
+            continue
+        categories.append(CircleCategory(
+            circle_type=cat_key,
+            circle_name=cat_name,
+            evidence_type=ev_type,
+            source=src,
+            source_url=None,
+            related_count=total,
+            strength_level=_strength,
+        ))
 
     return CircleResponse(categories=categories)
+
+
+@router.get("/members/{member_id}/circles/{circle_type}", response_model=CircleExpandResponse)
+def get_circle_members(member_id: str, circle_type: str):
+    entity_type_map = {v[0]: k for k, v in CATEGORY_MAP.items()}
+    et = entity_type_map.get(circle_type)
+    if not et:
+        return CircleExpandResponse(circle_type=circle_type, circle_name=circle_type)
+
+    cypher = """
+    MATCH (m1:Person {id: $mid})-[r1]-(entity)-[r2]-(m2:Person)
+    WHERE m1.id <> m2.id AND labels(entity)[0] = $et
+    RETURN DISTINCT m2.id AS member_id,
+           m2.display_name AS display_name,
+           m2.party AS party,
+           m2.state AS state,
+           entity.display_name AS shared_via
+    ORDER BY m2.display_name
+    LIMIT 200
+    """
+    results = run_cypher(cypher, {"mid": member_id, "et": et})
+    members = []
+    if results:
+        for row in results:
+            members.append(CircleMember(
+                member_id=row["member_id"],
+                display_name=row["display_name"],
+                party=row.get("party"),
+                state=row.get("state"),
+                shared_via=row.get("shared_via", ""),
+            ))
+
+    return CircleExpandResponse(
+        circle_type=circle_type,
+        circle_name=_get_circle_name(et),
+        members=members,
+    )

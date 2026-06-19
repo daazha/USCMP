@@ -120,6 +120,25 @@ def profile_statistics():
         stats["uscl_profiles"] = uscl
         stats["wikipedia_profiles"] = wiki
         stats["missing_profiles"] = total - uscl - wiki
+
+        # Campaign finance stats (v0.92)
+        try:
+            cmte_count = db.execute(
+                text("SELECT COUNT(*) FROM campaign_committees")
+            ).scalar() or 0
+            donor_count = db.execute(
+                text("SELECT COUNT(*) FROM donors")
+            ).scalar() or 0
+            contrib_count = db.execute(
+                text("SELECT COUNT(*) FROM contributions")
+            ).scalar() or 0
+            stats["campaign_committees"] = cmte_count
+            stats["campaign_donors"] = donor_count
+            stats["campaign_contributions"] = contrib_count
+        except Exception:
+            stats["campaign_committees"] = 0
+            stats["campaign_donors"] = 0
+            stats["campaign_contributions"] = 0
         stats["available_profiles"] = available
         stats["partial_profiles"] = partial
         stats["summary_only_profiles"] = summary
