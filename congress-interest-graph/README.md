@@ -2,6 +2,46 @@
 
 智库级美国政治研究工具，通过开源情报 (OSINT) 分析美国参众两院议员的身份背景、商业利益、社会关系、委员会职务、涉华相关行为、政治资金流和公开争议记录。
 
+## 快速演示
+
+### 一键启动
+
+```bash
+# 克隆项目
+git clone https://github.com/daazha/USCMP.git
+cd USCMP
+
+# 使用部署脚本
+./deploy.sh dev
+
+# 或手动启动
+docker compose up --build -d
+```
+
+### 访问地址
+
+- **前端界面**: http://localhost:3000
+- **API 文档**: http://localhost:8000/docs
+- **Neo4j 浏览器**: http://localhost:7474
+
+### 初始化数据
+
+```bash
+# 使用脚本
+./deploy.sh init
+
+# 或手动初始化
+docker compose exec backend python3 -m app.etl.import_real_members
+docker compose exec backend python3 -m app.etl.import_fec_data
+docker compose exec backend python3 -m app.etl.import_holdings
+docker compose exec backend python3 -m app.etl.import_congress_profiles
+```
+
+> 详细部署说明请参考 [DEPLOYMENT.md](DEPLOYMENT.md)
+> 演示指南请参考 [DEMO.md](DEMO.md)
+
+---
+
 ## 合规声明
 
 - 仅供研究参考，不构成事实认定、法律判断或投资建议
