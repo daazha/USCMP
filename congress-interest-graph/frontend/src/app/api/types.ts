@@ -43,6 +43,8 @@ export interface MemberDetail {
   committee_memberships: CommitteeMembership[];
   career_summary: Record<string, unknown>[];
   china_stance_summary?: string;
+  core_positions?: string;
+  comprehensive_evaluation?: string;
   controversies: Record<string, unknown>[];
   congress?: number;
   source: string;

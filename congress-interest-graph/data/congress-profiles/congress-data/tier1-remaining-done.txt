@@ -1,0 +1,39 @@
+Tier 1 人物档案完成清单（24人）
+==================================
+完成时间：2026年6月20日
+模板：Mike Johnson 深度模板
+输出目录：/workspace/congress-data/output/
+
+参议院（14人）
+─────────────
+ 1. Susan Collins      → senate/committee-intelligence/susan-collins.md
+ 2. Jeff Merkley       → senate/committee-foreign-relations/jeff-merkley.md
+ 3. Kirsten Gillibrand → senate/committee-armed-services/kirsten-gillibrand.md
+ 4. Christopher Coons  → senate/committee-foreign-relations/christopher-coons.md
+ 5. Martin Heinrich    → senate/committee-intelligence/martin-heinrich.md
+ 6. Mike Lee           → senate/committee-foreign-relations/mike-lee.md
+ 7. Rand Paul          → senate/committee-foreign-relations/rand-paul.md
+ 8. Ron Wyden          → senate/committee-intelligence/ron-wyden.md
+ 9. Angus King         → senate/committee-armed-services/angus-king.md
+10. Steve Daines       → senate/committee-foreign-relations/steve-daines.md
+11. Cory Booker        → senate/committee-foreign-relations/cory-booker.md
+12. John Curtis        → senate/committee-foreign-relations/john-curtis.md
+13. Ashley Moody       → senate/committee-armed-services/ashley-moody.md
+
+众议院（11人）
+─────────────
+14. Gus Bilirakis      → house/committee-china/gus-bilirakis.md
+15. André Carson       → house/committee-china/andre-carson.md
+16. Kathy Castor       → house/committee-china/kathy-castor.md
+17. Austin Scott       → house/committee-armed-services/austin-scott.md
+18. Darin LaHood       → house/committee-china/darin-lahood.md
+19. Neal Dunn          → house/committee-china/neal-dunn.md
+20. Greg Steube        → house/committee-ways-means/greg-steube.md
+21. Carlos Gimenez     → house/committee-china/carlos-gimenez.md
+22. Ashley Hinson      → house/committee-china/ashley-hinson.md
+23. Jill Tokuda        → house/committee-china/jill-tokuda.md
+24. Zach Nunn          → house/committee-china/zach-nunn.md
+
+文件命名规则
+─────────────
+slug = name.lower().replace(' ', '-').replace('.','').replace("'",'').replace('é','e').replace('í','i')

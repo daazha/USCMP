@@ -1,0 +1,2118 @@
+[
+  {
+    "bioguide": "P000145",
+    "name": "Alejandro Padilla",
+    "party": "Democrat",
+    "state": "CA",
+    "district": null,
+    "type": "Senator",
+    "chamber": "senate",
+    "leadership": "",
+    "china_comms": [
+      "Senate Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "Joint Committee of Congress on the Library",
+      "Joint Committee on Printing",
+      "Senate Committee on Energy and Natural Resources",
+      "Senate Committee on Environment and Public Works",
+      "Senate Committee on Rules and Administration",
+      "Senate Committee on the Budget",
+      "Senate Committee on the Judiciary"
+    ],
+    "tier": 2,
+    "birthday": "1973-03-22",
+    "gender": "M",
+    "wikipedia": "Alex Padilla",
+    "twitter": "SenAlexPadilla",
+    "url": "https://www.padilla.senate.gov"
+  },
+  {
+    "bioguide": "W000790",
+    "name": "Raphael Warnock",
+    "party": "Democrat",
+    "state": "GA",
+    "district": null,
+    "type": "Senator",
+    "chamber": "senate",
+    "leadership": "",
+    "china_comms": [
+      "Senate Committee on Banking, Housing, and Urban Affairs",
+      "Senate Committee on Finance"
+    ],
+    "all_comms": [
+      "Senate Committee on Agriculture, Nutrition, and Forestry",
+      "Senate Committee on Banking, Housing, and Urban Affairs",
+      "Senate Committee on Finance",
+      "Senate Special Committee on Aging"
+    ],
+    "tier": 2,
+    "birthday": "1969-07-23",
+    "gender": "M",
+    "wikipedia": "Raphael Warnock",
+    "twitter": "SenatorWarnock",
+    "url": "https://www.warnock.senate.gov"
+  },
+  {
+    "bioguide": "C001125",
+    "name": "Troy Carter",
+    "party": "Democrat",
+    "state": "LA",
+    "district": 2,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "all_comms": [
+      "House Committee on Energy and Commerce",
+      "House Committee on Homeland Security"
+    ],
+    "tier": 2,
+    "birthday": "1963-10-26",
+    "gender": "M",
+    "wikipedia": "Troy Carter (politician)",
+    "twitter": "RepTroyCarter",
+    "url": "https://troycarter.house.gov"
+  },
+  {
+    "bioguide": "C001126",
+    "name": "Mike Carey",
+    "party": "Republican",
+    "state": "OH",
+    "district": 15,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Ways and Means"
+    ],
+    "all_comms": [
+      "House Committee on House Administration",
+      "House Committee on Ways and Means",
+      "House Committee on the Budget",
+      "Joint Committee of Congress on the Library"
+    ],
+    "tier": 2,
+    "birthday": "1971-03-13",
+    "gender": "M",
+    "wikipedia": "Mike Carey (politician)",
+    "twitter": "RepMikeCarey",
+    "url": "https://carey.house.gov"
+  },
+  {
+    "bioguide": "F000474",
+    "name": "Mike Flood",
+    "party": "Republican",
+    "state": "NE",
+    "district": 1,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Financial Services"
+    ],
+    "all_comms": [
+      "House Committee on Financial Services"
+    ],
+    "tier": 2,
+    "birthday": "1975-02-23",
+    "gender": "M",
+    "wikipedia": "Mike Flood (politician)",
+    "twitter": "USRepMikeFlood",
+    "url": "https://flood.house.gov"
+  },
+  {
+    "bioguide": "F000475",
+    "name": "Brad Finstad",
+    "party": "Republican",
+    "state": "MN",
+    "district": 1,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Agriculture",
+      "House Committee on Armed Services",
+      "House Committee on Small Business"
+    ],
+    "tier": 2,
+    "birthday": "1976-05-30",
+    "gender": "M",
+    "wikipedia": "Brad Finstad",
+    "twitter": "RepFinstad",
+    "url": "https://finstad.house.gov"
+  },
+  {
+    "bioguide": "R000579",
+    "name": "Patrick Ryan",
+    "party": "Democrat",
+    "state": "NY",
+    "district": 18,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Transportation and Infrastructure"
+    ],
+    "tier": 2,
+    "birthday": "1982-03-28",
+    "gender": "M",
+    "wikipedia": "Pat Ryan (politician)",
+    "twitter": "RepPatRyanNY",
+    "url": "https://patryan.house.gov"
+  },
+  {
+    "bioguide": "Y000067",
+    "name": "Rudy Yakym",
+    "party": "Republican",
+    "state": "IN",
+    "district": 2,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Ways and Means"
+    ],
+    "all_comms": [
+      "House Committee on Transportation and Infrastructure",
+      "House Committee on Ways and Means"
+    ],
+    "tier": 2,
+    "birthday": "1984-02-24",
+    "gender": "M",
+    "wikipedia": "Rudy Yakym",
+    "twitter": "RepRudyYakym",
+    "url": "https://yakym.house.gov"
+  },
+  {
+    "bioguide": "Z000018",
+    "name": "Ryan Zinke",
+    "party": "Republican",
+    "state": "MT",
+    "district": 1,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Appropriations",
+      "House Committee on Foreign Affairs"
+    ],
+    "tier": 2,
+    "birthday": "1961-11-01",
+    "gender": "M",
+    "wikipedia": "Ryan Zinke",
+    "twitter": "RepRyanZinke",
+    "url": "https://zinke.house.gov"
+  },
+  {
+    "bioguide": "B001319",
+    "name": "Katie Britt",
+    "party": "Republican",
+    "state": "AL",
+    "district": null,
+    "type": "Senator",
+    "chamber": "senate",
+    "leadership": "",
+    "china_comms": [
+      "Senate Committee on Banking, Housing, and Urban Affairs",
+      "Senate Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "Commission on Security and Cooperation in Europe",
+      "Senate Committee on Appropriations",
+      "Senate Committee on Banking, Housing, and Urban Affairs",
+      "Senate Committee on Rules and Administration",
+      "Senate Committee on the Judiciary"
+    ],
+    "tier": 2,
+    "birthday": "1982-02-02",
+    "gender": "F",
+    "wikipedia": "Katie Britt",
+    "twitter": "SenKatieBritt",
+    "url": "https://www.britt.senate.gov"
+  },
+  {
+    "bioguide": "F000479",
+    "name": "John Fetterman",
+    "party": "Democrat",
+    "state": "PA",
+    "district": null,
+    "type": "Senator",
+    "chamber": "senate",
+    "leadership": "",
+    "china_comms": [
+      "Senate Committee on Commerce, Science, and Transportation"
+    ],
+    "all_comms": [
+      "Commission on Security and Cooperation in Europe",
+      "Senate Committee on Agriculture, Nutrition, and Forestry",
+      "Senate Committee on Commerce, Science, and Transportation",
+      "Senate Committee on Homeland Security and Governmental Affairs"
+    ],
+    "tier": 2,
+    "birthday": "1969-08-15",
+    "gender": "M",
+    "wikipedia": "John Fetterman",
+    "twitter": "",
+    "url": "https://www.fetterman.senate.gov"
+  },
+  {
+    "bioguide": "M001225",
+    "name": "Kevin Mullin",
+    "party": "Democrat",
+    "state": "CA",
+    "district": 15,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "all_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "tier": 2,
+    "birthday": "1970-06-15",
+    "gender": "M",
+    "wikipedia": "Kevin Mullin",
+    "twitter": "RepKevinMullin",
+    "url": "https://kevinmullin.house.gov"
+  },
+  {
+    "bioguide": "K000400",
+    "name": "Sydney Kamlager-Dove",
+    "party": "Democrat",
+    "state": "CA",
+    "district": 37,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs",
+      "House Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "House Committee on Foreign Affairs",
+      "House Committee on the Judiciary"
+    ],
+    "tier": 2,
+    "birthday": "1972-07-20",
+    "gender": "F",
+    "wikipedia": "Sydney Kamlager-Dove",
+    "twitter": "RepKamlagerDove",
+    "url": "https://kamlager-dove.house.gov"
+  },
+  {
+    "bioguide": "P000620",
+    "name": "Brittany Pettersen",
+    "party": "Democrat",
+    "state": "CO",
+    "district": 7,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Financial Services"
+    ],
+    "all_comms": [
+      "House Committee on Financial Services"
+    ],
+    "tier": 2,
+    "birthday": "1981-12-06",
+    "gender": "F",
+    "wikipedia": "Brittany Pettersen",
+    "twitter": "reppettersen",
+    "url": "https://pettersen.house.gov"
+  },
+  {
+    "bioguide": "B001314",
+    "name": "Aaron Bean",
+    "party": "Republican",
+    "state": "FL",
+    "district": 4,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Ways and Means"
+    ],
+    "all_comms": [
+      "House Committee on Ways and Means"
+    ],
+    "tier": 2,
+    "birthday": "1967-01-25",
+    "gender": "M",
+    "wikipedia": "Aaron Bean",
+    "twitter": "RepAaronBean",
+    "url": "https://bean.house.gov"
+  },
+  {
+    "bioguide": "M001216",
+    "name": "Cory Mills",
+    "party": "Republican",
+    "state": "FL",
+    "district": 7,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Foreign Affairs"
+    ],
+    "tier": 2,
+    "birthday": "1980-07-30",
+    "gender": "M",
+    "wikipedia": "Cory Mills",
+    "twitter": "RepMillsPress",
+    "url": "https://mills.house.gov"
+  },
+  {
+    "bioguide": "L000596",
+    "name": "Anna Luna",
+    "party": "Republican",
+    "state": "FL",
+    "district": 13,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Foreign Affairs",
+      "House Committee on Oversight and Government Reform"
+    ],
+    "tier": 2,
+    "birthday": "1989-05-06",
+    "gender": "F",
+    "wikipedia": "Anna Paulina Luna",
+    "twitter": "RepLuna",
+    "url": "https://luna.house.gov"
+  },
+  {
+    "bioguide": "L000597",
+    "name": "Laurel Lee",
+    "party": "Republican",
+    "state": "FL",
+    "district": 15,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Energy and Commerce",
+      "House Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "House Committee on Energy and Commerce",
+      "House Committee on House Administration",
+      "House Committee on the Judiciary"
+    ],
+    "tier": 2,
+    "birthday": "1974-03-26",
+    "gender": "F",
+    "wikipedia": "Laurel Lee",
+    "twitter": "RepLaurelLee",
+    "url": "https://laurellee.house.gov"
+  },
+  {
+    "bioguide": "M001217",
+    "name": "Jared Moskowitz",
+    "party": "Democrat",
+    "state": "FL",
+    "district": 23,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs",
+      "House Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "House Committee on Foreign Affairs",
+      "House Committee on the Judiciary",
+      "House Select Subcommittee to Investigate the Remaining Questions Surrounding January 6, 2021"
+    ],
+    "tier": 2,
+    "birthday": "1980-12-18",
+    "gender": "M",
+    "wikipedia": "Jared Moskowitz",
+    "twitter": "RepMoskowitz",
+    "url": "https://moskowitz.house.gov"
+  },
+  {
+    "bioguide": "M001218",
+    "name": "Rich McCormick",
+    "party": "Republican",
+    "state": "GA",
+    "district": 7,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Oversight and Government Reform",
+      "House Committee on Science, Space, and Technology"
+    ],
+    "tier": 2,
+    "birthday": "1968-10-07",
+    "gender": "M",
+    "wikipedia": "Rich McCormick",
+    "twitter": "RepMcCormick",
+    "url": "https://mccormick.house.gov"
+  },
+  {
+    "bioguide": "M001219",
+    "name": "James (Jim) Moylan",
+    "party": "Republican",
+    "state": "GU",
+    "district": 0,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Education and Workforce",
+      "House Committee on Foreign Affairs"
+    ],
+    "tier": 2,
+    "birthday": "1962-07-18",
+    "gender": "M",
+    "wikipedia": "James Moylan",
+    "twitter": "JMoylanforGuam",
+    "url": "https://moylan.house.gov"
+  },
+  {
+    "bioguide": "J000309",
+    "name": "Jonathan Jackson",
+    "party": "Democrat",
+    "state": "IL",
+    "district": 1,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Agriculture",
+      "House Committee on Foreign Affairs"
+    ],
+    "tier": 2,
+    "birthday": "1966-01-07",
+    "gender": "M",
+    "wikipedia": "Jonathan Jackson (Illinois politician)",
+    "twitter": "",
+    "url": "https://jonathanjackson.house.gov"
+  },
+  {
+    "bioguide": "S001225",
+    "name": "Eric Sorensen",
+    "party": "Democrat",
+    "state": "IL",
+    "district": 17,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Agriculture",
+      "House Committee on Armed Services"
+    ],
+    "tier": 2,
+    "birthday": "1976-03-18",
+    "gender": "M",
+    "wikipedia": "Eric Sorensen (politician)",
+    "twitter": "RepEricSorensen",
+    "url": "https://sorensen.house.gov"
+  },
+  {
+    "bioguide": "H001093",
+    "name": "Erin Houchin",
+    "party": "Republican",
+    "state": "IN",
+    "district": 9,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "all_comms": [
+      "House Committee on Energy and Commerce",
+      "House Committee on Rules",
+      "House Committee on the Budget"
+    ],
+    "tier": 2,
+    "birthday": "1976-09-24",
+    "gender": "F",
+    "wikipedia": "Erin Houchin",
+    "twitter": "RepHouchin",
+    "url": "https://houchin.house.gov"
+  },
+  {
+    "bioguide": "J000307",
+    "name": "John James",
+    "party": "Republican",
+    "state": "MI",
+    "district": 10,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "all_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "tier": 2,
+    "birthday": "1981-06-08",
+    "gender": "M",
+    "wikipedia": "John James (Michigan politician)",
+    "twitter": "RepJames",
+    "url": "https://james.house.gov"
+  },
+  {
+    "bioguide": "D000230",
+    "name": "Donald Davis",
+    "party": "Democrat",
+    "state": "NC",
+    "district": 1,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Agriculture",
+      "House Committee on Armed Services"
+    ],
+    "tier": 2,
+    "birthday": "1971-08-29",
+    "gender": "M",
+    "wikipedia": "Don Davis (North Carolina politician)",
+    "twitter": "RepDonDavis",
+    "url": "https://dondavis.house.gov"
+  },
+  {
+    "bioguide": "K000398",
+    "name": "Thomas Kean",
+    "party": "Republican",
+    "state": "NJ",
+    "district": 7,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Energy and Commerce",
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Energy and Commerce",
+      "House Committee on Foreign Affairs"
+    ],
+    "tier": 2,
+    "birthday": "1968-09-05",
+    "gender": "M",
+    "wikipedia": "Thomas Kean Jr.",
+    "twitter": "CongressmanKean",
+    "url": "https://kean.house.gov"
+  },
+  {
+    "bioguide": "M001226",
+    "name": "Robert Menendez",
+    "party": "Democrat",
+    "state": "NJ",
+    "district": 8,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "all_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "tier": 2,
+    "birthday": "1985-07-12",
+    "gender": "M",
+    "wikipedia": "Rob Menendez",
+    "twitter": "RepMenendez",
+    "url": "https://menendez.house.gov"
+  },
+  {
+    "bioguide": "V000136",
+    "name": "Gabriel (Gabe) Vasquez",
+    "party": "Democrat",
+    "state": "NM",
+    "district": 2,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Agriculture",
+      "House Committee on Armed Services"
+    ],
+    "tier": 2,
+    "birthday": "1984-08-03",
+    "gender": "M",
+    "wikipedia": "Gabe Vasquez",
+    "twitter": "RepGabeVasquez",
+    "url": "https://vasquez.house.gov"
+  },
+  {
+    "bioguide": "G000599",
+    "name": "Dan Goldman",
+    "party": "Democrat",
+    "state": "NY",
+    "district": 10,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "House Committee on Homeland Security",
+      "House Committee on the Judiciary"
+    ],
+    "tier": 2,
+    "birthday": "1976-02-26",
+    "gender": "M",
+    "wikipedia": "Dan Goldman",
+    "twitter": "RepDanGoldman",
+    "url": "https://goldman.house.gov"
+  },
+  {
+    "bioguide": "L000599",
+    "name": "Michael Lawler",
+    "party": "Republican",
+    "state": "NY",
+    "district": 17,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Financial Services",
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Financial Services",
+      "House Committee on Foreign Affairs"
+    ],
+    "tier": 2,
+    "birthday": "1986-09-09",
+    "gender": "M",
+    "wikipedia": "Mike Lawler",
+    "twitter": "RepMikeLawler",
+    "url": "https://lawler.house.gov"
+  },
+  {
+    "bioguide": "L000600",
+    "name": "Nicholas Langworthy",
+    "party": "Republican",
+    "state": "NY",
+    "district": 23,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "all_comms": [
+      "House Committee on Energy and Commerce",
+      "House Committee on Oversight and Government Reform",
+      "House Committee on Rules"
+    ],
+    "tier": 2,
+    "birthday": "1981-02-27",
+    "gender": "M",
+    "wikipedia": "Nick Langworthy",
+    "twitter": "RepLangworthy",
+    "url": "https://langworthy.house.gov"
+  },
+  {
+    "bioguide": "L000601",
+    "name": "Greg Landsman",
+    "party": "Democrat",
+    "state": "OH",
+    "district": 1,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "all_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "tier": 2,
+    "birthday": "1976-12-04",
+    "gender": "M",
+    "wikipedia": "Greg Landsman",
+    "twitter": "repgreglandsman",
+    "url": "https://landsman.house.gov"
+  },
+  {
+    "bioguide": "M001222",
+    "name": "Max Miller",
+    "party": "Republican",
+    "state": "OH",
+    "district": 7,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs",
+      "House Committee on Ways and Means"
+    ],
+    "all_comms": [
+      "House Committee on Foreign Affairs",
+      "House Committee on Ways and Means"
+    ],
+    "tier": 2,
+    "birthday": "1988-11-13",
+    "gender": "M",
+    "wikipedia": "Max Miller (politician)",
+    "twitter": "repmaxmiller",
+    "url": "https://maxmiller.house.gov"
+  },
+  {
+    "bioguide": "D000530",
+    "name": "Chris Deluzio",
+    "party": "Democrat",
+    "state": "PA",
+    "district": 17,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Transportation and Infrastructure"
+    ],
+    "tier": 2,
+    "birthday": "1984-07-13",
+    "gender": "M",
+    "wikipedia": "Chris Deluzio",
+    "twitter": "RepDeluzio",
+    "url": "https://deluzio.house.gov"
+  },
+  {
+    "bioguide": "F000478",
+    "name": "Russell Fry",
+    "party": "Republican",
+    "state": "SC",
+    "district": 7,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Energy and Commerce",
+      "House Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "House Committee on Energy and Commerce",
+      "House Committee on the Judiciary"
+    ],
+    "tier": 2,
+    "birthday": "1985-01-31",
+    "gender": "M",
+    "wikipedia": "Russell Fry",
+    "twitter": "RepRussellFry",
+    "url": "https://fry.house.gov"
+  },
+  {
+    "bioguide": "O000175",
+    "name": "Andrew Ogles",
+    "party": "Republican",
+    "state": "TN",
+    "district": 5,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Financial Services"
+    ],
+    "all_comms": [
+      "House Committee on Financial Services",
+      "House Committee on Homeland Security"
+    ],
+    "tier": 2,
+    "birthday": "1971-06-18",
+    "gender": "M",
+    "wikipedia": "Andy Ogles",
+    "twitter": "repogles",
+    "url": "https://ogles.house.gov"
+  },
+  {
+    "bioguide": "S001224",
+    "name": "Keith Self",
+    "party": "Republican",
+    "state": "TX",
+    "district": 3,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Foreign Affairs",
+      "House Committee on Science, Space, and Technology",
+      "House Committee on Veterans' Affairs"
+    ],
+    "tier": 2,
+    "birthday": "1953-03-20",
+    "gender": "M",
+    "wikipedia": "Keith Self",
+    "twitter": "repkeithself",
+    "url": "https://keithself.house.gov"
+  },
+  {
+    "bioguide": "L000603",
+    "name": "Morgan Luttrell",
+    "party": "Republican",
+    "state": "TX",
+    "district": 8,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Homeland Security",
+      "House Committee on Veterans' Affairs"
+    ],
+    "tier": 2,
+    "birthday": "1975-11-07",
+    "gender": "M",
+    "wikipedia": "Morgan Luttrell",
+    "twitter": "RepLuttrell",
+    "url": "https://luttrell.house.gov"
+  },
+  {
+    "bioguide": "D000594",
+    "name": "M\u00f3nica De La Cruz",
+    "party": "Republican",
+    "state": "TX",
+    "district": 15,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Financial Services"
+    ],
+    "all_comms": [
+      "House Committee on Agriculture",
+      "House Committee on Financial Services"
+    ],
+    "tier": 2,
+    "birthday": "1974-11-11",
+    "gender": "F",
+    "wikipedia": "Monica De La Cruz",
+    "twitter": "RepMonicaDLC",
+    "url": "https://delacruz.house.gov"
+  },
+  {
+    "bioguide": "C001130",
+    "name": "Jasmine Crockett",
+    "party": "Democrat",
+    "state": "TX",
+    "district": 30,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "House Committee on Oversight and Government Reform",
+      "House Committee on the Judiciary",
+      "House Select Subcommittee to Investigate the Remaining Questions Surrounding January 6, 2021"
+    ],
+    "tier": 2,
+    "birthday": "1981-03-29",
+    "gender": "F",
+    "wikipedia": "Jasmine Crockett",
+    "twitter": "RepJasmine",
+    "url": "https://crockett.house.gov"
+  },
+  {
+    "bioguide": "H001095",
+    "name": "Wesley Hunt",
+    "party": "Republican",
+    "state": "TX",
+    "district": 38,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "House Committee on Natural Resources",
+      "House Committee on the Judiciary"
+    ],
+    "tier": 2,
+    "birthday": "1981-11-13",
+    "gender": "M",
+    "wikipedia": "Wesley Hunt",
+    "twitter": "RepWesleyHunt",
+    "url": "https://hunt.house.gov"
+  },
+  {
+    "bioguide": "K000399",
+    "name": "Jennifer Kiggans",
+    "party": "Republican",
+    "state": "VA",
+    "district": 2,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Natural Resources",
+      "House Committee on Veterans' Affairs"
+    ],
+    "tier": 2,
+    "birthday": "1971-06-18",
+    "gender": "F",
+    "wikipedia": "Jen Kiggans",
+    "twitter": "RepJenKiggans",
+    "url": "https://kiggans.house.gov"
+  },
+  {
+    "bioguide": "B001318",
+    "name": "Becca Balint",
+    "party": "Democrat",
+    "state": "VT",
+    "district": 0,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "House Committee on the Budget",
+      "House Committee on the Judiciary"
+    ],
+    "tier": 2,
+    "birthday": "1968-05-04",
+    "gender": "F",
+    "wikipedia": "Becca Balint",
+    "twitter": "RepBeccaB",
+    "url": "https://balint.house.gov"
+  },
+  {
+    "bioguide": "V000135",
+    "name": "Derrick Van Orden",
+    "party": "Republican",
+    "state": "WI",
+    "district": 3,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Agriculture",
+      "House Committee on Armed Services",
+      "House Committee on Veterans' Affairs"
+    ],
+    "tier": 2,
+    "birthday": "1969-09-15",
+    "gender": "M",
+    "wikipedia": "Derrick Van Orden",
+    "twitter": "RepVanOrden",
+    "url": "https://vanorden.house.gov"
+  },
+  {
+    "bioguide": "H001096",
+    "name": "Harriet Hageman",
+    "party": "Republican",
+    "state": "WY",
+    "district": 0,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "House Committee on Natural Resources",
+      "House Committee on the Judiciary",
+      "House Select Subcommittee to Investigate the Remaining Questions Surrounding January 6, 2021"
+    ],
+    "tier": 2,
+    "birthday": "1962-10-18",
+    "gender": "F",
+    "wikipedia": "Harriet Hageman",
+    "twitter": "RepHageman",
+    "url": "https://hageman.house.gov"
+  },
+  {
+    "bioguide": "M001227",
+    "name": "Jennifer McClellan",
+    "party": "Democrat",
+    "state": "VA",
+    "district": 4,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "all_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "tier": 2,
+    "birthday": "1972-12-28",
+    "gender": "F",
+    "wikipedia": "Jennifer McClellan",
+    "twitter": "RepMcClellan",
+    "url": "https://mcclellan.house.gov"
+  },
+  {
+    "bioguide": "A000380",
+    "name": "Gabe Amo",
+    "party": "Democrat",
+    "state": "RI",
+    "district": 1,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Foreign Affairs",
+      "House Committee on Science, Space, and Technology",
+      "House Committee on the Budget"
+    ],
+    "tier": 2,
+    "birthday": "1987-12-11",
+    "gender": "M",
+    "wikipedia": "Gabe Amo",
+    "twitter": "RepGabeAmo",
+    "url": "https://amo.house.gov"
+  },
+  {
+    "bioguide": "S001201",
+    "name": "Thomas Suozzi",
+    "party": "Democrat",
+    "state": "NY",
+    "district": 3,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Ways and Means"
+    ],
+    "all_comms": [
+      "House Committee on Ways and Means"
+    ],
+    "tier": 2,
+    "birthday": "1962-08-31",
+    "gender": "M",
+    "wikipedia": "Tom Suozzi",
+    "twitter": "reptomsuozzi",
+    "url": "https://suozzi.house.gov"
+  },
+  {
+    "bioguide": "R000619",
+    "name": "Michael Rulli",
+    "party": "Republican",
+    "state": "OH",
+    "district": 6,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "all_comms": [
+      "House Committee on Education and Workforce",
+      "House Committee on Energy and Commerce"
+    ],
+    "tier": 2,
+    "birthday": "1969-03-11",
+    "gender": "M",
+    "wikipedia": "Michael Rulli",
+    "twitter": "",
+    "url": "https://rulli.house.gov"
+  },
+  {
+    "bioguide": "F000110",
+    "name": "Cleo Fields",
+    "party": "Democrat",
+    "state": "LA",
+    "district": 6,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Financial Services"
+    ],
+    "all_comms": [
+      "House Committee on Financial Services"
+    ],
+    "tier": 2,
+    "birthday": "1962-11-22",
+    "gender": "M",
+    "wikipedia": "Cleo Fields",
+    "twitter": "repfields",
+    "url": "https://fields.house.gov"
+  },
+  {
+    "bioguide": "S001188",
+    "name": "Marlin Stutzman",
+    "party": "Republican",
+    "state": "IN",
+    "district": 3,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Financial Services"
+    ],
+    "all_comms": [
+      "House Committee on Financial Services",
+      "House Committee on the Budget"
+    ],
+    "tier": 2,
+    "birthday": "1976-08-31",
+    "gender": "M",
+    "wikipedia": "Marlin Stutzman",
+    "twitter": "RepStutzman",
+    "url": "https://stutzman.house.gov"
+  },
+  {
+    "bioguide": "C001123",
+    "name": "Gilbert Cisneros",
+    "party": "Democrat",
+    "state": "CA",
+    "district": 31,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Small Business"
+    ],
+    "tier": 2,
+    "birthday": "1971-02-12",
+    "gender": "M",
+    "wikipedia": "Gil Cisneros",
+    "twitter": "",
+    "url": "https://cisneros.house.gov"
+  },
+  {
+    "bioguide": "A000382",
+    "name": "Angela Alsobrooks",
+    "party": "Democrat",
+    "state": "MD",
+    "district": null,
+    "type": "Senator",
+    "chamber": "senate",
+    "leadership": "",
+    "china_comms": [
+      "Senate Committee on Banking, Housing, and Urban Affairs"
+    ],
+    "all_comms": [
+      "Senate Committee on Banking, Housing, and Urban Affairs",
+      "Senate Committee on Environment and Public Works",
+      "Senate Committee on Health, Education, Labor, and Pensions",
+      "Senate Special Committee on Aging"
+    ],
+    "tier": 2,
+    "birthday": "1971-02-23",
+    "gender": "F",
+    "wikipedia": "Angela Alsobrooks",
+    "twitter": "",
+    "url": "https://www.alsobrooks.senate.gov"
+  },
+  {
+    "bioguide": "M001242",
+    "name": "Bernie Moreno",
+    "party": "Republican",
+    "state": "OH",
+    "district": null,
+    "type": "Senator",
+    "chamber": "senate",
+    "leadership": "",
+    "china_comms": [
+      "Senate Committee on Banking, Housing, and Urban Affairs",
+      "Senate Committee on Commerce, Science, and Transportation"
+    ],
+    "all_comms": [
+      "Senate Committee on Banking, Housing, and Urban Affairs",
+      "Senate Committee on Commerce, Science, and Transportation",
+      "Senate Committee on Homeland Security and Governmental Affairs",
+      "Senate Committee on the Budget",
+      "United States Senate Caucus on International Narcotics Control"
+    ],
+    "tier": 2,
+    "birthday": "1967-02-14",
+    "gender": "M",
+    "wikipedia": "Bernie Moreno",
+    "twitter": "berniemoreno",
+    "url": "https://www.moreno.senate.gov"
+  },
+  {
+    "bioguide": "H001098",
+    "name": "Abraham Hamadeh",
+    "party": "Republican",
+    "state": "AZ",
+    "district": 8,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Veterans' Affairs"
+    ],
+    "tier": 2,
+    "birthday": "1991-05-15",
+    "gender": "M",
+    "wikipedia": "Abraham Hamadeh",
+    "twitter": "",
+    "url": "https://hamadeh.house.gov"
+  },
+  {
+    "bioguide": "L000607",
+    "name": "Sam Liccardo",
+    "party": "Democrat",
+    "state": "CA",
+    "district": 16,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Financial Services"
+    ],
+    "all_comms": [
+      "House Committee on Financial Services"
+    ],
+    "tier": 2,
+    "birthday": "1970-04-16",
+    "gender": "M",
+    "wikipedia": "Sam Liccardo",
+    "twitter": "repliccardo",
+    "url": "https://liccardo.house.gov"
+  },
+  {
+    "bioguide": "W000830",
+    "name": "George Whitesides",
+    "party": "Democrat",
+    "state": "CA",
+    "district": 27,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Science, Space, and Technology"
+    ],
+    "tier": 2,
+    "birthday": "1974-03-03",
+    "gender": "M",
+    "wikipedia": "George T. Whitesides",
+    "twitter": "Rep_Whitesides",
+    "url": "https://whitesides.house.gov"
+  },
+  {
+    "bioguide": "T000491",
+    "name": "Derek Tran",
+    "party": "Democrat",
+    "state": "CA",
+    "district": 45,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Small Business"
+    ],
+    "tier": 2,
+    "birthday": "1980-12-22",
+    "gender": "M",
+    "wikipedia": "Derek Tran",
+    "twitter": "",
+    "url": "https://tran.house.gov"
+  },
+  {
+    "bioguide": "M001241",
+    "name": "Dave Min",
+    "party": "Democrat",
+    "state": "CA",
+    "district": 47,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "Joint Economic Committee"
+    ],
+    "all_comms": [
+      "House Committee on Natural Resources",
+      "House Committee on Oversight and Government Reform",
+      "Joint Economic Committee"
+    ],
+    "tier": 2,
+    "birthday": "1976-03-05",
+    "gender": "M",
+    "wikipedia": "Dave Min",
+    "twitter": "",
+    "url": "https://min.house.gov"
+  },
+  {
+    "bioguide": "C001137",
+    "name": "Jeff Crank",
+    "party": "Republican",
+    "state": "CO",
+    "district": 5,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Natural Resources"
+    ],
+    "tier": 2,
+    "birthday": "1967-01-28",
+    "gender": "M",
+    "wikipedia": "Jeff Crank",
+    "twitter": "RepJeffCrank",
+    "url": "https://crank.house.gov"
+  },
+  {
+    "bioguide": "E000300",
+    "name": "Gabe Evans",
+    "party": "Republican",
+    "state": "CO",
+    "district": 8,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "all_comms": [
+      "House Committee on Energy and Commerce",
+      "House Committee on Homeland Security"
+    ],
+    "tier": 2,
+    "birthday": "1986-07-28",
+    "gender": "M",
+    "wikipedia": "Gabe Evans",
+    "twitter": "repgabeevans",
+    "url": "https://gabeevans.house.gov"
+  },
+  {
+    "bioguide": "M001238",
+    "name": "Sarah McBride",
+    "party": "Democrat",
+    "state": "DE",
+    "district": 0,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Foreign Affairs",
+      "House Committee on Science, Space, and Technology"
+    ],
+    "tier": 2,
+    "birthday": "1990-08-09",
+    "gender": "F",
+    "wikipedia": "Sarah McBride",
+    "twitter": "",
+    "url": "https://mcbride.house.gov"
+  },
+  {
+    "bioguide": "H001099",
+    "name": "Mike Haridopolos",
+    "party": "Republican",
+    "state": "FL",
+    "district": 8,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Financial Services"
+    ],
+    "all_comms": [
+      "House Committee on Financial Services",
+      "House Committee on Science, Space, and Technology"
+    ],
+    "tier": 2,
+    "birthday": "1970-03-15",
+    "gender": "M",
+    "wikipedia": "Mike Haridopolos",
+    "twitter": "repharidopolos",
+    "url": "https://haridopolos.house.gov"
+  },
+  {
+    "bioguide": "S001229",
+    "name": "Jefferson Shreve",
+    "party": "Republican",
+    "state": "IN",
+    "district": 6,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Foreign Affairs",
+      "House Committee on Transportation and Infrastructure"
+    ],
+    "tier": 2,
+    "birthday": "1965-09-24",
+    "gender": "M",
+    "wikipedia": "Jefferson Shreve",
+    "twitter": "repshreve",
+    "url": "https://shreve.house.gov"
+  },
+  {
+    "bioguide": "M001233",
+    "name": "Mark Messmer",
+    "party": "Republican",
+    "state": "IN",
+    "district": 8,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Agriculture",
+      "House Committee on Armed Services",
+      "House Committee on Education and Workforce"
+    ],
+    "tier": 2,
+    "birthday": "1967-12-16",
+    "gender": "M",
+    "wikipedia": "Mark Messmer",
+    "twitter": "",
+    "url": "https://messmer.house.gov"
+  },
+  {
+    "bioguide": "S001228",
+    "name": "Derek Schmidt",
+    "party": "Republican",
+    "state": "KS",
+    "district": 2,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services",
+      "House Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Small Business",
+      "House Committee on the Judiciary"
+    ],
+    "tier": 2,
+    "birthday": "1968-01-23",
+    "gender": "M",
+    "wikipedia": "Derek Schmidt",
+    "twitter": "repderekschmidt",
+    "url": "https://schmidt.house.gov"
+  },
+  {
+    "bioguide": "O000176",
+    "name": "Johnny Olszewski",
+    "party": "Democrat",
+    "state": "MD",
+    "district": 2,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Foreign Affairs",
+      "House Committee on Small Business"
+    ],
+    "tier": 2,
+    "birthday": "1982-09-10",
+    "gender": "M",
+    "wikipedia": "Johnny Olszewski",
+    "twitter": "RepJohnnyO",
+    "url": "https://olszewski.house.gov"
+  },
+  {
+    "bioguide": "E000301",
+    "name": "Sarah Elfreth",
+    "party": "Democrat",
+    "state": "MD",
+    "district": 3,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Natural Resources"
+    ],
+    "tier": 2,
+    "birthday": "1988-09-09",
+    "gender": "F",
+    "wikipedia": "Sarah Elfreth",
+    "twitter": "repsarahelfreth",
+    "url": "https://elfreth.house.gov"
+  },
+  {
+    "bioguide": "B001324",
+    "name": "Wesley Bell",
+    "party": "Democrat",
+    "state": "MO",
+    "district": 1,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Oversight and Government Reform"
+    ],
+    "tier": 2,
+    "birthday": "1974-11-05",
+    "gender": "M",
+    "wikipedia": "Wesley Bell",
+    "twitter": "RepWesleyBellMO",
+    "url": "https://bell.house.gov"
+  },
+  {
+    "bioguide": "O000177",
+    "name": "Robert Onder",
+    "party": "Republican",
+    "state": "MO",
+    "district": 3,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "House Committee on Education and Workforce",
+      "House Committee on Transportation and Infrastructure",
+      "House Committee on the Judiciary"
+    ],
+    "tier": 2,
+    "birthday": "1962-01-06",
+    "gender": "M",
+    "wikipedia": "Bob Onder",
+    "twitter": "RepBobOnder",
+    "url": "https://onder.house.gov"
+  },
+  {
+    "bioguide": "D000634",
+    "name": "Troy Downing",
+    "party": "Republican",
+    "state": "MT",
+    "district": 2,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Financial Services"
+    ],
+    "all_comms": [
+      "House Committee on Financial Services",
+      "House Committee on Natural Resources"
+    ],
+    "tier": 2,
+    "birthday": "1967-03-04",
+    "gender": "M",
+    "wikipedia": "Troy Downing",
+    "twitter": "reptroydowning",
+    "url": "https://downing.house.gov"
+  },
+  {
+    "bioguide": "H001102",
+    "name": "Mark Harris",
+    "party": "Republican",
+    "state": "NC",
+    "district": 8,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "House Committee on Agriculture",
+      "House Committee on Education and Workforce",
+      "House Committee on the Judiciary"
+    ],
+    "tier": 2,
+    "birthday": "1966-04-24",
+    "gender": "M",
+    "wikipedia": "Mark Harris (North Carolina politician)",
+    "twitter": "RepMarkHarrisNC",
+    "url": "https://markharris.house.gov"
+  },
+  {
+    "bioguide": "H001101",
+    "name": "Pat Harrigan",
+    "party": "Republican",
+    "state": "NC",
+    "district": 10,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Science, Space, and Technology"
+    ],
+    "tier": 2,
+    "birthday": "1987-06-21",
+    "gender": "M",
+    "wikipedia": "Pat Harrigan",
+    "twitter": "RepPatHarrigan",
+    "url": "https://harrigan.house.gov"
+  },
+  {
+    "bioguide": "K000405",
+    "name": "Brad Knott",
+    "party": "Republican",
+    "state": "NC",
+    "district": 13,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "House Committee on Ethics",
+      "House Committee on Homeland Security",
+      "House Committee on Transportation and Infrastructure",
+      "House Committee on the Judiciary"
+    ],
+    "tier": 2,
+    "birthday": "1986-04-17",
+    "gender": "M",
+    "wikipedia": "Brad Knott",
+    "twitter": "RepKnott",
+    "url": "https://knott.house.gov"
+  },
+  {
+    "bioguide": "M001236",
+    "name": "Tim Moore",
+    "party": "Republican",
+    "state": "NC",
+    "district": 14,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Financial Services"
+    ],
+    "all_comms": [
+      "House Committee on Financial Services",
+      "House Committee on the Budget"
+    ],
+    "tier": 2,
+    "birthday": "1970-10-02",
+    "gender": "M",
+    "wikipedia": "Tim Moore (North Carolina politician)",
+    "twitter": "RepTimMooreNC",
+    "url": "https://timmoore.house.gov"
+  },
+  {
+    "bioguide": "F000482",
+    "name": "Julie Fedorchak",
+    "party": "Republican",
+    "state": "ND",
+    "district": 0,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "all_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "tier": 2,
+    "birthday": "1968-09-28",
+    "gender": "F",
+    "wikipedia": "Julie Fedorchak",
+    "twitter": "RepFedorchak",
+    "url": "https://fedorchak.house.gov"
+  },
+  {
+    "bioguide": "G000604",
+    "name": "Maggie Goodlander",
+    "party": "Democrat",
+    "state": "NH",
+    "district": 2,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Small Business"
+    ],
+    "tier": 2,
+    "birthday": "1986-11-04",
+    "gender": "F",
+    "wikipedia": "Maggie Goodlander",
+    "twitter": "RepGoodlander",
+    "url": "https://goodlander.house.gov"
+  },
+  {
+    "bioguide": "C001136",
+    "name": "Herbert Conaway",
+    "party": "Democrat",
+    "state": "NJ",
+    "district": 3,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Veterans' Affairs"
+    ],
+    "tier": 2,
+    "birthday": "1963-01-30",
+    "gender": "M",
+    "wikipedia": "Herb Conaway",
+    "twitter": "RepHerbConaway",
+    "url": "https://conaway.house.gov"
+  },
+  {
+    "bioguide": "L000606",
+    "name": "George Latimer",
+    "party": "Democrat",
+    "state": "NY",
+    "district": 16,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Foreign Affairs",
+      "House Committee on Small Business"
+    ],
+    "tier": 2,
+    "birthday": "1953-11-22",
+    "gender": "M",
+    "wikipedia": "George Latimer (New York politician)",
+    "twitter": "RepGLatimer",
+    "url": "https://latimer.house.gov"
+  },
+  {
+    "bioguide": "B001326",
+    "name": "Janelle Bynum",
+    "party": "Democrat",
+    "state": "OR",
+    "district": 5,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Financial Services"
+    ],
+    "all_comms": [
+      "House Committee on Financial Services"
+    ],
+    "tier": 2,
+    "birthday": "1975-01-31",
+    "gender": "F",
+    "wikipedia": "Janelle Bynum",
+    "twitter": "RepBynum",
+    "url": "https://bynum.house.gov"
+  },
+  {
+    "bioguide": "M001230",
+    "name": "Ryan Mackenzie",
+    "party": "Republican",
+    "state": "PA",
+    "district": 7,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Education and Workforce",
+      "House Committee on Foreign Affairs",
+      "House Committee on Homeland Security"
+    ],
+    "tier": 2,
+    "birthday": "1982-08-03",
+    "gender": "M",
+    "wikipedia": "Ryan Mackenzie",
+    "twitter": "RepMackenzie",
+    "url": "https://mackenzie.house.gov"
+  },
+  {
+    "bioguide": "B001325",
+    "name": "Sheri Biggs",
+    "party": "Republican",
+    "state": "SC",
+    "district": 3,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Foreign Affairs",
+      "House Committee on Homeland Security",
+      "House Committee on Science, Space, and Technology"
+    ],
+    "tier": 2,
+    "birthday": "1970-03-28",
+    "gender": "F",
+    "wikipedia": "Sheri Biggs",
+    "twitter": "repsheribiggs",
+    "url": "https://sheribiggs.house.gov"
+  },
+  {
+    "bioguide": "G000601",
+    "name": "Craig Goldman",
+    "party": "Republican",
+    "state": "TX",
+    "district": 12,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "all_comms": [
+      "House Committee on Energy and Commerce"
+    ],
+    "tier": 2,
+    "birthday": "1968-10-03",
+    "gender": "M",
+    "wikipedia": "Craig Goldman",
+    "twitter": "RepCraigGoldman",
+    "url": "https://craiggoldman.house.gov"
+  },
+  {
+    "bioguide": "G000603",
+    "name": "Brandon Gill",
+    "party": "Republican",
+    "state": "TX",
+    "district": 26,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "House Committee on Oversight and Government Reform",
+      "House Committee on the Budget",
+      "House Committee on the Judiciary"
+    ],
+    "tier": 2,
+    "birthday": "1994-02-26",
+    "gender": "M",
+    "wikipedia": "Brandon Gill",
+    "twitter": "repbrandongill",
+    "url": "https://gill.house.gov"
+  },
+  {
+    "bioguide": "J000310",
+    "name": "Julie Johnson",
+    "party": "Democrat",
+    "state": "TX",
+    "district": 32,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Foreign Affairs",
+      "House Committee on Homeland Security",
+      "House Committee on House Administration",
+      "Joint Committee of Congress on the Library"
+    ],
+    "tier": 2,
+    "birthday": "1966-05-02",
+    "gender": "F",
+    "wikipedia": "Julie Johnson (politician)",
+    "twitter": "RepJulieJohnson",
+    "url": "https://juliejohnson.house.gov"
+  },
+  {
+    "bioguide": "M001239",
+    "name": "John McGuire",
+    "party": "Republican",
+    "state": "VA",
+    "district": 5,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Armed Services",
+      "House Committee on Oversight and Government Reform"
+    ],
+    "tier": 2,
+    "birthday": "1968-08-24",
+    "gender": "M",
+    "wikipedia": "John McGuire (Virginia politician)",
+    "twitter": "RepJohnMcGuire",
+    "url": "https://mcguire.house.gov"
+  },
+  {
+    "bioguide": "V000138",
+    "name": "Eugene Vindman",
+    "party": "Democrat",
+    "state": "VA",
+    "district": 7,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Armed Services"
+    ],
+    "all_comms": [
+      "House Committee on Agriculture",
+      "House Committee on Armed Services"
+    ],
+    "tier": 2,
+    "birthday": "1975-06-06",
+    "gender": "M",
+    "wikipedia": "Eugene Vindman",
+    "twitter": "RepVindman",
+    "url": "https://vindman.house.gov"
+  },
+  {
+    "bioguide": "B001322",
+    "name": "Michael Baumgartner",
+    "party": "Republican",
+    "state": "WA",
+    "district": 5,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs",
+      "House Committee on the Judiciary"
+    ],
+    "all_comms": [
+      "House Committee on Education and Workforce",
+      "House Committee on Foreign Affairs",
+      "House Committee on the Judiciary"
+    ],
+    "tier": 2,
+    "birthday": "1975-12-13",
+    "gender": "M",
+    "wikipedia": "Michael Baumgartner",
+    "twitter": "repbaumgartner",
+    "url": "https://baumgartner.house.gov"
+  },
+  {
+    "bioguide": "F000484",
+    "name": "Randall Fine",
+    "party": "Republican",
+    "state": "FL",
+    "district": 6,
+    "type": "Representative",
+    "chamber": "house",
+    "leadership": "",
+    "china_comms": [
+      "House Committee on Foreign Affairs"
+    ],
+    "all_comms": [
+      "House Committee on Education and Workforce",
+      "House Committee on Foreign Affairs"
+    ],
+    "tier": 2,
+    "birthday": "1974-04-20",
+    "gender": "M",
+    "wikipedia": "Randy Fine",
+    "twitter": "",
+    "url": "https://fine.house.gov"
+  }
+]

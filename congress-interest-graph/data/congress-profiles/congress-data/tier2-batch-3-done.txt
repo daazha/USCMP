@@ -1,0 +1,94 @@
+Tier 2 Batch 3 - 国会人物档案生成报告
+生成时间: 2026-06-20
+总人数: 90
+
+[OK] Alejandro Padilla → senators/alejandro-padilla.md
+[OK] Raphael Warnock → senators/raphael-warnock.md
+[OK] Troy Carter → representatives/troy-carter.md
+[OK] Mike Carey → representatives/mike-carey.md
+[OK] Mike Flood → representatives/mike-flood.md
+[OK] Brad Finstad → representatives/brad-finstad.md
+[OK] Patrick Ryan → representatives/patrick-ryan.md
+[OK] Rudy Yakym → representatives/rudy-yakym.md
+[OK] Ryan Zinke → representatives/ryan-zinke.md
+[OK] Katie Britt → senators/katie-britt.md
+[OK] John Fetterman → senators/john-fetterman.md
+[OK] Kevin Mullin → representatives/kevin-mullin.md
+[OK] Sydney Kamlager-Dove → representatives/sydney-kamlager-dove.md
+[OK] Brittany Pettersen → representatives/brittany-pettersen.md
+[OK] Aaron Bean → representatives/aaron-bean.md
+[OK] Cory Mills → representatives/cory-mills.md
+[OK] Anna Luna → representatives/anna-luna.md
+[OK] Laurel Lee → representatives/laurel-lee.md
+[OK] Jared Moskowitz → representatives/jared-moskowitz.md
+[OK] Rich McCormick → representatives/rich-mccormick.md
+[OK] James (Jim) Moylan → representatives/james-jim-moylan.md
+[OK] Jonathan Jackson → representatives/jonathan-jackson.md
+[OK] Eric Sorensen → representatives/eric-sorensen.md
+[OK] Erin Houchin → representatives/erin-houchin.md
+[OK] John James → representatives/john-james.md
+[OK] Donald Davis → representatives/donald-davis.md
+[OK] Thomas Kean → representatives/thomas-kean.md
+[OK] Robert Menendez → representatives/robert-menendez.md
+[OK] Gabriel (Gabe) Vasquez → representatives/gabriel-gabe-vasquez.md
+[OK] Dan Goldman → representatives/dan-goldman.md
+[OK] Michael Lawler → representatives/michael-lawler.md
+[OK] Nicholas Langworthy → representatives/nicholas-langworthy.md
+[OK] Greg Landsman → representatives/greg-landsman.md
+[OK] Max Miller → representatives/max-miller.md
+[OK] Chris Deluzio → representatives/chris-deluzio.md
+[OK] Russell Fry → representatives/russell-fry.md
+[OK] Andrew Ogles → representatives/andrew-ogles.md
+[OK] Keith Self → representatives/keith-self.md
+[OK] Morgan Luttrell → representatives/morgan-luttrell.md
+[OK] Mónica De La Cruz → representatives/mónica-de-la-cruz.md
+[OK] Jasmine Crockett → representatives/jasmine-crockett.md
+[OK] Wesley Hunt → representatives/wesley-hunt.md
+[OK] Jennifer Kiggans → representatives/jennifer-kiggans.md
+[OK] Becca Balint → representatives/becca-balint.md
+[OK] Derrick Van Orden → representatives/derrick-van-orden.md
+[OK] Harriet Hageman → representatives/harriet-hageman.md
+[OK] Jennifer McClellan → representatives/jennifer-mcclellan.md
+[OK] Gabe Amo → representatives/gabe-amo.md
+[OK] Thomas Suozzi → representatives/thomas-suozzi.md
+[OK] Michael Rulli → representatives/michael-rulli.md
+[OK] Cleo Fields → representatives/cleo-fields.md
+[OK] Marlin Stutzman → representatives/marlin-stutzman.md
+[OK] Gilbert Cisneros → representatives/gilbert-cisneros.md
+[OK] Angela Alsobrooks → senators/angela-alsobrooks.md
+[OK] Bernie Moreno → senators/bernie-moreno.md
+[OK] Abraham Hamadeh → representatives/abraham-hamadeh.md
+[OK] Sam Liccardo → representatives/sam-liccardo.md
+[OK] George Whitesides → representatives/george-whitesides.md
+[OK] Derek Tran → representatives/derek-tran.md
+[OK] Dave Min → representatives/dave-min.md
+[OK] Jeff Crank → representatives/jeff-crank.md
+[OK] Gabe Evans → representatives/gabe-evans.md
+[OK] Sarah McBride → representatives/sarah-mcbride.md
+[OK] Mike Haridopolos → representatives/mike-haridopolos.md
+[OK] Jefferson Shreve → representatives/jefferson-shreve.md
+[OK] Mark Messmer → representatives/mark-messmer.md
+[OK] Derek Schmidt → representatives/derek-schmidt.md
+[OK] Johnny Olszewski → representatives/johnny-olszewski.md
+[OK] Sarah Elfreth → representatives/sarah-elfreth.md
+[OK] Wesley Bell → representatives/wesley-bell.md
+[OK] Robert Onder → representatives/robert-onder.md
+[OK] Troy Downing → representatives/troy-downing.md
+[OK] Mark Harris → representatives/mark-harris.md
+[OK] Pat Harrigan → representatives/pat-harrigan.md
+[OK] Brad Knott → representatives/brad-knott.md
+[OK] Tim Moore → representatives/tim-moore.md
+[OK] Julie Fedorchak → representatives/julie-fedorchak.md
+[OK] Maggie Goodlander → representatives/maggie-goodlander.md
+[OK] Herbert Conaway → representatives/herbert-conaway.md
+[OK] George Latimer → representatives/george-latimer.md
+[OK] Janelle Bynum → representatives/janelle-bynum.md
+[OK] Ryan Mackenzie → representatives/ryan-mackenzie.md
+[OK] Sheri Biggs → representatives/sheri-biggs.md
+[OK] Craig Goldman → representatives/craig-goldman.md
+[OK] Brandon Gill → representatives/brandon-gill.md
+[OK] Julie Johnson → representatives/julie-johnson.md
+[OK] John McGuire → representatives/john-mcguire.md
+[OK] Eugene Vindman → representatives/eugene-vindman.md
+[OK] Michael Baumgartner → representatives/michael-baumgartner.md
+[OK] Randall Fine → representatives/randall-fine.md

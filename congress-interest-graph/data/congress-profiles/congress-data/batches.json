@@ -1,0 +1,2809 @@
+[
+  [
+    {
+      "bioguide": "C001087",
+      "name": "Eric Crawford",
+      "party": "Republican",
+      "state": "AR",
+      "district": 1,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Agriculture",
+        "House Committee on Transportation and Infrastructure",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1966-01-22",
+      "gender": "M",
+      "wikipedia": "Rick Crawford (politician)",
+      "twitter": "RepRickCrawford",
+      "url": "https://crawford.house.gov"
+    },
+    {
+      "bioguide": "H001072",
+      "name": "J. Hill",
+      "party": "Republican",
+      "state": "AR",
+      "district": 2,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Financial Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Financial Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1956-12-05",
+      "gender": "M",
+      "wikipedia": "French Hill (politician)",
+      "twitter": "RepFrenchHill",
+      "url": "https://hill.house.gov"
+    },
+    {
+      "bioguide": "S001211",
+      "name": "Greg Stanton",
+      "party": "Democrat",
+      "state": "AZ",
+      "district": 4,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Foreign Affairs",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Foreign Affairs",
+        "House Committee on Transportation and Infrastructure",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1970-03-08",
+      "gender": "M",
+      "wikipedia": "Greg Stanton",
+      "twitter": "RepGregStanton",
+      "url": "https://stanton.house.gov"
+    },
+    {
+      "bioguide": "B001287",
+      "name": "Ami Bera",
+      "party": "Democrat",
+      "state": "CA",
+      "district": 6,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Foreign Affairs",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Foreign Affairs",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1965-03-02",
+      "gender": "M",
+      "wikipedia": "Ami Bera",
+      "twitter": "RepBera",
+      "url": "https://bera.house.gov"
+    },
+    {
+      "bioguide": "G000585",
+      "name": "Jimmy Gomez",
+      "party": "Democrat",
+      "state": "CA",
+      "district": 34,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Ways and Means",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Ways and Means",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1974-11-25",
+      "gender": "M",
+      "wikipedia": "Jimmy Gomez",
+      "twitter": "RepJimmyGomez",
+      "url": "https://gomez.house.gov"
+    },
+    {
+      "bioguide": "A000371",
+      "name": "Pete Aguilar",
+      "party": "Democrat",
+      "state": "CA",
+      "district": 33,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "House Democratic Caucus Chair",
+      "china_comms": [],
+      "all_comms": [
+        "House Committee on Appropriations"
+      ],
+      "tier": 1,
+      "birthday": "1979-06-19",
+      "gender": "M",
+      "wikipedia": "Pete Aguilar",
+      "twitter": "RepPeteAguilar",
+      "url": "https://aguilar.house.gov"
+    },
+    {
+      "bioguide": "K000389",
+      "name": "Ro Khanna",
+      "party": "Democrat",
+      "state": "CA",
+      "district": 17,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Armed Services",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Armed Services",
+        "House Committee on Oversight and Government Reform",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1976-09-13",
+      "gender": "M",
+      "wikipedia": "Ro Khanna",
+      "twitter": "RepRoKhanna",
+      "url": "https://khanna.house.gov"
+    },
+    {
+      "bioguide": "K000397",
+      "name": "Young Kim",
+      "party": "Republican",
+      "state": "CA",
+      "district": 40,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Financial Services",
+        "House Committee on Foreign Affairs",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Financial Services",
+        "House Committee on Foreign Affairs",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1962-10-18",
+      "gender": "F",
+      "wikipedia": "Young Kim",
+      "twitter": "RepYoungKim",
+      "url": "https://youngkim.house.gov"
+    },
+    {
+      "bioguide": "C001121",
+      "name": "Jason Crow",
+      "party": "Democrat",
+      "state": "CO",
+      "district": 6,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Armed Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Armed Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1979-03-15",
+      "gender": "M",
+      "wikipedia": "Jason Crow",
+      "twitter": "RepJasonCrow",
+      "url": "https://crow.house.gov"
+    },
+    {
+      "bioguide": "H001047",
+      "name": "James Himes",
+      "party": "Democrat",
+      "state": "CT",
+      "district": 4,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Financial Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Financial Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1966-07-05",
+      "gender": "M",
+      "wikipedia": "Jim Himes",
+      "twitter": "jahimes",
+      "url": "https://himes.house.gov"
+    }
+  ],
+  [
+    {
+      "bioguide": "G000593",
+      "name": "Carlos Gimenez",
+      "party": "Republican",
+      "state": "FL",
+      "district": 28,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Armed Services",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Armed Services",
+        "House Committee on Homeland Security",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1954-01-17",
+      "gender": "M",
+      "wikipedia": "Carlos A. Giménez",
+      "twitter": "RepCarlos",
+      "url": "https://gimenez.house.gov"
+    },
+    {
+      "bioguide": "B001257",
+      "name": "Gus Bilirakis",
+      "party": "Republican",
+      "state": "FL",
+      "district": 12,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Energy and Commerce",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Energy and Commerce",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1963-02-08",
+      "gender": "M",
+      "wikipedia": "Gus Bilirakis",
+      "twitter": "RepGusBilirakis",
+      "url": "https://bilirakis.house.gov"
+    },
+    {
+      "bioguide": "C001066",
+      "name": "Kathy Castor",
+      "party": "Democrat",
+      "state": "FL",
+      "district": 14,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Energy and Commerce",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Energy and Commerce",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1966-08-20",
+      "gender": "F",
+      "wikipedia": "Kathy Castor",
+      "twitter": "USRepKCastor",
+      "url": "https://castor.house.gov"
+    },
+    {
+      "bioguide": "D000628",
+      "name": "Neal Dunn",
+      "party": "Republican",
+      "state": "FL",
+      "district": 2,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Energy and Commerce",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Energy and Commerce",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1953-02-16",
+      "gender": "M",
+      "wikipedia": "Neal Dunn",
+      "twitter": "DrNealDunnFL2",
+      "url": "https://dunn.house.gov"
+    },
+    {
+      "bioguide": "S001214",
+      "name": "W. Steube",
+      "party": "Republican",
+      "state": "FL",
+      "district": 17,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Ways and Means",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Ways and Means",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1978-05-19",
+      "gender": "M",
+      "wikipedia": "Greg Steube",
+      "twitter": "RepGregSteube",
+      "url": "https://steube.house.gov"
+    },
+    {
+      "bioguide": "S001189",
+      "name": "Austin Scott",
+      "party": "Republican",
+      "state": "GA",
+      "district": 8,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Armed Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Agriculture",
+        "House Committee on Armed Services",
+        "House Committee on Rules",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1969-12-10",
+      "gender": "M",
+      "wikipedia": "Austin Scott",
+      "twitter": "AustinScottGA08",
+      "url": "https://austinscott.house.gov"
+    },
+    {
+      "bioguide": "T000487",
+      "name": "Jill Tokuda",
+      "party": "Democrat",
+      "state": "HI",
+      "district": 2,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Armed Services",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Agriculture",
+        "House Committee on Armed Services",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1976-03-28",
+      "gender": "F",
+      "wikipedia": "Jill Tokuda",
+      "twitter": "RepJillTokuda",
+      "url": "https://tokuda.house.gov"
+    },
+    {
+      "bioguide": "H001091",
+      "name": "Ashley Hinson",
+      "party": "Republican",
+      "state": "IA",
+      "district": 2,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Appropriations",
+        "House Committee on Ethics",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1983-06-27",
+      "gender": "F",
+      "wikipedia": "Ashley Hinson",
+      "twitter": "RepAshleyHinson",
+      "url": "https://hinson.house.gov"
+    },
+    {
+      "bioguide": "N000193",
+      "name": "Zachary (Zach) Nunn",
+      "party": "Republican",
+      "state": "IA",
+      "district": 3,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Financial Services",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Agriculture",
+        "House Committee on Financial Services",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1979-05-04",
+      "gender": "M",
+      "wikipedia": "Zach Nunn",
+      "twitter": "ZachNunn",
+      "url": "https://nunn.house.gov"
+    },
+    {
+      "bioguide": "L000585",
+      "name": "Darin LaHood",
+      "party": "Republican",
+      "state": "IL",
+      "district": 16,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Ways and Means",
+        "House Permanent Select Committee on Intelligence",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Ways and Means",
+        "House Permanent Select Committee on Intelligence",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1968-07-05",
+      "gender": "M",
+      "wikipedia": "Darin LaHood",
+      "twitter": "RepLaHood",
+      "url": "https://lahood.house.gov"
+    }
+  ],
+  [
+    {
+      "bioguide": "Q000023",
+      "name": "Mike Quigley",
+      "party": "Democrat",
+      "state": "IL",
+      "district": 5,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Appropriations",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1958-10-17",
+      "gender": "M",
+      "wikipedia": "Mike Quigley",
+      "twitter": "RepMikeQuigley",
+      "url": "https://quigley.house.gov"
+    },
+    {
+      "bioguide": "K000391",
+      "name": "Raja Krishnamoorthi",
+      "party": "Democrat",
+      "state": "IL",
+      "district": 8,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Permanent Select Committee on Intelligence",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Oversight and Government Reform",
+        "House Permanent Select Committee on Intelligence",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1973-07-19",
+      "gender": "M",
+      "wikipedia": "Raja Krishnamoorthi",
+      "twitter": "CongressmanRaja",
+      "url": "https://krishnamoorthi.house.gov"
+    },
+    {
+      "bioguide": "C001072",
+      "name": "André Carson",
+      "party": "Democrat",
+      "state": "IN",
+      "district": 7,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Permanent Select Committee on Intelligence",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Transportation and Infrastructure",
+        "House Permanent Select Committee on Intelligence",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1974-10-16",
+      "gender": "M",
+      "wikipedia": "André Carson",
+      "twitter": "RepAndreCarson",
+      "url": "https://carson.house.gov"
+    },
+    {
+      "bioguide": "B001282",
+      "name": "Garland Barr",
+      "party": "Republican",
+      "state": "KY",
+      "district": 6,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Financial Services",
+        "House Committee on Foreign Affairs",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Financial Services",
+        "House Committee on Foreign Affairs",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1973-07-24",
+      "gender": "M",
+      "wikipedia": "Andy Barr",
+      "twitter": "RepAndyBarr",
+      "url": "https://barr.house.gov"
+    },
+    {
+      "bioguide": "J000299",
+      "name": "Mike Johnson",
+      "party": "Republican",
+      "state": "LA",
+      "district": 4,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "56th Speaker of the House",
+      "china_comms": [],
+      "all_comms": [],
+      "tier": 1,
+      "birthday": "1972-01-30",
+      "gender": "M",
+      "wikipedia": "Mike Johnson",
+      "twitter": "RepMikeJohnson",
+      "url": "https://mikejohnson.house.gov"
+    },
+    {
+      "bioguide": "S001176",
+      "name": "Steve Scalise",
+      "party": "Republican",
+      "state": "LA",
+      "district": 1,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "House Majority Leader",
+      "china_comms": [],
+      "all_comms": [],
+      "tier": 1,
+      "birthday": "1965-10-06",
+      "gender": "M",
+      "wikipedia": "Steve Scalise",
+      "twitter": "SteveScalise",
+      "url": "https://scalise.house.gov"
+    },
+    {
+      "bioguide": "C001101",
+      "name": "Katherine Clark",
+      "party": "Democrat",
+      "state": "MA",
+      "district": 5,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "House Minority Whip",
+      "china_comms": [],
+      "all_comms": [],
+      "tier": 1,
+      "birthday": "1963-07-17",
+      "gender": "F",
+      "wikipedia": "Katherine Clark",
+      "twitter": "RepKClark",
+      "url": "https://katherineclark.house.gov"
+    },
+    {
+      "bioguide": "M001196",
+      "name": "Seth Moulton",
+      "party": "Democrat",
+      "state": "MA",
+      "district": 6,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Armed Services",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Armed Services",
+        "House Committee on Transportation and Infrastructure",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1978-10-24",
+      "gender": "M",
+      "wikipedia": "Seth Moulton",
+      "twitter": "RepMoulton",
+      "url": "https://moulton.house.gov"
+    },
+    {
+      "bioguide": "S001215",
+      "name": "Haley Stevens",
+      "party": "Democrat",
+      "state": "MI",
+      "district": 11,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Education and Workforce",
+        "House Committee on Science, Space, and Technology",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1983-06-24",
+      "gender": "F",
+      "wikipedia": "Haley Stevens",
+      "twitter": "RepHaleyStevens",
+      "url": "https://stevens.house.gov"
+    },
+    {
+      "bioguide": "M001194",
+      "name": "John Moolenaar",
+      "party": "Republican",
+      "state": "MI",
+      "district": 2,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Appropriations",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1961-05-08",
+      "gender": "M",
+      "wikipedia": "John Moolenaar",
+      "twitter": "RepMoolenaar",
+      "url": "https://moolenaar.house.gov"
+    }
+  ],
+  [
+    {
+      "bioguide": "E000294",
+      "name": "Tom Emmer",
+      "party": "Republican",
+      "state": "MN",
+      "district": 6,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "House Majority Whip",
+      "china_comms": [
+        "House Committee on Financial Services"
+      ],
+      "all_comms": [
+        "House Committee on Financial Services"
+      ],
+      "tier": 1,
+      "birthday": "1961-03-03",
+      "gender": "M",
+      "wikipedia": "Tom Emmer",
+      "twitter": "RepTomEmmer",
+      "url": "https://emmer.house.gov"
+    },
+    {
+      "bioguide": "W000812",
+      "name": "Ann Wagner",
+      "party": "Republican",
+      "state": "MO",
+      "district": 2,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Financial Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Financial Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1962-09-13",
+      "gender": "F",
+      "wikipedia": "Ann Wagner",
+      "twitter": "RepAnnWagner",
+      "url": "https://wagner.house.gov"
+    },
+    {
+      "bioguide": "K000388",
+      "name": "Trent Kelly",
+      "party": "Republican",
+      "state": "MS",
+      "district": 1,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Armed Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Agriculture",
+        "House Committee on Armed Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1966-03-01",
+      "gender": "M",
+      "wikipedia": "Trent Kelly",
+      "twitter": "RepTrentKelly",
+      "url": "https://trentkelly.house.gov"
+    },
+    {
+      "bioguide": "G000583",
+      "name": "Josh Gottheimer",
+      "party": "Democrat",
+      "state": "NJ",
+      "district": 5,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Financial Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Financial Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1975-03-08",
+      "gender": "M",
+      "wikipedia": "Josh Gottheimer",
+      "twitter": "RepJoshG",
+      "url": "https://gottheimer.house.gov"
+    },
+    {
+      "bioguide": "T000478",
+      "name": "Claudia Tenney",
+      "party": "Republican",
+      "state": "NY",
+      "district": 24,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Ways and Means",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Science, Space, and Technology",
+        "House Committee on Ways and Means",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1961-02-04",
+      "gender": "F",
+      "wikipedia": "Claudia Tenney",
+      "twitter": "RepTenney",
+      "url": "https://tenney.house.gov"
+    },
+    {
+      "bioguide": "S001196",
+      "name": "Elise Stefanik",
+      "party": "Republican",
+      "state": "NY",
+      "district": 21,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Armed Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Armed Services",
+        "House Committee on Education and Workforce",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1984-07-02",
+      "gender": "F",
+      "wikipedia": "Elise Stefanik",
+      "twitter": "RepStefanik",
+      "url": "https://stefanik.house.gov"
+    },
+    {
+      "bioguide": "J000294",
+      "name": "Hakeem Jeffries",
+      "party": "Democrat",
+      "state": "NY",
+      "district": 8,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "House Minority Leader",
+      "china_comms": [],
+      "all_comms": [],
+      "tier": 1,
+      "birthday": "1970-08-04",
+      "gender": "M",
+      "wikipedia": "Hakeem Jeffries",
+      "twitter": "RepJeffries",
+      "url": "https://jeffries.house.gov"
+    },
+    {
+      "bioguide": "T000486",
+      "name": "Ritchie Torres",
+      "party": "Democrat",
+      "state": "NY",
+      "district": 15,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Financial Services",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Financial Services",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1988-03-12",
+      "gender": "M",
+      "wikipedia": "Ritchie Torres",
+      "twitter": "RepRitchie",
+      "url": "https://ritchietorres.house.gov"
+    },
+    {
+      "bioguide": "B001313",
+      "name": "Shontel Brown",
+      "party": "Democrat",
+      "state": "OH",
+      "district": 11,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Agriculture",
+        "House Committee on Oversight and Government Reform",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1975-06-24",
+      "gender": "F",
+      "wikipedia": "Shontel Brown",
+      "twitter": "RepShontelBrown",
+      "url": "https://shontelbrown.house.gov"
+    },
+    {
+      "bioguide": "F000466",
+      "name": "Brian Fitzpatrick",
+      "party": "Republican",
+      "state": "PA",
+      "district": 1,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Ways and Means",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Ways and Means",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1973-12-17",
+      "gender": "M",
+      "wikipedia": "Brian Fitzpatrick (American politician)",
+      "twitter": "RepBrianFitz",
+      "url": "https://fitzpatrick.house.gov"
+    }
+  ],
+  [
+    {
+      "bioguide": "H001085",
+      "name": "Chrissy Houlahan",
+      "party": "Democrat",
+      "state": "PA",
+      "district": 6,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Armed Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Armed Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1967-06-05",
+      "gender": "F",
+      "wikipedia": "Chrissy Houlahan",
+      "twitter": "RepHoulahan",
+      "url": "https://houlahan.house.gov"
+    },
+    {
+      "bioguide": "P000605",
+      "name": "Scott Perry",
+      "party": "Republican",
+      "state": "PA",
+      "district": 10,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Foreign Affairs",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Foreign Affairs",
+        "House Committee on Oversight and Government Reform",
+        "House Committee on Transportation and Infrastructure",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1962-05-27",
+      "gender": "M",
+      "wikipedia": "Scott Perry",
+      "twitter": "RepScottPerry",
+      "url": "https://perry.house.gov"
+    },
+    {
+      "bioguide": "J000301",
+      "name": "Dusty Johnson",
+      "party": "Republican",
+      "state": "SD",
+      "district": 0,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Agriculture",
+        "House Committee on Transportation and Infrastructure",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1976-09-30",
+      "gender": "M",
+      "wikipedia": "Dusty Johnson",
+      "twitter": "RepDustyJohnson",
+      "url": "https://dustyjohnson.house.gov"
+    },
+    {
+      "bioguide": "C001068",
+      "name": "Steve Cohen",
+      "party": "Democrat",
+      "state": "TN",
+      "district": 9,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on the Judiciary",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on the Judiciary",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1949-05-24",
+      "gender": "M",
+      "wikipedia": "Steve Cohen (politician)",
+      "twitter": "RepCohen",
+      "url": "https://cohen.house.gov"
+    },
+    {
+      "bioguide": "C001120",
+      "name": "Dan Crenshaw",
+      "party": "Republican",
+      "state": "TX",
+      "district": 2,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Energy and Commerce",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Energy and Commerce",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1984-03-14",
+      "gender": "M",
+      "wikipedia": "Dan Crenshaw",
+      "twitter": "RepDanCrenshaw",
+      "url": "https://crenshaw.house.gov"
+    },
+    {
+      "bioguide": "C001091",
+      "name": "Joaquin Castro",
+      "party": "Democrat",
+      "state": "TX",
+      "district": 20,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Foreign Affairs",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Foreign Affairs",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1974-09-16",
+      "gender": "M",
+      "wikipedia": "Joaquin Castro",
+      "twitter": "JoaquinCastrotx",
+      "url": "https://castro.house.gov"
+    },
+    {
+      "bioguide": "M001224",
+      "name": "Nathaniel Moran",
+      "party": "Republican",
+      "state": "TX",
+      "district": 1,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Ways and Means",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Ethics",
+        "House Committee on Ways and Means",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1974-07-22",
+      "gender": "M",
+      "wikipedia": "Nathaniel Moran",
+      "twitter": "RepNateMoran",
+      "url": "https://moran.house.gov"
+    },
+    {
+      "bioguide": "F000246",
+      "name": "Patrick Fallon",
+      "party": "Republican",
+      "state": "TX",
+      "district": 4,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Armed Services",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Armed Services",
+        "House Committee on Oversight and Government Reform",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1967-12-19",
+      "gender": "M",
+      "wikipedia": "Pat Fallon",
+      "twitter": "RepPatFallon",
+      "url": "https://fallon.house.gov"
+    },
+    {
+      "bioguide": "J000304",
+      "name": "Ronny Jackson",
+      "party": "Republican",
+      "state": "TX",
+      "district": 13,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Armed Services",
+        "House Committee on Foreign Affairs",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Agriculture",
+        "House Committee on Armed Services",
+        "House Committee on Foreign Affairs",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1967-05-04",
+      "gender": "M",
+      "wikipedia": "Ronny Jackson",
+      "twitter": "RepRonnyJackson",
+      "url": "https://jackson.house.gov"
+    },
+    {
+      "bioguide": "C001118",
+      "name": "Ben Cline",
+      "party": "Republican",
+      "state": "VA",
+      "district": 6,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on the Judiciary",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Appropriations",
+        "House Committee on the Budget",
+        "House Committee on the Judiciary",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1972-02-29",
+      "gender": "M",
+      "wikipedia": "Ben Cline",
+      "twitter": "RepBenCline",
+      "url": "https://cline.house.gov"
+    }
+  ],
+  [
+    {
+      "bioguide": "W000804",
+      "name": "Robert Wittman",
+      "party": "Republican",
+      "state": "VA",
+      "district": 1,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Armed Services",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Armed Services",
+        "House Committee on Natural Resources",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1959-02-03",
+      "gender": "M",
+      "wikipedia": "Rob Wittman",
+      "twitter": "RobWittman",
+      "url": "https://wittman.house.gov"
+    },
+    {
+      "bioguide": "P000610",
+      "name": "Stacey Plaskett",
+      "party": "Democrat",
+      "state": "VI",
+      "district": 0,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Committee on Ways and Means",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "House Committee on Ways and Means",
+        "House Committee on the Budget",
+        "House Permanent Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1966-05-13",
+      "gender": "F",
+      "wikipedia": "Stacey Plaskett",
+      "twitter": "StaceyPlaskett",
+      "url": "https://plaskett.house.gov"
+    },
+    {
+      "bioguide": "N000189",
+      "name": "Dan Newhouse",
+      "party": "Republican",
+      "state": "WA",
+      "district": 4,
+      "type": "Representative",
+      "chamber": "house",
+      "leadership": "",
+      "china_comms": [
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "all_comms": [
+        "House Committee on Agriculture",
+        "House Committee on Appropriations",
+        "House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party"
+      ],
+      "tier": 1,
+      "birthday": "1955-07-10",
+      "gender": "M",
+      "wikipedia": "Dan Newhouse",
+      "twitter": "RepNewhouse",
+      "url": "https://newhouse.house.gov"
+    },
+    {
+      "bioguide": "S001198",
+      "name": "Dan Sullivan",
+      "party": "Republican",
+      "state": "AK",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation"
+      ],
+      "all_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Environment and Public Works",
+        "Senate Committee on Veterans' Affairs"
+      ],
+      "tier": 1,
+      "birthday": "1964-11-13",
+      "gender": "M",
+      "wikipedia": "Dan Sullivan (U.S. senator)",
+      "twitter": "SenDanSullivan",
+      "url": "https://www.sullivan.senate.gov"
+    },
+    {
+      "bioguide": "T000278",
+      "name": "Tommy Tuberville",
+      "party": "Republican",
+      "state": "AL",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services"
+      ],
+      "all_comms": [
+        "Senate Committee on Agriculture, Nutrition, and Forestry",
+        "Senate Committee on Armed Services",
+        "Senate Committee on Health, Education, Labor, and Pensions",
+        "Senate Committee on Veterans' Affairs",
+        "Senate Special Committee on Aging"
+      ],
+      "tier": 1,
+      "birthday": "1954-09-18",
+      "gender": "M",
+      "wikipedia": "Tommy Tuberville",
+      "twitter": "SenTuberville",
+      "url": "https://www.tuberville.senate.gov"
+    },
+    {
+      "bioguide": "C001095",
+      "name": "Tom Cotton",
+      "party": "Republican",
+      "state": "AR",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Joint Economic Committee",
+        "Senate Committee on Armed Services",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Joint Economic Committee",
+        "Senate Committee on Armed Services",
+        "Senate Committee on Energy and Natural Resources",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1977-05-13",
+      "gender": "M",
+      "wikipedia": "Tom Cotton",
+      "twitter": "SenTomCotton",
+      "url": "https://www.cotton.senate.gov"
+    },
+    {
+      "bioguide": "K000377",
+      "name": "Mark Kelly",
+      "party": "Democrat",
+      "state": "AZ",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Joint Economic Committee",
+        "Senate Committee on Armed Services",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Joint Economic Committee",
+        "Senate Committee on Armed Services",
+        "Senate Committee on Environment and Public Works",
+        "Senate Select Committee on Intelligence",
+        "Senate Special Committee on Aging"
+      ],
+      "tier": 1,
+      "birthday": "1964-02-21",
+      "gender": "M",
+      "wikipedia": "Mark Kelly",
+      "twitter": "SenMarkKelly",
+      "url": "https://www.kelly.senate.gov"
+    },
+    {
+      "bioguide": "B001267",
+      "name": "Michael Bennet",
+      "party": "Democrat",
+      "state": "CO",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Finance",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Senate Committee on Agriculture, Nutrition, and Forestry",
+        "Senate Committee on Finance",
+        "Senate Committee on Rules and Administration",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1964-11-28",
+      "gender": "M",
+      "wikipedia": "Michael Bennet",
+      "twitter": "SenatorBennet",
+      "url": "https://www.bennet.senate.gov"
+    },
+    {
+      "bioguide": "M001169",
+      "name": "Christopher Murphy",
+      "party": "Democrat",
+      "state": "CT",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Foreign Relations"
+      ],
+      "all_comms": [
+        "Senate Committee on Appropriations",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on Health, Education, Labor, and Pensions"
+      ],
+      "tier": 1,
+      "birthday": "1973-08-03",
+      "gender": "M",
+      "wikipedia": "Chris Murphy",
+      "twitter": "SenMurphyOffice",
+      "url": "https://www.murphy.senate.gov"
+    },
+    {
+      "bioguide": "B001277",
+      "name": "Richard Blumenthal",
+      "party": "Democrat",
+      "state": "CT",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on the Judiciary"
+      ],
+      "all_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Homeland Security and Governmental Affairs",
+        "Senate Committee on Veterans' Affairs",
+        "Senate Committee on the Judiciary",
+        "United States Senate Caucus on International Narcotics Control"
+      ],
+      "tier": 1,
+      "birthday": "1946-02-13",
+      "gender": "M",
+      "wikipedia": "Richard Blumenthal",
+      "twitter": "SenBlumenthal",
+      "url": "https://www.blumenthal.senate.gov"
+    }
+  ],
+  [
+    {
+      "bioguide": "C001088",
+      "name": "Christopher Coons",
+      "party": "Democrat",
+      "state": "DE",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on the Judiciary"
+      ],
+      "all_comms": [
+        "Senate Committee on Appropriations",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on Small Business and Entrepreneurship",
+        "Senate Committee on the Judiciary",
+        "Senate Select Committee on Ethics"
+      ],
+      "tier": 1,
+      "birthday": "1963-09-09",
+      "gender": "M",
+      "wikipedia": "Chris Coons",
+      "twitter": "ChrisCoons",
+      "url": "https://www.coons.senate.gov"
+    },
+    {
+      "bioguide": "M001244",
+      "name": "Ashley Moody",
+      "party": "Republican",
+      "state": "FL",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Joint Economic Committee",
+        "Senate Committee on Armed Services",
+        "Senate Committee on the Judiciary"
+      ],
+      "all_comms": [
+        "Joint Economic Committee",
+        "Senate Committee on Armed Services",
+        "Senate Committee on Health, Education, Labor, and Pensions",
+        "Senate Committee on Homeland Security and Governmental Affairs",
+        "Senate Committee on the Judiciary",
+        "Senate Special Committee on Aging"
+      ],
+      "tier": 1,
+      "birthday": "1975-03-28",
+      "gender": "F",
+      "wikipedia": "Ashley Moody",
+      "twitter": "",
+      "url": "https://www.moody.senate.gov"
+    },
+    {
+      "bioguide": "S001217",
+      "name": "Rick Scott",
+      "party": "Republican",
+      "state": "FL",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Foreign Relations"
+      ],
+      "all_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on Homeland Security and Governmental Affairs",
+        "Senate Committee on the Budget",
+        "Senate Special Committee on Aging"
+      ],
+      "tier": 1,
+      "birthday": "1952-12-01",
+      "gender": "M",
+      "wikipedia": "Rick Scott",
+      "twitter": "SenRickScott",
+      "url": "https://www.rickscott.senate.gov"
+    },
+    {
+      "bioguide": "O000174",
+      "name": "Jon Ossoff",
+      "party": "Democrat",
+      "state": "GA",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Senate Committee on Appropriations",
+        "Senate Committee on Rules and Administration",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1987-02-16",
+      "gender": "M",
+      "wikipedia": "Jon Ossoff",
+      "twitter": "SenOssoff",
+      "url": "https://www.ossoff.senate.gov"
+    },
+    {
+      "bioguide": "S001194",
+      "name": "Brian Schatz",
+      "party": "Democrat",
+      "state": "HI",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Foreign Relations"
+      ],
+      "all_comms": [
+        "Senate Committee on Appropriations",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on Indian Affairs",
+        "Senate Select Committee on Ethics"
+      ],
+      "tier": 1,
+      "birthday": "1972-10-20",
+      "gender": "M",
+      "wikipedia": "Brian Schatz",
+      "twitter": "SenBrianSchatz",
+      "url": "https://www.schatz.senate.gov"
+    },
+    {
+      "bioguide": "H001042",
+      "name": "Mazie Hirono",
+      "party": "Democrat",
+      "state": "HI",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on the Judiciary"
+      ],
+      "all_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Energy and Natural Resources",
+        "Senate Committee on Small Business and Entrepreneurship",
+        "Senate Committee on Veterans' Affairs",
+        "Senate Committee on the Judiciary"
+      ],
+      "tier": 1,
+      "birthday": "1947-11-03",
+      "gender": "F",
+      "wikipedia": "Mazie Hirono",
+      "twitter": "MazieHirono",
+      "url": "https://www.hirono.senate.gov"
+    },
+    {
+      "bioguide": "E000295",
+      "name": "Joni Ernst",
+      "party": "Republican",
+      "state": "IA",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services"
+      ],
+      "all_comms": [
+        "Senate Committee on Agriculture, Nutrition, and Forestry",
+        "Senate Committee on Armed Services",
+        "Senate Committee on Homeland Security and Governmental Affairs",
+        "Senate Committee on Small Business and Entrepreneurship"
+      ],
+      "tier": 1,
+      "birthday": "1970-07-01",
+      "gender": "F",
+      "wikipedia": "Joni Ernst",
+      "twitter": "SenJoniErnst",
+      "url": "https://www.ernst.senate.gov"
+    },
+    {
+      "bioguide": "R000584",
+      "name": "James Risch",
+      "party": "Republican",
+      "state": "ID",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Foreign Relations",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Senate Committee on Energy and Natural Resources",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on Small Business and Entrepreneurship",
+        "Senate Select Committee on Ethics",
+        "Senate Select Committee on Intelligence",
+        "United States Senate Caucus on International Narcotics Control"
+      ],
+      "tier": 1,
+      "birthday": "1943-05-03",
+      "gender": "M",
+      "wikipedia": "Jim Risch",
+      "twitter": "SenatorRisch",
+      "url": "https://www.risch.senate.gov"
+    },
+    {
+      "bioguide": "D000563",
+      "name": "Richard Durbin",
+      "party": "Democrat",
+      "state": "IL",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "Senate Minority Whip",
+      "china_comms": [
+        "Senate Committee on the Judiciary"
+      ],
+      "all_comms": [
+        "Senate Committee on Agriculture, Nutrition, and Forestry",
+        "Senate Committee on Appropriations",
+        "Senate Committee on the Judiciary"
+      ],
+      "tier": 1,
+      "birthday": "1944-11-21",
+      "gender": "M",
+      "wikipedia": "Dick Durbin",
+      "twitter": "SenatorDurbin",
+      "url": "https://www.durbin.senate.gov"
+    },
+    {
+      "bioguide": "D000622",
+      "name": "Tammy Duckworth",
+      "party": "Democrat",
+      "state": "IL",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Foreign Relations"
+      ],
+      "all_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on Veterans' Affairs"
+      ],
+      "tier": 1,
+      "birthday": "1968-03-12",
+      "gender": "F",
+      "wikipedia": "Tammy Duckworth",
+      "twitter": "SenDuckworth",
+      "url": "https://www.duckworth.senate.gov"
+    }
+  ],
+  [
+    {
+      "bioguide": "B001299",
+      "name": "Jim Banks",
+      "party": "Republican",
+      "state": "IN",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Banking, Housing, and Urban Affairs"
+      ],
+      "all_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Committee on Health, Education, Labor, and Pensions",
+        "Senate Committee on Veterans' Affairs"
+      ],
+      "tier": 1,
+      "birthday": "1979-07-16",
+      "gender": "M",
+      "wikipedia": "Jim Banks",
+      "twitter": "RepJimBanks",
+      "url": "https://www.banks.senate.gov"
+    },
+    {
+      "bioguide": "Y000064",
+      "name": "Todd Young",
+      "party": "Republican",
+      "state": "IN",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Finance",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Finance",
+        "Senate Committee on Small Business and Entrepreneurship",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1972-08-24",
+      "gender": "M",
+      "wikipedia": "Todd Young",
+      "twitter": "SenToddYoung",
+      "url": "https://www.young.senate.gov"
+    },
+    {
+      "bioguide": "M000934",
+      "name": "Jerry Moran",
+      "party": "Republican",
+      "state": "KS",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Senate Committee on Agriculture, Nutrition, and Forestry",
+        "Senate Committee on Appropriations",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Indian Affairs",
+        "Senate Committee on Veterans' Affairs",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1954-05-29",
+      "gender": "M",
+      "wikipedia": "Jerry Moran",
+      "twitter": "JerryMoran",
+      "url": "https://www.moran.senate.gov"
+    },
+    {
+      "bioguide": "M000355",
+      "name": "Mitch McConnell",
+      "party": "Republican",
+      "state": "KY",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "Senate Republican Leader Emeritus",
+      "china_comms": [],
+      "all_comms": [
+        "Joint Committee of Congress on the Library",
+        "Joint Committee on Printing",
+        "Senate Committee on Agriculture, Nutrition, and Forestry",
+        "Senate Committee on Appropriations",
+        "Senate Committee on Rules and Administration"
+      ],
+      "tier": 1,
+      "birthday": "1942-02-20",
+      "gender": "M",
+      "wikipedia": "Mitch McConnell",
+      "twitter": "McConnellPress",
+      "url": "https://www.mcconnell.senate.gov"
+    },
+    {
+      "bioguide": "P000603",
+      "name": "Rand Paul",
+      "party": "Republican",
+      "state": "KY",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Foreign Relations"
+      ],
+      "all_comms": [
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on Health, Education, Labor, and Pensions",
+        "Senate Committee on Homeland Security and Governmental Affairs",
+        "Senate Committee on Small Business and Entrepreneurship"
+      ],
+      "tier": 1,
+      "birthday": "1963-01-07",
+      "gender": "M",
+      "wikipedia": "Rand Paul",
+      "twitter": "SenRandPaul",
+      "url": "https://www.paul.senate.gov"
+    },
+    {
+      "bioguide": "W000817",
+      "name": "Elizabeth Warren",
+      "party": "Democrat",
+      "state": "MA",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Committee on Finance"
+      ],
+      "all_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Committee on Finance",
+        "Senate Special Committee on Aging"
+      ],
+      "tier": 1,
+      "birthday": "1949-06-22",
+      "gender": "F",
+      "wikipedia": "Elizabeth Warren",
+      "twitter": "SenWarren",
+      "url": "https://www.warren.senate.gov"
+    },
+    {
+      "bioguide": "V000128",
+      "name": "Chris Van Hollen",
+      "party": "Democrat",
+      "state": "MD",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Committee on Foreign Relations"
+      ],
+      "all_comms": [
+        "Senate Committee on Appropriations",
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on the Budget"
+      ],
+      "tier": 1,
+      "birthday": "1959-01-10",
+      "gender": "M",
+      "wikipedia": "Chris Van Hollen",
+      "twitter": "ChrisVanHollen",
+      "url": "https://www.vanhollen.senate.gov"
+    },
+    {
+      "bioguide": "K000383",
+      "name": "Angus King",
+      "party": "Independent",
+      "state": "ME",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Energy and Natural Resources",
+        "Senate Committee on Veterans' Affairs",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1944-03-31",
+      "gender": "M",
+      "wikipedia": "Angus King",
+      "twitter": "SenAngusKing",
+      "url": "https://www.king.senate.gov"
+    },
+    {
+      "bioguide": "C001035",
+      "name": "Susan Collins",
+      "party": "Republican",
+      "state": "ME",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Senate Committee on Appropriations",
+        "Senate Committee on Health, Education, Labor, and Pensions",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1952-12-07",
+      "gender": "F",
+      "wikipedia": "Susan Collins",
+      "twitter": "SenatorCollins",
+      "url": "https://www.collins.senate.gov"
+    },
+    {
+      "bioguide": "S001208",
+      "name": "Elissa Slotkin",
+      "party": "Democrat",
+      "state": "MI",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services"
+      ],
+      "all_comms": [
+        "Senate Committee on Agriculture, Nutrition, and Forestry",
+        "Senate Committee on Armed Services",
+        "Senate Committee on Homeland Security and Governmental Affairs",
+        "Senate Committee on Veterans' Affairs"
+      ],
+      "tier": 1,
+      "birthday": "1976-07-10",
+      "gender": "F",
+      "wikipedia": "Elissa Slotkin",
+      "twitter": "RepSlotkin",
+      "url": "https://www.slotkin.senate.gov"
+    }
+  ],
+  [
+    {
+      "bioguide": "P000595",
+      "name": "Gary Peters",
+      "party": "Democrat",
+      "state": "MI",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation"
+      ],
+      "all_comms": [
+        "Senate Committee on Appropriations",
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Homeland Security and Governmental Affairs"
+      ],
+      "tier": 1,
+      "birthday": "1958-12-01",
+      "gender": "M",
+      "wikipedia": "Gary Peters",
+      "twitter": "SenGaryPeters",
+      "url": "https://www.peters.senate.gov"
+    },
+    {
+      "bioguide": "S001227",
+      "name": "Eric Schmitt",
+      "party": "Republican",
+      "state": "MO",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Joint Economic Committee",
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on the Judiciary"
+      ],
+      "all_comms": [
+        "Joint Economic Committee",
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on the Judiciary"
+      ],
+      "tier": 1,
+      "birthday": "1975-06-20",
+      "gender": "M",
+      "wikipedia": "Eric Schmitt",
+      "twitter": "SenEricSchmitt",
+      "url": "https://www.schmitt.senate.gov"
+    },
+    {
+      "bioguide": "W000437",
+      "name": "Roger Wicker",
+      "party": "Republican",
+      "state": "MS",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Commission on Security and Cooperation in Europe",
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Environment and Public Works",
+        "Senate Committee on Rules and Administration",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1951-07-05",
+      "gender": "M",
+      "wikipedia": "Roger Wicker",
+      "twitter": "SenatorWicker",
+      "url": "https://www.wicker.senate.gov"
+    },
+    {
+      "bioguide": "D000618",
+      "name": "Steve Daines",
+      "party": "Republican",
+      "state": "MT",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Finance",
+        "Senate Committee on Foreign Relations"
+      ],
+      "all_comms": [
+        "Senate Committee on Energy and Natural Resources",
+        "Senate Committee on Finance",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on Indian Affairs"
+      ],
+      "tier": 1,
+      "birthday": "1962-08-20",
+      "gender": "M",
+      "wikipedia": "Steve Daines",
+      "twitter": "SteveDaines",
+      "url": "https://www.daines.senate.gov"
+    },
+    {
+      "bioguide": "S001232",
+      "name": "Tim Sheehy",
+      "party": "Republican",
+      "state": "MT",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation"
+      ],
+      "all_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Veterans' Affairs"
+      ],
+      "tier": 1,
+      "birthday": "1985-11-18",
+      "gender": "M",
+      "wikipedia": "Tim Sheehy",
+      "twitter": "",
+      "url": "https://www.sheehy.senate.gov"
+    },
+    {
+      "bioguide": "B001305",
+      "name": "Ted Budd",
+      "party": "Republican",
+      "state": "NC",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Joint Economic Committee",
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Joint Economic Committee",
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Small Business and Entrepreneurship",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1971-10-21",
+      "gender": "M",
+      "wikipedia": "Ted Budd",
+      "twitter": "RepTedBudd",
+      "url": "https://www.budd.senate.gov"
+    },
+    {
+      "bioguide": "C001096",
+      "name": "Kevin Cramer",
+      "party": "Republican",
+      "state": "ND",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Banking, Housing, and Urban Affairs"
+      ],
+      "all_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Committee on Environment and Public Works",
+        "Senate Committee on Veterans' Affairs"
+      ],
+      "tier": 1,
+      "birthday": "1961-01-21",
+      "gender": "M",
+      "wikipedia": "Kevin Cramer",
+      "twitter": "SenKevinCramer",
+      "url": "https://www.cramer.senate.gov"
+    },
+    {
+      "bioguide": "F000463",
+      "name": "Deb Fischer",
+      "party": "Republican",
+      "state": "NE",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation"
+      ],
+      "all_comms": [
+        "Joint Committee of Congress on the Library",
+        "Joint Committee on Printing",
+        "Senate Committee on Agriculture, Nutrition, and Forestry",
+        "Senate Committee on Appropriations",
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Rules and Administration",
+        "Senate Select Committee on Ethics"
+      ],
+      "tier": 1,
+      "birthday": "1951-03-01",
+      "gender": "F",
+      "wikipedia": "Deb Fischer",
+      "twitter": "SenatorFischer",
+      "url": "https://www.fischer.senate.gov"
+    },
+    {
+      "bioguide": "R000618",
+      "name": "Pete Ricketts",
+      "party": "Republican",
+      "state": "NE",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Committee on Foreign Relations"
+      ],
+      "all_comms": [
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Committee on Environment and Public Works",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on the Budget"
+      ],
+      "tier": 1,
+      "birthday": "1964-08-19",
+      "gender": "M",
+      "wikipedia": "Pete Ricketts",
+      "twitter": "SenatorRicketts",
+      "url": "https://www.ricketts.senate.gov"
+    },
+    {
+      "bioguide": "S001181",
+      "name": "Jeanne Shaheen",
+      "party": "Democrat",
+      "state": "NH",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Foreign Relations"
+      ],
+      "all_comms": [
+        "Commission on Security and Cooperation in Europe",
+        "Senate Committee on Appropriations",
+        "Senate Committee on Armed Services",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on Small Business and Entrepreneurship",
+        "Senate Select Committee on Ethics"
+      ],
+      "tier": 1,
+      "birthday": "1947-01-28",
+      "gender": "F",
+      "wikipedia": "Jeanne Shaheen",
+      "twitter": "SenatorShaheen",
+      "url": "https://www.shaheen.senate.gov"
+    }
+  ],
+  [
+    {
+      "bioguide": "B001288",
+      "name": "Cory Booker",
+      "party": "Democrat",
+      "state": "NJ",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on the Judiciary"
+      ],
+      "all_comms": [
+        "Senate Committee on Agriculture, Nutrition, and Forestry",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on Small Business and Entrepreneurship",
+        "Senate Committee on the Judiciary"
+      ],
+      "tier": 1,
+      "birthday": "1969-04-27",
+      "gender": "M",
+      "wikipedia": "Cory Booker",
+      "twitter": "SenBooker",
+      "url": "https://www.booker.senate.gov"
+    },
+    {
+      "bioguide": "H001046",
+      "name": "Martin Heinrich",
+      "party": "Democrat",
+      "state": "NM",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Joint Economic Committee",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Joint Economic Committee",
+        "Senate Committee on Appropriations",
+        "Senate Committee on Energy and Natural Resources",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1971-10-17",
+      "gender": "M",
+      "wikipedia": "Martin Heinrich",
+      "twitter": "MartinHeinrich",
+      "url": "https://www.heinrich.senate.gov"
+    },
+    {
+      "bioguide": "R000608",
+      "name": "Jacky Rosen",
+      "party": "Democrat",
+      "state": "NV",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Foreign Relations"
+      ],
+      "all_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on Small Business and Entrepreneurship"
+      ],
+      "tier": 1,
+      "birthday": "1957-08-02",
+      "gender": "F",
+      "wikipedia": "Jacky Rosen",
+      "twitter": "SenJackyRosen",
+      "url": "https://www.rosen.senate.gov"
+    },
+    {
+      "bioguide": "S000148",
+      "name": "Charles Schumer",
+      "party": "Democrat",
+      "state": "NY",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "Senate Minority Leader",
+      "china_comms": [
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Senate Committee on Rules and Administration",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1950-11-23",
+      "gender": "M",
+      "wikipedia": "Chuck Schumer",
+      "twitter": "SenSchumer",
+      "url": "https://www.schumer.senate.gov"
+    },
+    {
+      "bioguide": "G000555",
+      "name": "Kirsten Gillibrand",
+      "party": "Democrat",
+      "state": "NY",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Senate Committee on Appropriations",
+        "Senate Committee on Armed Services",
+        "Senate Select Committee on Intelligence",
+        "Senate Special Committee on Aging"
+      ],
+      "tier": 1,
+      "birthday": "1966-12-09",
+      "gender": "F",
+      "wikipedia": "Kirsten Gillibrand",
+      "twitter": "GillibrandNY",
+      "url": "https://www.gillibrand.senate.gov"
+    },
+    {
+      "bioguide": "L000575",
+      "name": "James Lankford",
+      "party": "Republican",
+      "state": "OK",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Finance",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Senate Committee on Finance",
+        "Senate Committee on Homeland Security and Governmental Affairs",
+        "Senate Select Committee on Ethics",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1968-03-04",
+      "gender": "M",
+      "wikipedia": "James Lankford",
+      "twitter": "SenatorLankford",
+      "url": "https://www.lankford.senate.gov"
+    },
+    {
+      "bioguide": "M001176",
+      "name": "Jeff Merkley",
+      "party": "Democrat",
+      "state": "OR",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Foreign Relations"
+      ],
+      "all_comms": [
+        "Joint Committee on Printing",
+        "Senate Committee on Appropriations",
+        "Senate Committee on Environment and Public Works",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on Rules and Administration",
+        "Senate Committee on the Budget"
+      ],
+      "tier": 1,
+      "birthday": "1956-10-24",
+      "gender": "M",
+      "wikipedia": "Jeff Merkley",
+      "twitter": "SenJeffMerkley",
+      "url": "https://www.merkley.senate.gov"
+    },
+    {
+      "bioguide": "W000779",
+      "name": "Ron Wyden",
+      "party": "Democrat",
+      "state": "OR",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Finance",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Joint Committee on Taxation",
+        "Senate Committee on Energy and Natural Resources",
+        "Senate Committee on Finance",
+        "Senate Committee on the Budget",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1949-05-03",
+      "gender": "M",
+      "wikipedia": "Ron Wyden",
+      "twitter": "RonWyden",
+      "url": "https://www.wyden.senate.gov"
+    },
+    {
+      "bioguide": "M001243",
+      "name": "Dave McCormick",
+      "party": "Republican",
+      "state": "PA",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Joint Economic Committee",
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Committee on Foreign Relations"
+      ],
+      "all_comms": [
+        "Joint Economic Committee",
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Committee on Energy and Natural Resources",
+        "Senate Committee on Foreign Relations",
+        "Senate Special Committee on Aging"
+      ],
+      "tier": 1,
+      "birthday": "1965-08-17",
+      "gender": "M",
+      "wikipedia": "Dave McCormick",
+      "twitter": "",
+      "url": "https://www.mccormick.senate.gov"
+    },
+    {
+      "bioguide": "R000122",
+      "name": "John Reed",
+      "party": "Democrat",
+      "state": "RI",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Senate Committee on Appropriations",
+        "Senate Committee on Armed Services",
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1949-11-12",
+      "gender": "M",
+      "wikipedia": "Jack Reed (Rhode Island politician)",
+      "twitter": "SenJackReed",
+      "url": "https://www.reed.senate.gov"
+    }
+  ],
+  [
+    {
+      "bioguide": "T000250",
+      "name": "John Thune",
+      "party": "Republican",
+      "state": "SD",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "Senate Majority Leader",
+      "china_comms": [
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Finance",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Senate Committee on Agriculture, Nutrition, and Forestry",
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Finance",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1961-01-07",
+      "gender": "M",
+      "wikipedia": "John Thune",
+      "twitter": "SenJohnThune",
+      "url": "https://www.thune.senate.gov"
+    },
+    {
+      "bioguide": "R000605",
+      "name": "Mike Rounds",
+      "party": "Republican",
+      "state": "SD",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Commission on Security and Cooperation in Europe",
+        "Senate Committee on Appropriations",
+        "Senate Committee on Armed Services",
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Committee on Indian Affairs",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1954-10-24",
+      "gender": "M",
+      "wikipedia": "Mike Rounds",
+      "twitter": "SenatorRounds",
+      "url": "https://www.rounds.senate.gov"
+    },
+    {
+      "bioguide": "H000601",
+      "name": "Bill Hagerty",
+      "party": "Republican",
+      "state": "TN",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Committee on Foreign Relations"
+      ],
+      "all_comms": [
+        "Joint Committee on Printing",
+        "Senate Committee on Appropriations",
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on Rules and Administration"
+      ],
+      "tier": 1,
+      "birthday": "1959-08-14",
+      "gender": "M",
+      "wikipedia": "Bill Hagerty",
+      "twitter": "SenatorHagerty",
+      "url": "https://www.hagerty.senate.gov"
+    },
+    {
+      "bioguide": "C001056",
+      "name": "John Cornyn",
+      "party": "Republican",
+      "state": "TX",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Finance",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on the Judiciary",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Joint Committee on Taxation",
+        "Senate Committee on Finance",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on the Budget",
+        "Senate Committee on the Judiciary",
+        "Senate Select Committee on Intelligence",
+        "United States Senate Caucus on International Narcotics Control"
+      ],
+      "tier": 1,
+      "birthday": "1952-02-02",
+      "gender": "M",
+      "wikipedia": "John Cornyn",
+      "twitter": "JohnCornyn",
+      "url": "https://www.cornyn.senate.gov"
+    },
+    {
+      "bioguide": "C001098",
+      "name": "Ted Cruz",
+      "party": "Republican",
+      "state": "TX",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on the Judiciary"
+      ],
+      "all_comms": [
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on Rules and Administration",
+        "Senate Committee on the Judiciary"
+      ],
+      "tier": 1,
+      "birthday": "1970-12-22",
+      "gender": "M",
+      "wikipedia": "Ted Cruz",
+      "twitter": "SenTedCruz",
+      "url": "https://www.cruz.senate.gov"
+    },
+    {
+      "bioguide": "C001114",
+      "name": "John Curtis",
+      "party": "Republican",
+      "state": "UT",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Foreign Relations"
+      ],
+      "all_comms": [
+        "Senate Committee on Commerce, Science, and Transportation",
+        "Senate Committee on Environment and Public Works",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on Small Business and Entrepreneurship"
+      ],
+      "tier": 1,
+      "birthday": "1960-05-10",
+      "gender": "M",
+      "wikipedia": "John Curtis",
+      "twitter": "RepJohnCurtis",
+      "url": "https://www.curtis.senate.gov"
+    },
+    {
+      "bioguide": "L000577",
+      "name": "Mike Lee",
+      "party": "Republican",
+      "state": "UT",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on the Judiciary"
+      ],
+      "all_comms": [
+        "Senate Committee on Energy and Natural Resources",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on the Budget",
+        "Senate Committee on the Judiciary"
+      ],
+      "tier": 1,
+      "birthday": "1971-06-04",
+      "gender": "M",
+      "wikipedia": "Mike Lee",
+      "twitter": "SenMikeLee",
+      "url": "https://www.lee.senate.gov"
+    },
+    {
+      "bioguide": "W000805",
+      "name": "Mark Warner",
+      "party": "Democrat",
+      "state": "VA",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Committee on Finance",
+        "Senate Select Committee on Intelligence"
+      ],
+      "all_comms": [
+        "Senate Committee on Banking, Housing, and Urban Affairs",
+        "Senate Committee on Finance",
+        "Senate Committee on Rules and Administration",
+        "Senate Committee on the Budget",
+        "Senate Select Committee on Intelligence"
+      ],
+      "tier": 1,
+      "birthday": "1954-12-15",
+      "gender": "M",
+      "wikipedia": "Mark Warner",
+      "twitter": "MarkWarner",
+      "url": "https://www.warner.senate.gov"
+    },
+    {
+      "bioguide": "K000384",
+      "name": "Timothy Kaine",
+      "party": "Democrat",
+      "state": "VA",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "",
+      "china_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Foreign Relations"
+      ],
+      "all_comms": [
+        "Senate Committee on Armed Services",
+        "Senate Committee on Foreign Relations",
+        "Senate Committee on Health, Education, Labor, and Pensions",
+        "Senate Committee on the Budget"
+      ],
+      "tier": 1,
+      "birthday": "1958-02-26",
+      "gender": "M",
+      "wikipedia": "Tim Kaine",
+      "twitter": "",
+      "url": "https://www.kaine.senate.gov"
+    },
+    {
+      "bioguide": "B001261",
+      "name": "John Barrasso",
+      "party": "Republican",
+      "state": "WY",
+      "district": null,
+      "type": "Senator",
+      "chamber": "senate",
+      "leadership": "Senate Majority Whip",
+      "china_comms": [
+        "Senate Committee on Finance",
+        "Senate Committee on Foreign Relations"
+      ],
+      "all_comms": [
+        "Senate Committee on Energy and Natural Resources",
+        "Senate Committee on Finance",
+        "Senate Committee on Foreign Relations"
+      ],
+      "tier": 1,
+      "birthday": "1952-07-21",
+      "gender": "M",
+      "wikipedia": "John Barrasso",
+      "twitter": "SenJohnBarrasso",
+      "url": "https://www.barrasso.senate.gov"
+    }
+  ]
+]

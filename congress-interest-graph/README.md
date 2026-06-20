@@ -28,13 +28,25 @@ congress-interest-graph/
 ├── frontend/         # React + TypeScript + Ant Design 前端
 │   └── src/app/
 │       ├── api/            # API 客户端 + TypeScript 类型
-│       ├── components/     # GraphCanvas, ContributionsTab, HoldingsTab
+│       ├── components/     # GraphCanvas, ContributionsTab, HoldingsTab, ProfileTab
 │       ├── pages/          # OverviewPage, MemberDetailPage
 │       └── store/          # Zustand 状态管理
+├── data/
+│   └── congress-profiles/  # 537 份议员档案 (Markdown)
 └── docker-compose.yml
 ```
 
 ## 版本历史
+
+### v0.95 - 国会议员档案导入
+- 导入 537 份议员档案文件 (Markdown 格式)
+- 新增 `core_positions` (核心政治主张) 和 `comprehensive_evaluation` (综合评价) 字段
+- 支持 3 种档案格式: detailed (92), short (290), very-short (155)
+- 模糊姓名匹配: 536/537 成功匹配
+- 新增 ProfileTab 组件展示对华立场、核心主张、综合评价
+- OverviewPage 性能优化: React.memo、懒加载、分页显示
+- 委员会按常设/专门/特别分类分组展示
+- 移除未使用的 echarts 依赖
 
 ### v0.94 - 结构化持股披露
 - 新增 `holding_assets` / `holding_disclosures` 表
@@ -68,7 +80,7 @@ congress-interest-graph/
 
 ## 数据统计
 
-### 真实数据 (v0.94)
+### 真实数据 (v0.95)
 
 | 指标 | 数量 |
 |------|------|
@@ -80,6 +92,7 @@ congress-interest-graph/
 | 捐赠者 | 3,637 |
 | 献金记录 | 5,000 |
 | 持股资产 | 250 |
+| 议员档案 | 537 |
 
 ### Neo4j 图谱节点
 
@@ -133,6 +146,7 @@ docker compose exec backend python3 -m app.etl.import_real_members
 docker compose exec backend python3 -m app.etl.import_real_graph
 docker compose exec backend python3 -m app.etl.import_fec_data
 docker compose exec backend python3 -m app.etl.import_holdings
+docker compose exec backend python3 -m app.etl.import_congress_profiles
 
 # 4. 访问
 # Frontend: http://localhost:3000
@@ -160,6 +174,7 @@ cd backend
 python3 -m app.etl.import_real_members
 python3 -m app.etl.import_fec_data
 python3 -m app.etl.import_holdings
+python3 -m app.etl.import_congress_profiles
 ```
 
 ## API 文档

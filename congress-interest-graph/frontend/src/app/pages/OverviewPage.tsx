@@ -1,13 +1,99 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback, memo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Row, Col, Input, Select, Spin, Empty, Tag, Collapse } from 'antd';
-import { SearchOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
+import { Row, Col, Input, Select, Spin, Empty, Tag, Collapse, Button } from 'antd';
+import { SearchOutlined, TeamOutlined, DownOutlined } from '@ant-design/icons';
 import { getMembers } from '../api/client';
 import type { MemberSummary } from '../api/types';
 import { useAppStore } from '../store';
 import MemberAvatar from '../components/MemberAvatar';
 
 const { Option } = Select;
+
+// Committee classification
+const HOUSE_STANDING = [
+  'House Committee on Agriculture',
+  'House Committee on Appropriations',
+  'House Committee on Armed Services',
+  'House Committee on Education and Workforce',
+  'House Committee on Energy and Commerce',
+  'House Committee on Ethics',
+  'House Committee on Financial Services',
+  'House Committee on Foreign Affairs',
+  'House Committee on Homeland Security',
+  'House Committee on House Administration',
+  'House Committee on Natural Resources',
+  'House Committee on Oversight and Government Reform',
+  'House Committee on Rules',
+  'House Committee on Science, Space, and Technology',
+  'House Committee on Small Business',
+  'House Committee on Transportation and Infrastructure',
+  'House Committee on Veterans\' Affairs',
+  'House Committee on Ways and Means',
+  'House Committee on the Budget',
+  'House Committee on the Judiciary',
+];
+
+const HOUSE_SELECT = [
+  'House Permanent Select Committee on Intelligence',
+  'House Select Committee on the Strategic Competition Between the United States and the Chinese Communist Party',
+];
+
+const SENATE_STANDING = [
+  'Senate Committee on Agriculture, Nutrition, and Forestry',
+  'Senate Committee on Appropriations',
+  'Senate Committee on Armed Services',
+  'Senate Committee on Banking, Housing, and Urban Affairs',
+  'Senate Committee on Commerce, Science, and Transportation',
+  'Senate Committee on Energy and Natural Resources',
+  'Senate Committee on Environment and Public Works',
+  'Senate Committee on Finance',
+  'Senate Committee on Foreign Relations',
+  'Senate Committee on Health, Education, Labor, and Pensions',
+  'Senate Committee on Homeland Security and Governmental Affairs',
+  'Senate Committee on Indian Affairs',
+  'Senate Committee on Rules and Administration',
+  'Senate Committee on Small Business and Entrepreneurship',
+  'Senate Committee on Veterans\' Affairs',
+  'Senate Committee on the Budget',
+  'Senate Committee on the Judiciary',
+];
+
+const SENATE_SPECIAL = [
+  'Senate Select Committee on Ethics',
+  'Senate Select Committee on Intelligence',
+  'Senate Special Committee on Aging',
+  'United States Senate Caucus on International Narcotics Control',
+];
+
+const JOINT_COMMITTEES = [
+  'Commission on Security and Cooperation in Europe',
+  'Joint Committee of Congress on the Library',
+  'Joint Committee on Printing',
+  'Joint Committee on Taxation',
+  'Joint Economic Committee',
+];
+
+const INITIAL_DISPLAY_COUNT = 12;
+
+function getCommitteeCategory(committee: string): string {
+  if (HOUSE_STANDING.includes(committee)) return 'house_standing';
+  if (HOUSE_SELECT.includes(committee)) return 'house_select';
+  if (SENATE_STANDING.includes(committee)) return 'senate_standing';
+  if (SENATE_SPECIAL.includes(committee)) return 'senate_special';
+  if (JOINT_COMMITTEES.includes(committee)) return 'joint';
+  return 'other';
+}
+
+function getCommitteeCategoryLabel(category: string): string {
+  switch (category) {
+    case 'house_standing': return '常设委员会';
+    case 'house_select': return '专门委员会';
+    case 'senate_standing': return '常设委员会';
+    case 'senate_special': return '特别/专门委员会';
+    case 'joint': return '两院联合委员会';
+    default: return '其他';
+  }
+}
 
 function getChamberLabel(chamber?: string) {
   return chamber === 'senate' ? '参议院' : chamber === 'house' ? '众议院' : '';
@@ -34,33 +120,46 @@ interface GroupedMembers {
   [committee: string]: MemberSummary[];
 }
 
-function groupByCommittee(members: MemberSummary[]): { withCommittee: GroupedMembers; withoutCommittee: MemberSummary[] } {
-  const withCommittee: GroupedMembers = {};
+interface CategorizedMembers {
+  [category: string]: GroupedMembers;
+}
+
+function groupByCommitteeAndCategory(members: MemberSummary[]): { categorized: CategorizedMembers; withoutCommittee: MemberSummary[] } {
+  const categorized: CategorizedMembers = {};
   const withoutCommittee: MemberSummary[] = [];
 
   for (const m of members) {
     if (m.committee_tags.length > 0) {
-      const key = m.committee_tags[0];
-      if (!withCommittee[key]) withCommittee[key] = [];
-      withCommittee[key].push(m);
+      const committee = m.committee_tags[0];
+      const category = getCommitteeCategory(committee);
+      
+      if (!categorized[category]) categorized[category] = {};
+      if (!categorized[category][committee]) categorized[category][committee] = [];
+      categorized[category][committee].push(m);
     } else {
       withoutCommittee.push(m);
     }
   }
 
-  const sorted: GroupedMembers = {};
-  for (const key of Object.keys(withCommittee).sort()) {
-    sorted[key] = withCommittee[key];
+  for (const category of Object.keys(categorized)) {
+    const sorted: GroupedMembers = {};
+    for (const key of Object.keys(categorized[category]).sort()) {
+      sorted[key] = categorized[category][key];
+    }
+    categorized[category] = sorted;
   }
 
-  return { withCommittee: sorted, withoutCommittee };
+  return { categorized, withoutCommittee };
 }
 
-function MemberCard({ m, search, partyColorMap }: { m: MemberSummary; search: string; partyColorMap: Record<string, string> }) {
+// Memoized MemberCard - only re-renders when props change
+const MemberCard = memo(function MemberCard({ m, search, partyColorMap }: { m: MemberSummary; search: string; partyColorMap: Record<string, string> }) {
   const navigate = useNavigate();
+  const handleClick = useCallback(() => navigate(`/member/${m.id}`), [navigate, m.id]);
+
   return (
     <div
-      onClick={() => navigate(`/member/${m.id}`)}
+      onClick={handleClick}
       style={{
         background: '#1a1a2e',
         borderRadius: 10,
@@ -101,14 +200,21 @@ function MemberCard({ m, search, partyColorMap }: { m: MemberSummary; search: st
       )}
     </div>
   );
-}
+});
 
+// Lazy committee section - only renders cards when expanded
 function CommitteeSection({ title, members, search, partyColorMap, defaultOpen = false }: {
   title: string; members: MemberSummary[]; search: string; partyColorMap: Record<string, string>; defaultOpen?: boolean;
 }) {
+  const [expanded, setExpanded] = useState(defaultOpen);
+  const [showAll, setShowAll] = useState(false);
+  const displayedMembers = showAll ? members : members.slice(0, INITIAL_DISPLAY_COUNT);
+  const hasMore = members.length > INITIAL_DISPLAY_COUNT;
+
   return (
     <Collapse
       defaultActiveKey={defaultOpen ? ['1'] : []}
+      onChange={(keys) => setExpanded(keys.length > 0)}
       style={{ background: 'transparent', border: 'none', marginBottom: 8 }}
       expandIconPosition="end"
       items={[{
@@ -120,18 +226,70 @@ function CommitteeSection({ title, members, search, partyColorMap, defaultOpen =
             <Tag style={{ marginLeft: 8, fontSize: 10 }}>{members.length}</Tag>
           </span>
         ),
-        children: (
-          <Row gutter={[10, 10]}>
-            {members.map((m) => (
-              <Col key={m.id} xs={24} sm={12} md={8} lg={6}>
-                <MemberCard m={m} search={search} partyColorMap={partyColorMap} />
-              </Col>
-            ))}
-          </Row>
-        ),
+        children: expanded ? (
+          <>
+            <Row gutter={[10, 10]}>
+              {displayedMembers.map((m) => (
+                <Col key={m.id} xs={24} sm={12} md={8} lg={6}>
+                  <MemberCard m={m} search={search} partyColorMap={partyColorMap} />
+                </Col>
+              ))}
+            </Row>
+            {hasMore && !showAll && (
+              <div style={{ textAlign: 'center', marginTop: 12 }}>
+                <Button
+                  type="link"
+                  size="small"
+                  icon={<DownOutlined />}
+                  onClick={(e) => { e.stopPropagation(); setShowAll(true); }}
+                  style={{ color: '#6b7280', fontSize: 11 }}
+                >
+                  显示更多 ({members.length - INITIAL_DISPLAY_COUNT} 人)
+                </Button>
+              </div>
+            )}
+          </>
+        ) : null,
         style: { background: '#111827', border: '1px solid #1f2937', borderRadius: 8 },
       }]}
     />
+  );
+}
+
+function CategorySection({ categoryLabel, committees, search, partyColorMap, defaultOpen = false }: {
+  categoryLabel: string; committees: GroupedMembers; search: string; partyColorMap: Record<string, string>; defaultOpen?: boolean;
+}) {
+  const committeeKeys = Object.keys(committees);
+  const totalMembers = committeeKeys.reduce((sum, key) => sum + committees[key].length, 0);
+
+  return (
+    <div style={{ marginBottom: 16 }}>
+      <div style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        gap: 8, 
+        marginBottom: 8,
+        padding: '8px 12px',
+        background: '#0f1320',
+        borderRadius: 6,
+        border: '1px solid #1f2937'
+      }}>
+        <span style={{ color: '#9ca3af', fontSize: 12, fontWeight: 500 }}>
+          {categoryLabel}
+        </span>
+        <Tag style={{ fontSize: 10 }}>{totalMembers} 人</Tag>
+      </div>
+      {committeeKeys.map((cmte) => (
+        <CommitteeSection
+          key={cmte}
+          title={cmte}
+          members={committees[cmte]}
+          search={search}
+          partyColorMap={partyColorMap}
+          defaultOpen={defaultOpen}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -151,7 +309,7 @@ export default function OverviewPage() {
   const loadMembers = async () => {
     setLoading(true);
     try {
-      const result = await getMembers({ limit: 200, ...filter });
+      const result = await getMembers({ limit: 600, ...filter });
       setMembers(result.members, result.total);
     } catch {
       setError('加载议员列表失败');
@@ -175,13 +333,19 @@ export default function OverviewPage() {
   const senateMembers = useMemo(() => filtered.filter((m) => m.chamber === 'senate'), [filtered]);
   const houseMembers = useMemo(() => filtered.filter((m) => m.chamber === 'house'), [filtered]);
 
-  const senateGrouped = useMemo(() => groupByCommittee(senateMembers), [senateMembers]);
-  const houseGrouped = useMemo(() => groupByCommittee(houseMembers), [houseMembers]);
+  const senateGrouped = useMemo(() => groupByCommitteeAndCategory(senateMembers), [senateMembers]);
+  const houseGrouped = useMemo(() => groupByCommitteeAndCategory(houseMembers), [houseMembers]);
 
-  const renderChamber = (chamberLabel: string, grouped: ReturnType<typeof groupByCommittee>, count: number) => {
-    const committeeKeys = Object.keys(grouped.withCommittee);
-    const hasContent = committeeKeys.length > 0 || grouped.withoutCommittee.length > 0;
+  const renderChamber = (chamberLabel: string, grouped: ReturnType<typeof groupByCommitteeAndCategory>, count: number) => {
+    const categories = Object.keys(grouped.categorized);
+    const hasContent = categories.length > 0 || grouped.withoutCommittee.length > 0;
     if (!hasContent) return null;
+
+    const categoryOrder = chamberLabel === '众议院' 
+      ? ['house_standing', 'house_select'] 
+      : ['senate_standing', 'senate_special'];
+    
+    const sortedCategories = categoryOrder.filter(c => grouped.categorized[c]);
 
     return (
       <div style={{ marginBottom: 32 }}>
@@ -192,14 +356,14 @@ export default function OverviewPage() {
           <Tag style={{ fontSize: 11 }}>{count} 人</Tag>
         </div>
 
-        {committeeKeys.map((cmte) => (
-          <CommitteeSection
-            key={cmte}
-            title={cmte}
-            members={grouped.withCommittee[cmte]}
+        {sortedCategories.map((category) => (
+          <CategorySection
+            key={category}
+            categoryLabel={getCommitteeCategoryLabel(category)}
+            committees={grouped.categorized[category]}
             search={filter.search}
             partyColorMap={partyColorMap}
-            defaultOpen={committeeKeys.length <= 3}
+            defaultOpen={false}
           />
         ))}
 
@@ -209,7 +373,7 @@ export default function OverviewPage() {
             members={grouped.withoutCommittee}
             search={filter.search}
             partyColorMap={partyColorMap}
-            defaultOpen={committeeKeys.length === 0}
+            defaultOpen={false}
           />
         )}
       </div>

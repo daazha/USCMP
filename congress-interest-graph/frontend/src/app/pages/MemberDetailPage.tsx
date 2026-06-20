@@ -11,6 +11,7 @@ import MemberAvatar from '../components/MemberAvatar';
 import ControversiesTab from '../components/ControversiesTab';
 import ContributionsTab from '../components/ContributionsTab';
 import HoldingsTab from '../components/HoldingsTab';
+import ProfileTab from '../components/ProfileTab';
 
 const { Sider, Content } = Layout;
 const { Text } = Typography;
@@ -497,10 +498,39 @@ export default function MemberDetailPage() {
                     <Card size="small" title="职业经历汇总" style={{ marginBottom: 8, background: '#1a1a2e' }}>
                       {member.career_summary.map((item, i) => {
                         const entry = item as Record<string, unknown>;
+                        const source = entry.source ? String(entry.source) : null;
+                        const careerHistory = entry.career_history ? String(entry.career_history) : null;
+                        const policyPositions = entry.policy_positions ? String(entry.policy_positions) : null;
                         const pos = entry.position ? String(entry.position) : null;
                         const org = entry.organization ? String(entry.organization) : null;
                         const start = entry.start_date ? String(entry.start_date) : null;
                         const end = entry.end_date ? String(entry.end_date) : null;
+
+                        // New format from congress profiles
+                        if (source === 'congress_profile') {
+                          return (
+                            <div key={i} style={{ marginBottom: 8 }}>
+                              {careerHistory && (
+                                <div style={{ marginBottom: 6 }}>
+                                  <div style={{ fontSize: 11, color: '#6b7280', marginBottom: 2 }}>政治生涯</div>
+                                  <div style={{ fontSize: 11, color: '#9ca3af', whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>
+                                    {careerHistory.replace(/\*\*/g, '').slice(0, 800)}{careerHistory.length > 800 && '...'}
+                                  </div>
+                                </div>
+                              )}
+                              {policyPositions && (
+                                <div>
+                                  <div style={{ fontSize: 11, color: '#6b7280', marginBottom: 2 }}>政策立场</div>
+                                  <div style={{ fontSize: 11, color: '#9ca3af', whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>
+                                    {policyPositions.replace(/\*\*/g, '').slice(0, 800)}{policyPositions.length > 800 && '...'}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        }
+
+                        // Legacy format
                         return (
                           <div key={i} style={{ marginBottom: 4, fontSize: 11, color: '#9ca3af' }}>
                             {pos && <span style={{ color: '#d1d5db' }}>{pos}</span>}
@@ -602,6 +632,17 @@ export default function MemberDetailPage() {
               key: 'circles',
               label: '圈层关系',
               children: <CirclesPanel memberId={id!} onCircleClick={handleCircleClick} onMemberClick={(mid) => navigate(`/member/${mid}`)} />,
+            },
+            {
+              key: 'profile',
+              label: '政治画像',
+              children: (
+                <ProfileTab
+                  china_stance_summary={member.china_stance_summary}
+                  core_positions={member.core_positions}
+                  comprehensive_evaluation={member.comprehensive_evaluation}
+                />
+              ),
             },
             {
               key: 'contributors',

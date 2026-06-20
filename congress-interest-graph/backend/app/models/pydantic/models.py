@@ -57,6 +57,8 @@ class MemberDetail(BaseModel):
     committee_memberships: list[CommitteeMembership] = Field(default_factory=list)
     career_summary: list[dict] = Field(default_factory=list)
     china_stance_summary: Optional[str] = None
+    core_positions: Optional[str] = None
+    comprehensive_evaluation: Optional[str] = None
     controversies: list[dict] = Field(default_factory=list)
     congress: Optional[int] = None
     source: str = "mock"

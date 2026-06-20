@@ -31,6 +31,8 @@ class Member(Base):
     committee_memberships = Column(JSON, default=[])
     career_summary = Column(JSON, default=[])
     china_stance_summary = Column(Text)
+    core_positions = Column(Text)
+    comprehensive_evaluation = Column(Text)
     controversies = Column(JSON, default=[])
     source = Column(String, nullable=False, default="mock", index=True)
     source_reliability = Column(String, default="mock")

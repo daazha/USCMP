@@ -41,7 +41,7 @@ def list_members(
     search: str | None = Query(None),
     include_historical: bool = Query(False),
     skip: int = Query(0, ge=0),
-    limit: int = Query(50, ge=1, le=200),
+    limit: int = Query(50, ge=1, le=1000),
     db: Session = Depends(get_db),
 ):
     query = db.query(Member)
@@ -82,8 +82,10 @@ def list_members(
         committee_tags = []
         if m.committee_memberships:
             for cm in m.committee_memberships:
-                if cm.get("committee"):
-                    committee_tags.append(cm["committee"])
+                committee = cm.get("committee", "")
+                # Filter out uscl_committee_* format, keep only full names
+                if committee and not committee.startswith("uscl_"):
+                    committee_tags.append(committee)
 
         summaries.append(MemberSummary(
             id=m.id,
@@ -151,6 +153,8 @@ def get_member(member_id: str, include_historical: bool = Query(False), db: Sess
         committee_memberships=committee_memberships,
         career_summary=member.career_summary or [],
         china_stance_summary=member.china_stance_summary,
+        core_positions=member.core_positions,
+        comprehensive_evaluation=member.comprehensive_evaluation,
         controversies=member.controversies or [],
         congress=member.congress,
         source=member.source,
