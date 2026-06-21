@@ -1,0 +1,53 @@
+services:
+  - type: web
+    name: congress-backend
+    runtime: python
+    rootDir: congress-interest-graph/backend
+    buildCommand: pip install -e .
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: ENABLE_REAL_ETL
+        value: "false"
+      - key: NEO4J_URI
+        sync: false
+      - key: NEO4J_USER
+        value: neo4j
+      - key: NEO4J_PASSWORD
+        sync: false
+      - key: POSTGRES_HOST
+        fromDatabase:
+          name: congress-db
+          property: host
+      - key: POSTGRES_PORT
+        fromDatabase:
+          name: congress-db
+          property: port
+      - key: POSTGRES_DB
+        fromDatabase:
+          name: congress-db
+          property: database
+      - key: POSTGRES_USER
+        fromDatabase:
+          name: congress-db
+          property: user
+      - key: POSTGRES_PASSWORD
+        fromDatabase:
+          name: congress-db
+          property: password
+
+  - type: web
+    name: congress-frontend
+    runtime: node
+    rootDir: congress-interest-graph/frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://congress-backend.onrender.com
+
+databases:
+  - name: congress-db
+    databaseName: congress_graph
+    user: congress_user
