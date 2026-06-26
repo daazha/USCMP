@@ -387,6 +387,23 @@ class ContributionsResponse(BaseModel):
     disclaimer: str = "数据来源: FEC.gov ( bulk-downloads ) 及 OpenSecrets.org。仅供研究参考。"
 
 
+class MemberFinanceSummaryResponse(BaseModel):
+    member_id: str
+    total_received: float = 0.0
+    total_count: int = 0
+    by_cycle: dict[str, float] = Field(default_factory=dict)
+    by_type: dict[str, float] = Field(default_factory=dict)
+    top_donors: list[dict] = Field(default_factory=list)
+    top_industries: list[dict] = Field(default_factory=list)
+    by_cycle_count: dict[str, int] = Field(default_factory=dict)
+    by_industry_count: dict[str, int] = Field(default_factory=dict)
+    data_mode: str = "full"
+    source: str = "fec"
+    source_reliability: str = "official"
+    last_contribution_date: Optional[date] = None
+    updated_at: Optional[datetime] = None
+
+
 class HoldingAssetRecord(BaseModel):
     id: str
     asset_name: str

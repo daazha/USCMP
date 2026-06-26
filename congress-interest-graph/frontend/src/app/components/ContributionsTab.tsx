@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Card, Tag, Spin, Empty, Statistic, Row, Col, Table, Typography, Alert } from 'antd';
-import { getDataCoverage, getMemberContributions } from '../api/client';
-import type { ContributionsResponse, DataSourceCoverage } from '../api/types';
+import { getDataCoverage, getMemberContributions, getMemberFinanceSummary } from '../api/client';
+import type {
+  ContributionSummary, ContributionsResponse,
+  DataSourceCoverage, MemberFinanceSummaryResponse,
+} from '../api/types';
 
 const { Text } = Typography;
 
@@ -17,28 +20,38 @@ function fmt(n: number): string {
 
 export default function ContributionsTab({ memberId }: Props) {
   const [data, setData] = useState<ContributionsResponse | null>(null);
+  const [summary, setSummary] = useState<MemberFinanceSummaryResponse | null>(null);
   const [coverage, setCoverage] = useState<DataSourceCoverage | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       try {
-        const [res, cov] = await Promise.all([
-          getMemberContributions(memberId, { limit: 100 }),
+        const [sumRes, cov] = await Promise.all([
+          getMemberFinanceSummary(memberId),
           getDataCoverage(),
         ]);
-        setData(res);
+        setSummary(sumRes);
         setCoverage(cov.sources.find((s) => s.source_id === 'fec') || null);
+
+        if (sumRes.total_count > 0) {
+          const res = await getMemberContributions(memberId, { limit: 20 });
+          setData(res);
+        }
       } catch {
         setData(null);
+        setSummary(null);
       } finally {
         setLoading(false);
       }
     })();
   }, [memberId]);
 
+  const s = summary ?? data?.summary ?? null;
+  const hasData = (s?.total_count ?? 0) > 0 || (summary?.total_count ?? 0) > 0;
+
   if (loading) return <Spin style={{ display: 'block', margin: '40px auto' }} />;
-  if (!data || data.total_count === 0) {
+  if (!hasData) {
     return (
       <div>
         {coverage && <CoverageNotice coverage={coverage} />}
@@ -50,14 +63,48 @@ export default function ContributionsTab({ memberId }: Props) {
     );
   }
 
-  const s = data.summary;
+  if (summary && !data) {
+    return (
+      <div>
+        {coverage && <CoverageNotice coverage={coverage} />}
+        <Row gutter={12} style={{ marginBottom: 12 }}>
+          <Col span={8}>
+            <Card size="small" style={{ background: '#1a1a2e' }}>
+              <Statistic title="献金总额" value={summary.total_received} prefix="$" precision={0}
+                valueStyle={{ color: '#52c41a', fontSize: 20 }} />
+            </Card>
+          </Col>
+          <Col span={8}>
+            <Card size="small" style={{ background: '#1a1a2e' }}>
+              <Statistic title="记录笔数" value={summary.total_count}
+                valueStyle={{ color: '#1890ff', fontSize: 20 }} />
+            </Card>
+          </Col>
+          <Col span={8}>
+            <Card size="small" style={{ background: '#1a1a2e' }}>
+              <Statistic title="捐赠方数" value={summary.top_donors.length}
+                valueStyle={{ color: '#faad14', fontSize: 20 }} />
+            </Card>
+          </Col>
+        </Row>
+        <Alert type="info" showIcon message="已加载聚合汇总"
+          description="明细数据仅在需要时按需加载。" style={{ marginBottom: 12, background: '#111827', borderColor: '#374151' }} />
+        {s && renderDonorAndIndustry(s)}
+        <div style={{ fontSize: 10, color: '#6b7280', marginTop: 8, fontStyle: 'italic' }}>
+          {summary.updated_at ? `汇总更新时间: ${summary.updated_at}` : ''}
+        </div>
+      </div>
+    );
+  }
 
-  const donorColumns = [
-    { title: '捐赠方', dataIndex: 'name', key: 'name', render: (v: string) => <Text style={{ color: '#d1d5db', fontSize: 12 }}>{v}</Text> },
-    { title: '类型', dataIndex: 'type', key: 'type', render: (v: string) => <Tag style={{ fontSize: 10 }}>{v}</Tag> },
-    { title: '总额', dataIndex: 'total', key: 'total', render: (v: number) => <span style={{ color: '#52c41a', fontSize: 12 }}>{fmt(v)}</span> },
-    { title: '笔数', dataIndex: 'count', key: 'count', render: (v: number) => <span style={{ color: '#9ca3af', fontSize: 12 }}>{v}</span> },
-  ];
+  if (!s) {
+    return (
+      <div>
+        {coverage && <CoverageNotice coverage={coverage} />}
+        <Empty description="暂无献金数据" image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -77,15 +124,14 @@ export default function ContributionsTab({ memberId }: Props) {
         </Col>
         <Col span={8}>
           <Card size="small" style={{ background: '#1a1a2e' }}>
-            <Statistic title="竞选委员会" value={data.committees.length}
+            <Statistic title="竞选委员会" value={data?.committees?.length ?? 0}
               valueStyle={{ color: '#faad14', fontSize: 20 }} />
           </Card>
         </Col>
       </Row>
 
-      {/* Campaign committees */}
       <Card size="small" title="竞选委员会" style={{ marginBottom: 8, background: '#1a1a2e' }}>
-        {data.committees.map((cm) => (
+        {data?.committees?.map((cm) => (
           <div key={cm.id} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6, fontSize: 11 }}>
             <span style={{ color: '#d1d5db', fontWeight: 600 }}>{cm.name}</span>
             <Tag style={{ fontSize: 10, margin: 0 }}>{cm.fec_committee_id}</Tag>
@@ -95,7 +141,6 @@ export default function ContributionsTab({ memberId }: Props) {
         ))}
       </Card>
 
-      {/* By cycle */}
       {Object.keys(s.by_cycle).length > 0 && (
         <Card size="small" title="按选举周期" style={{ marginBottom: 8, background: '#1a1a2e' }}>
           {Object.entries(s.by_cycle).map(([cycle, amount]) => (
@@ -107,7 +152,6 @@ export default function ContributionsTab({ memberId }: Props) {
         </Card>
       )}
 
-      {/* By type */}
       {Object.keys(s.by_type).length > 0 && (
         <Card size="small" title="按献金类型" style={{ marginBottom: 8, background: '#1a1a2e' }}>
           {Object.entries(s.by_type).map(([type, amount]) => (
@@ -119,12 +163,35 @@ export default function ContributionsTab({ memberId }: Props) {
         </Card>
       )}
 
-      {/* Top donors table */}
-      {s.top_donors.length > 0 && (
+      {renderDonorAndIndustry(s)}
+
+      <div style={{ fontSize: 10, color: '#6b7280', marginTop: 8, fontStyle: 'italic' }}>
+        {data?.disclaimer}
+      </div>
+    </div>
+  );
+}
+
+function renderDonorAndIndustry(s: ContributionSummary | MemberFinanceSummaryResponse) {
+  const donors = s.top_donors.map((d) => ({
+    name: d.name ?? '未知',
+    total: d.total ?? 0,
+    count: d.count ?? 0,
+    type: d.type ?? 'unknown',
+  }));
+
+  return (
+    <>
+      {donors.length > 0 && (
         <Card size="small" title="TOP 捐赠方" style={{ marginBottom: 8, background: '#1a1a2e' }}>
           <Table
-            dataSource={s.top_donors}
-            columns={donorColumns}
+            dataSource={donors}
+            columns={[
+              { title: '捐赠方', dataIndex: 'name', key: 'name', render: (v: string) => <Text style={{ color: '#d1d5db', fontSize: 12 }}>{v}</Text> },
+              { title: '类型', dataIndex: 'type', key: 'type', render: (v: string) => <Tag style={{ fontSize: 10 }}>{v}</Tag> },
+              { title: '总额', dataIndex: 'total', key: 'total', render: (v: number) => <span style={{ color: '#52c41a', fontSize: 12 }}>{fmt(v)}</span> },
+              { title: '笔数', dataIndex: 'count', key: 'count', render: (v: number) => <span style={{ color: '#9ca3af', fontSize: 12 }}>{v}</span> },
+            ]}
             rowKey="name"
             pagination={false}
             size="small"
@@ -133,22 +200,17 @@ export default function ContributionsTab({ memberId }: Props) {
         </Card>
       )}
 
-      {/* Top industries */}
       {s.top_industries.length > 0 && (
         <Card size="small" title="TOP 行业来源" style={{ marginBottom: 8, background: '#1a1a2e' }}>
           {s.top_industries.map((ind) => (
             <div key={ind.industry} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4, fontSize: 11 }}>
               <span style={{ color: '#9ca3af' }}>{ind.industry}</span>
-              <span style={{ color: '#d1d5db' }}>{fmt(ind.total)}（{ind.count}笔）</span>
+              <span style={{ color: '#d1d5db' }}>{fmt(ind.total ?? 0)}（{ind.count}笔）</span>
             </div>
           ))}
         </Card>
       )}
-
-      <div style={{ fontSize: 10, color: '#6b7280', marginTop: 8, fontStyle: 'italic' }}>
-        {data.disclaimer}
-      </div>
-    </div>
+    </>
   );
 }
 

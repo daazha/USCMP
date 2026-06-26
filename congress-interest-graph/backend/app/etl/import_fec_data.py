@@ -127,7 +127,7 @@ def import_committees(cycle: int, db: SessionLocal, limit: int | None = None) ->
                 existing.party = party or existing.party
                 existing.cycle = cycle
                 if member and not existing.candidate_id:
-                    existing.candidate_id = member.id
+                    existing.candidate_id = member.fec_candidate_id
                     existing.chamber = chamber or existing.chamber
             else:
                 committee = CampaignCommittee(
@@ -137,7 +137,7 @@ def import_committees(cycle: int, db: SessionLocal, limit: int | None = None) ->
                     party=party or None,
                     state=state or None,
                     chamber=chamber or None,
-                    candidate_id=member.id if member else None,
+                    candidate_id=member.fec_candidate_id if member else None,
                     cycle=cycle,
                     source="fec",
                     fec_data={"raw_party": party, "raw_cand_id": cand_id},

@@ -212,6 +212,27 @@ class Contribution(Base):
     donor = relationship("Donor", backref="contributions")
 
 
+class MemberFinanceSummary(Base):
+    __tablename__ = "member_finance_summary"
+
+    member_id = Column(String, ForeignKey("members.id"), primary_key=True, index=True)
+    total_received = Column(Float, default=0.0, nullable=False)
+    total_count = Column(Integer, default=0, nullable=False)
+    by_cycle = Column(JSON, default=dict)
+    by_type = Column(JSON, default=dict)
+    top_donors = Column(JSON, default=list)
+    top_industries = Column(JSON, default=list)
+    by_cycle_count = Column(JSON, default=dict)
+    by_industry_count = Column(JSON, default=dict)
+    data_mode = Column(String, default="full", index=True)
+    source = Column(String, default="fec")
+    source_reliability = Column(String, default="official")
+    last_contribution_date = Column(Date)
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+
+    member = relationship("Member", backref="finance_summary")
+
+
 class HoldingAsset(Base):
     __tablename__ = "holding_assets"
 

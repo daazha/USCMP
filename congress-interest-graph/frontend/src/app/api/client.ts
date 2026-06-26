@@ -95,6 +95,11 @@ export async function getMemberContributions(memberId: string, params?: { cycle?
   return data;
 }
 
+export async function getMemberFinanceSummary(memberId: string): Promise<import('./types').MemberFinanceSummaryResponse> {
+  const { data } = await api.get(`/members/${memberId}/finance/summary`);
+  return data;
+}
+
 export async function getMemberHoldings(memberId: string, params?: { asset_type?: string; year?: number; limit?: number }): Promise<import('./types').HoldingsResponse> {
   const { data } = await api.get(`/members/${memberId}/holdings`, { params });
   return data;

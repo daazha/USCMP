@@ -374,3 +374,20 @@ export interface DataCoverageResponse {
   sources: DataSourceCoverage[];
   generated_at: string;
 }
+
+export interface MemberFinanceSummaryResponse {
+  member_id: string;
+  total_received: number;
+  total_count: number;
+  by_cycle: Record<string, number>;
+  by_type: Record<string, number>;
+  top_donors: { id?: string; name: string; total: number; count: number; type?: string; industry?: string }[];
+  top_industries: { industry: string; total?: number; count: number }[];
+  by_cycle_count: Record<string, number>;
+  by_industry_count: Record<string, number>;
+  data_mode: string;
+  source: string;
+  source_reliability: string;
+  last_contribution_date?: string;
+  updated_at?: string;
+}
