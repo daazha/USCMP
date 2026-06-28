@@ -48,6 +48,8 @@ def close_driver():
 def run_cypher(query: str, parameters: dict | None = None):
     try:
         driver = get_driver()
+        if not driver:
+            return []
         with driver.session() as session:
             result = session.run(query, parameters or {})
             return [record for record in result]
@@ -59,6 +61,8 @@ def run_cypher(query: str, parameters: dict | None = None):
 def run_cypher_with_summary(query: str, parameters: dict | None = None):
     try:
         driver = get_driver()
+        if not driver:
+            return [], None
         with driver.session() as session:
             result = session.run(query, parameters or {})
             records = [record.data() for record in result]
