@@ -14,12 +14,11 @@
 ## 架构
 
 ```
-congress-interest-graph/
 ├── backend/          # Python FastAPI 后端
 │   ├── app/
 │   │   ├── api/routes/     # API 路由
 │   │   ├── core/           # 配置、日志、错误处理
-│   │   ├── db/             # PostgreSQL + Neo4j 连接
+│   │   ├── db/             # SQLite (默认) / PostgreSQL + Neo4j(可选)
 │   │   ├── models/         # Pydantic + SQLAlchemy 模型
 │   │   ├── services/       # 图查询服务 (集中 Cypher)
 │   │   ├── etl/            # ETL Adapters + 真实导入
@@ -32,8 +31,9 @@ congress-interest-graph/
 │       ├── pages/          # OverviewPage, MemberDetailPage
 │       └── store/          # Zustand 状态管理
 ├── data/
-│   └── congress-profiles/  # 537 份议员档案 (Markdown)
-└── docker-compose.yml
+│   └── congress-profiles/  # 544 份议员档案 (Markdown)
+├── docker-compose.yml
+└── deploy.sh
 ```
 
 ## 版本历史
@@ -47,6 +47,30 @@ congress-interest-graph/
 - OverviewPage 性能优化: React.memo、懒加载、分页显示
 - 委员会按常设/专门/特别分类分组展示
 - 移除未使用的 echarts 依赖
+
+### v1.0 - 数据覆盖、FEC 优化、持股披露
+- 新增数据覆盖 API `/api/data-coverage`，展示基础资料、画像、FEC 献金、持股披露的数据覆盖状态
+- 优化 FEC 导入：仅保留现任议员，限制 2022/2024 周期，降低磁盘压力
+- 修复 FEC candidate ID 匹配：补正多位参议员 Senate ID，提升现任议员委员会覆盖率至 97.4%
+- 新增政治献金 (`ContributionsTab`) 与持股 (`HoldingsTab`) 前端页面
+- 新增持股披露 ETL：支持 CSV/JSON 格式的公开财务披露数据导入
+- 优化 API 稳定性：统一议员可见性过滤，避免部分接口失败阻塞整体页面加载
+- 新增 `export_to_sqlite.py` 导出脚本
+
+### v1.1 - 资金聚合与轻量化改造
+- 新增 `MemberFinanceSummary` 聚合表：成员级资金预汇总，不再每次扫全量明细表
+- 新增 `GET /api/members/{id}/finance/summary` 优先使用聚合数据
+- 修复 `CampaignCommittee.candidate_id` 关联 bug（改用 fec_candidate_id），回填 25,299 个委员会
+- 为 530 位当前议员重建资金汇总
+- 前端 ContributionsTab 优先读取聚合接口，明细记录按需补充加载
+- 移除 12,275 名历史议员，仅保留 544 名现任议员
+- 移除 12,224 条历史议员画像、250 条历史持股资产
+- Neo4j 降级为可选：后端可在无 Neo4j 时正常启动
+- 默认启用 SQLite fallback 模式，无需 PostgreSQL
+- 简化 docker-compose.yml，合并 dev/prod 为单一部署入口
+- 精简 backend Dockerfile（去掉 gcc 编译依赖和 dev 包）
+- 删除 `.cursor/`、`nginx/` 根目录 `node_modules/` 等残留文件
+- 项目文件移至仓库根目录，去除 `congress-interest-graph/` 嵌套层级
 
 ### v0.94 - 结构化持股披露
 - 新增 `holding_assets` / `holding_disclosures` 表
@@ -85,16 +109,16 @@ congress-interest-graph/
 | 指标 | 数量 |
 |------|------|
 | 当前议员 (current) | 544 |
-| 历史议员 (historical) | 12,225 |
+| 历史议员 (historical) | 0（v1.1 清理，仅保留现任） |
 | 委员会 | 49 |
 | 委员会任职 | 3,879 |
-| 竞选委员会 | 20,937 |
-| 捐赠者 | 3,637 |
-| 献金记录 | 5,000 |
-| 持股资产 | 250 |
-| 议员档案 | 537 |
+| 竞选委员会 | 25,963 |
+| 捐赠者 | 416,141 |
+| 献金记录 | 2,217,720 |
+| 持股资产 | 0（历史数据已清理） |
+| 议员画像 | 544 |
 
-### Neo4j 图谱节点
+### Neo4j 图谱节点（需部署 Neo4j 时可用，默认可选）
 
 | 节点类型 | 说明 |
 |----------|------|
@@ -107,7 +131,7 @@ congress-interest-graph/
 | Asset | 持股资产 |
 | HoldingDisclosure | 持股披露 |
 
-### 边类型
+### 边类型（需部署 Neo4j 时可用）
 
 | 边类型 | 说明 |
 |--------|------|
@@ -121,7 +145,7 @@ congress-interest-graph/
 | 层 | 技术 |
 |----|------|
 | 后端框架 | Python 3.10+, FastAPI, Pydantic v2 |
-| 数据库 | PostgreSQL 15, Neo4j 5 |
+| 数据库 | SQLite (默认) / PostgreSQL (可选) + Neo4j (可选) |
 | ORM/驱动 | SQLAlchemy 2.x, neo4j-python-driver |
 | 前端 | React 18, TypeScript, Vite |
 | UI 组件 | Ant Design 5 |
@@ -130,54 +154,37 @@ congress-interest-graph/
 | 测试 | pytest, vitest |
 | 容器化 | Docker Compose |
 
-## 本地启动
+## 快速启动
 
-### Docker Compose (推荐)
+### Docker Compose (推荐，轻量模式)
 
 ```bash
-# 1. 复制环境配置
-cp .env.example .env
+# 启动前后端
+docker compose up --build -d
 
-# 2. 启动所有服务
-docker compose up --build
-
-# 3. 初始化数据
-docker compose exec backend python3 -m app.etl.import_real_members
-docker compose exec backend python3 -m app.etl.import_real_graph
-docker compose exec backend python3 -m app.etl.import_fec_data
-docker compose exec backend python3 -m app.etl.import_holdings
-docker compose exec backend python3 -m app.etl.import_congress_profiles
-
-# 4. 访问
-# Frontend: http://localhost:3000
-# Backend API: http://localhost:8000
-# OpenAPI Docs: http://localhost:8000/docs
+# 访问
+# 前端: http://localhost:3000
+# API 文档: http://localhost:8000/docs
 ```
+
+后端默认使用 SQLite 数据库（无需 PostgreSQL/Neo4j），数据已预导入（544 名现任议员的身份、献金、档案数据）。
 
 ### 本地开发
 
 ```bash
-# 1. 确保 PostgreSQL 和 Neo4j 已运行
-
-# 2. 启动后端
+# 1. 启动后端 (SQLite 模式)
 cd backend
-pip install -r requirements.txt
-POSTGRES_HOST=localhost uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+USE_SQLITE_FALLBACK=true uvicorn app.main:app --host 0.0.0.0 --port 8000
 
-# 3. 启动前端
+# 2. 启动前端
 cd frontend
 npm install
 npm run dev
 
-# 4. 初始化数据
+# 初始化数据（首次或重置时执行）
 cd backend
-python3 -m app.etl.import_real_members
-python3 -m app.etl.import_fec_data
-python3 -m app.etl.import_holdings
-python3 -m app.etl.import_congress_profiles
-
-# 可选: 使用已下载的 FEC indiv zip 执行流式全量献金导入
-python3 -m app.etl.import_fec_data --cycle 2024 --contributions-only --contributions-zip /data/indiv24.zip
+USE_SQLITE_FALLBACK=true python3 -m app.etl.import_real_members
+USE_SQLITE_FALLBACK=true python3 -m app.etl.import_fec_data
 ```
 
 ## API 文档
@@ -190,8 +197,10 @@ python3 -m app.etl.import_fec_data --cycle 2024 --contributions-only --contribut
 | `/api/members` | GET | 议员列表 |
 | `/api/members/{id}` | GET | 议员详情 |
 | `/api/members/{id}/graph` | GET | 议员图谱 |
-| `/api/members/{id}/contributions` | GET | 献金记录 |
+| `/api/members/{id}/finance/summary` | GET | 献金聚合汇总(v1.1) |
+| `/api/members/{id}/contributions` | GET | 献金明细记录 |
 | `/api/members/{id}/holdings` | GET | 持股披露 |
+| `/api/members/{id}/profile` | GET | 议员画像 |
 | `/api/data-coverage` | GET | 数据源覆盖状态 |
 | `/api/graph/expand` | POST | 节点展开 |
 | `/api/search` | GET | 全局搜索 |
@@ -211,7 +220,7 @@ python3 -m app.etl.import_fec_data --cycle 2024 --contributions-only --contribut
 
 ```bash
 # 后端测试
-cd backend && POSTGRES_HOST=localhost python3 -m pytest tests/ -v
+cd backend && USE_SQLITE_FALLBACK=true python3 -m pytest tests/ -v
 
 # 前端测试
 cd frontend && npm test
