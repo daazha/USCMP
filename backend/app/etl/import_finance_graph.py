@@ -31,17 +31,25 @@ def _aggregate_contributions(db, committee_ids: set[str]) -> dict:
     if not committee_ids:
         return {}
 
-    result = db.execute(text("""
+    import sqlalchemy as sa
+    dialect = db.bind.dialect.name if db.bind else "postgresql"
+
+    placeholders = ",".join([f":id_{i}" for i in range(len(committee_ids))])
+    params = {f"id_{i}": cid for i, cid in enumerate(committee_ids)}
+
+    types_expr = "ARRAY_AGG(DISTINCT contribution_type)" if dialect.startswith("postgresql") else "GROUP_CONCAT(DISTINCT contribution_type)"
+
+    result = db.execute(text(f"""
         SELECT committee_id, donor_id,
                SUM(amount) as total_amount,
                COUNT(*) as cnt,
                MIN(contribution_date) as first_date,
                MAX(contribution_date) as last_date,
-               ARRAY_AGG(DISTINCT contribution_type) as types
+               {types_expr} as types
         FROM contributions
-        WHERE committee_id = ANY(:ids)
+        WHERE committee_id IN ({placeholders})
         GROUP BY committee_id, donor_id
-    """), {"ids": list(committee_ids)}).fetchall()
+    """), params).fetchall()
 
     agg = {}
     for r in result:
@@ -50,7 +58,7 @@ def _aggregate_contributions(db, committee_ids: set[str]) -> dict:
             "count": r.cnt,
             "first_date": str(r.first_date) if r.first_date else None,
             "last_date": str(r.last_date) if r.last_date else None,
-            "types": r.types or [],
+            "types": r.types.split(",") if isinstance(r.types, str) else (r.types or []),
         }
     return agg
 
@@ -63,15 +71,18 @@ def _aggregate_by_committee(db, committee_ids: set[str]) -> dict:
     if not committee_ids:
         return {}
 
-    result = db.execute(text("""
+    placeholders = ",".join([f":id_{i}" for i in range(len(committee_ids))])
+    params = {f"id_{i}": cid for i, cid in enumerate(committee_ids)}
+
+    result = db.execute(text(f"""
         SELECT committee_id,
                SUM(amount) as total_amount,
                COUNT(*) as cnt,
                COUNT(DISTINCT donor_id) as donor_count
         FROM contributions
-        WHERE committee_id = ANY(:ids)
+        WHERE committee_id IN ({placeholders})
         GROUP BY committee_id
-    """), {"ids": list(committee_ids)}).fetchall()
+    """), params).fetchall()
 
     agg = {}
     for r in result:
@@ -119,10 +130,12 @@ def import_finance_graph(cycle: int = 2024, limit: int | None = None, dry_run: b
         donor_ids = {did for (_, did) in contrib_aggs.keys()}
         donors = {}
         if donor_ids:
-            donor_rows = db.execute(text("""
+            placeholders = ",".join([f":did_{i}" for i in range(len(donor_ids))])
+            params = {f"did_{i}": d for i, d in enumerate(donor_ids)}
+            donor_rows = db.execute(text(f"""
                 SELECT id, name, donor_type, industry, state, employer, source
-                FROM donors WHERE id = ANY(:ids)
-            """), {"ids": list(donor_ids)}).fetchall()
+                FROM donors WHERE id IN ({placeholders})
+            """), params).fetchall()
             donors = {d.id: d for d in donor_rows}
         print(f"Found {len(donors)} unique donors across {len(contrib_aggs)} contribution pairs")
 
@@ -131,9 +144,11 @@ def import_finance_graph(cycle: int = 2024, limit: int | None = None, dry_run: b
 
         # Step 4: Get person IDs (member id -> Neo4j person id)
         member_ids = {c.candidate_id for c in committees}
-        persons = db.execute(text("""
-            SELECT id, display_name FROM members WHERE id = ANY(:ids)
-        """), {"ids": list(member_ids)}).fetchall()
+        placeholders = ",".join([f":mid_{i}" for i in range(len(member_ids))])
+            params = {f"mid_{i}": m for i, m in enumerate(member_ids)}
+            persons = db.execute(text(f"""
+                SELECT id, display_name FROM members WHERE id IN ({placeholders})
+            """), params).fetchall()
         person_ids = {p.id for p in persons}
         print(f"Found {len(person_ids)} current members with person nodes")
 
