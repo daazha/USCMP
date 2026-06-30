@@ -131,7 +131,7 @@ function groupByCommitteeAndCategory(members: MemberSummary[]): { categorized: C
   const withoutCommittee: MemberSummary[] = [];
 
   for (const m of members) {
-    if (m.committee_tags.length > 0) {
+    if (m.committee_tags?.length > 0) {
       const uniqueCommittees = Array.from(new Set(m.committee_tags));
       for (const committee of uniqueCommittees) {
         const category = getCommitteeCategory(committee);
@@ -160,7 +160,7 @@ function groupByCommitteeAndCategory(members: MemberSummary[]): { categorized: C
 const MemberCard = memo(function MemberCard({ m, search, partyColorMap }: { m: CommitteeMember; search: string; partyColorMap: Record<string, string> }) {
   const navigate = useNavigate();
   const handleClick = useCallback(() => navigate(`/member/${m.id}`), [navigate, m.id]);
-  const committeeLabel = m.currentCommittee || m.committee_tags[0];
+  const committeeLabel = m.currentCommittee || m.committee_tags?.[0];
 
   return (
     <div
@@ -300,6 +300,7 @@ function CategorySection({ categoryLabel, committees, search, partyColorMap, def
 
 export default function OverviewPage() {
   const { members, setMembers, setError, loading, setLoading, totalMembers } = useAppStore();
+  const error = useAppStore((s) => s.error);
   const [filter, setFilter] = useState({
     chamber: undefined as string | undefined,
     party: undefined as string | undefined,
@@ -307,11 +308,7 @@ export default function OverviewPage() {
     search: '',
   });
 
-  useEffect(() => {
-    loadMembers();
-  }, []);
-
-  const loadMembers = async () => {
+  const loadMembers = useCallback(async () => {
     setLoading(true);
     try {
       const result = await getMembers({ limit: 600, ...filter });
@@ -321,7 +318,11 @@ export default function OverviewPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter, setMembers, setError, setLoading]);
+
+  useEffect(() => {
+    loadMembers();
+  }, [loadMembers]);
 
   const partyColorMap: Record<string, string> = {
     Republican: '#f5222d',
@@ -449,7 +450,11 @@ export default function OverviewPage() {
       </div>
 
       <Spin spinning={loading}>
-        {filtered.length === 0 && !loading ? (
+        {error ? (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 200 }}>
+            <Empty description={error} image={Empty.PRESENTED_IMAGE_SIMPLE} />
+          </div>
+        ) : filtered.length === 0 && !loading ? (
           <Empty description="暂无数据" image={Empty.PRESENTED_IMAGE_SIMPLE} />
         ) : (
           <>

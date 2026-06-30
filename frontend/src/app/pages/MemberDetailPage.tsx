@@ -188,7 +188,7 @@ export default function MemberDetailPage() {
     }
   };
 
-  const handleDoubleClick = async (nodeId: string) => {
+  const handleNodeClick = async (nodeId: string) => {
     if (!graph) return;
 
     // If already expanded, collapse it
@@ -266,7 +266,7 @@ export default function MemberDetailPage() {
     if (!targetLabel) return;
     const entityNode = graph.nodes.find((n) => n.label === targetLabel);
     if (!entityNode) return;
-    await handleDoubleClick(entityNode.id);
+    await handleNodeClick(entityNode.id);
   };
 
   const handleExportMarkdown = async () => {
@@ -688,7 +688,7 @@ export default function MemberDetailPage() {
             <ErrorBoundary>
             <GraphCanvas
               graph={graph}
-              onDoubleClickNode={handleDoubleClick}
+              onClickNode={handleNodeClick}
               onEdgeClick={handleEdgeClick}
               height="100%"
               personImages={profile?.image_url ? { [id!]: profile.image_url } : {}}

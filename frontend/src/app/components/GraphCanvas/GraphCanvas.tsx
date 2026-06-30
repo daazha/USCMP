@@ -4,7 +4,7 @@ import type { GraphResponse, GraphNode, GraphEdge } from '../../api/types';
 
 interface Props {
   graph: GraphResponse;
-  onDoubleClickNode: (nodeId: string) => void;
+  onClickNode: (nodeId: string) => void;
   onEdgeClick: (claimId: string) => void;
   height?: string | number;
   personImages?: Record<string, string>;
@@ -90,7 +90,7 @@ function getNodeSize(node: GraphNode): number {
   return sizes[node.label] || 26;
 }
 
-export default function GraphCanvas({ graph, onDoubleClickNode, onEdgeClick, height = 600, personImages = {} }: Props) {
+export default function GraphCanvas({ graph, onClickNode, onEdgeClick, height = 600, personImages = {} }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const g6Ref = useRef<Graph | null>(null);
   const [containerSize, setContainerSize] = useState({ width: 800, height: 600 });
@@ -247,7 +247,7 @@ export default function GraphCanvas({ graph, onDoubleClickNode, onEdgeClick, hei
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     g6.on('node:click', (evt: any) => {
       const nodeId = evt?.target?.id as string;
-      if (nodeId) onDoubleClickNode(nodeId);
+      if (nodeId) onClickNode(nodeId);
     });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

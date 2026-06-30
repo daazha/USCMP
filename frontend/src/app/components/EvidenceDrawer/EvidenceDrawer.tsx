@@ -17,7 +17,7 @@ export default function EvidenceDrawer({ open, evidence, onClose }: Props) {
       open={open}
       onClose={onClose}
       className="evidence-drawer"
-      bodyStyle={{ padding: 16 }}
+      styles={{ body: { padding: 16 } }}
     >
       {!evidence ? (
         <Empty description="暂无证据信息" />

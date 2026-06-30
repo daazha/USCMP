@@ -8,6 +8,7 @@ import MemberDetailPage from './pages/MemberDetailPage';
 import SearchPage from './pages/SearchPage';
 import ComparePage from './pages/ComparePage';
 import DataQualityPage from './pages/DataQualityPage';
+import ErrorBoundary from './components/ErrorBoundary';
 import { getHealth } from './api/client';
 import { DATA_MODE_COLORS, DATA_MODE_LABELS, DATA_MODE_TOOLTIPS } from './constants';
 
@@ -53,11 +54,11 @@ export default function App() {
       </Header>
       <Content style={{ padding: 0, height: 'calc(100vh - 56px)', overflow: 'auto' }}>
         <Routes>
-          <Route path="/" element={<OverviewPage />} />
-          <Route path="/member/:id" element={<MemberDetailPage />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/compare" element={<ComparePage />} />
-          <Route path="/data-quality" element={<DataQualityPage />} />
+          <Route path="/" element={<ErrorBoundary><OverviewPage /></ErrorBoundary>} />
+          <Route path="/member/:id" element={<ErrorBoundary><MemberDetailPage /></ErrorBoundary>} />
+          <Route path="/search" element={<ErrorBoundary><SearchPage /></ErrorBoundary>} />
+          <Route path="/compare" element={<ErrorBoundary><ComparePage /></ErrorBoundary>} />
+          <Route path="/data-quality" element={<ErrorBoundary><DataQualityPage /></ErrorBoundary>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Content>
