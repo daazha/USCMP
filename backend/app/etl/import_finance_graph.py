@@ -145,10 +145,10 @@ def import_finance_graph(cycle: int = 2024, limit: int | None = None, dry_run: b
         # Step 4: Get person IDs (member id -> Neo4j person id)
         member_ids = {c.candidate_id for c in committees}
         placeholders = ",".join([f":mid_{i}" for i in range(len(member_ids))])
-            params = {f"mid_{i}": m for i, m in enumerate(member_ids)}
-            persons = db.execute(text(f"""
-                SELECT id, display_name FROM members WHERE id IN ({placeholders})
-            """), params).fetchall()
+        params = {f"mid_{i}": m for i, m in enumerate(member_ids)}
+        persons = db.execute(text(f"""
+            SELECT id, display_name FROM members WHERE id IN ({placeholders})
+        """), params).fetchall()
         person_ids = {p.id for p in persons}
         print(f"Found {len(person_ids)} current members with person nodes")
 
