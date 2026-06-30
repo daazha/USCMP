@@ -2,7 +2,7 @@
 # Download pre-built bootstrap SQLite database (members only, no FEC)
 set -e
 
-URL="https://github.com/zhanghui2026/USCMP/releases/download/v1.2-bootstrap/congress-bootstrap-2.0.db.gz"
+URL="https://github.com/zhanghui2026/USCMP/releases/download/v1.2-bootstrap/congress-bootstrap-3.0.db.gz"
 TARGET="backend/data/congress.db"
 
 mkdir -p "$(dirname "$TARGET")"
@@ -13,7 +13,8 @@ if [ -f "$TARGET" ] && [ -s "$TARGET" ]; then
     exit 0
 fi
 
-echo "Downloading bootstrap database (444KB compressed)..."
+echo "Downloading bootstrap database (1.8MB compressed)..."
+echo "Contains: 537 members, 537 profiles, 25963 campaign committees"
 if command -v curl &>/dev/null; then
     curl -fL "$URL" -o "${TARGET}.gz"
 elif command -v wget &>/dev/null; then
